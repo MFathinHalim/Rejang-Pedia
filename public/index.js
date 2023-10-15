@@ -11,7 +11,7 @@ addBabButton.addEventListener("click", function () {
   const titleDiv = document.createElement("div");
   titleDiv.classList.add("form-group"); // Add the Bootstrap class
   titleDiv.innerHTML = `
-    <label for="title">Bab Title:</label>
+    <label for="babTitle">Bab Title:</label>
     <input type="text" name="babTitle" class="form-control" />
   `;
   babSection.appendChild(titleDiv);
@@ -31,6 +31,9 @@ addBabButton.addEventListener("click", function () {
   imageDiv.innerHTML = `
     <label for="babImage">Bab Image:</label>
     <input type="file" name="babImage" class="form-control-file" />
+    <button type="button" class="btn btn-danger removeBab">
+      Remove Bab
+    </button>
   `;
   babSection.appendChild(imageDiv);
 
@@ -44,4 +47,28 @@ babSections.addEventListener("click", function (event) {
   if (event.target.classList.contains("removeBab")) {
     event.target.closest(".babSection").remove();
   }
+});
+const babForm = document.getElementById("babForm");
+babForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  // Collect "Bab" sections' data
+  const babSectionElements = babSections.querySelectorAll(".babSection");
+  babData = Array.from(babSectionElements).map((section) => {
+    const babTitle = section.querySelector('input[name="babTitle"]').value;
+    const babContent = section.querySelector(
+      'textarea[name="babContent"]'
+    ).value;
+    return { babTitle, babContent };
+  });
+
+  // Store the collected "Bab" data in the hidden input field
+  document.getElementById("content").value = JSON.stringify(babData);
+  this.submit();
+});
+
+const postButton = document.getElementById("postButton");
+postButton.addEventListener("click", function () {
+  // Trigger the form submission when the "Post" button is clicked
+  babForm.submit();
 });
