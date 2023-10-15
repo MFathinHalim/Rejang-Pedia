@@ -21,7 +21,7 @@ server.use(
   })
 );
 
-data = [
+var data = [
   {
     id: 1,
     Title: "Halo Semuanya",
@@ -43,9 +43,14 @@ data = [
     ],
   },
 ];
+var dataOnGoing = [];
 
 server.get("/", function (req, res) {
   res.send("coba ke /details/1 deh");
+});
+
+server.get("/new", function (req, res) {
+  res.render("new");
 });
 
 server.get("/details/:id", function (req, res) {
@@ -66,6 +71,18 @@ server.get("/edit/:id", function (req, res) {
   res.render("edit", {
     data: theData,
   });
+});
+
+server.post("/new", function (req, res) {
+  var user = req.body;
+  console.log(user);
+  dataOnGoing.unshift({
+    id: data.length + 1,
+    Title: user.title,
+    Content: user.content, // Parse the JSON content
+  });
+  console.log(dataOnGoing);
+  res.send(dataOnGoing);
 });
 
 const port = 1945;
