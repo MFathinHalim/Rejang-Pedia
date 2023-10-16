@@ -43,7 +43,27 @@ var data = [
     ],
   },
 ];
-var dataOnGoing = [];
+var dataOnGoing = [
+  {
+    id: 3,
+    Title: "AKU MAU KE BULAN",
+    Content: [
+      {
+        babTitle: "Bab 1: Pendahuluan",
+        babContent: "MAMAH MAU KE BUULAN",
+        image: "https://ik.imagekit.io/9hpbqscxd/RejangPedia/for-id-1-1.jpg",
+      },
+      {
+        babTitle: "Bab 2: Bab Kedua",
+        babContent: "CARANYA GIMANA COOO",
+      },
+      {
+        babTitle: "Bab 3: Bab Ketiga",
+        babContent: "DARI MANA DUITNYAAA",
+      },
+    ],
+  },
+];
 
 server.get("/", function (req, res) {
   res.send("coba ke /details/1 deh");
@@ -73,15 +93,27 @@ server.get("/edit/:id", function (req, res) {
   });
 });
 
+server.get("/accept/:id", function (req, res) {
+  data.push(dataOnGoing.find((obj) => obj.id === parseInt(req.params.id)));
+  dataOnGoing = dataOnGoing.filter((obj) => obj.id !== parseInt(req.params.id));
+  res.render("ongoing", {
+    data: dataOnGoing,
+  });
+});
+
+server.get("/accept/", function (req, res) {
+  res.render("ongoing", {
+    data: dataOnGoing,
+  });
+});
+
 server.post("/new", function (req, res) {
   var user = req.body;
-  console.log(user);
   dataOnGoing.unshift({
     id: data.length + 1,
     Title: user.title,
-    Content: user.content, // Parse the JSON content
+    Content: JSON.parse(user.content), // Parse the JSON content
   });
-  console.log(dataOnGoing);
   res.send(dataOnGoing);
 });
 
