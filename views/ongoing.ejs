@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data OnGoing</title>
+  </head>
+  <body>
+    <h1>Data OnGoing</h1>
+    <ul>
+      <% data.forEach(function(entry) { %>
+      <li>
+        <p><strong>ID:</strong> <%= entry.id %></p>
+        <p><strong>Title:</strong> <%= entry.Title %></p>
+        <a>Click here to see the content</a>
+        <a href="/accept/<%= entry.id %>"> Accept </a>
+      </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>
