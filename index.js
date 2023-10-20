@@ -20,12 +20,6 @@ server.use(
     extended: true,
   })
 );
-server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost");
-  // Anda juga bisa menggunakan '*' untuk mengizinkan semua asal, tetapi ini tidak disarankan untuk produksi.
-  // res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
 
 var data = [
   {
@@ -114,14 +108,13 @@ server.get("/accept/", function (req, res) {
 });
 
 server.post("/new", function (req, res) {
-  /*var user = req.body;
+  var user = req.body;
   dataOnGoing.unshift({
     id: data.length + 1,
     Title: user.title,
     Content: JSON.parse(user.content), // Parse the JSON content
   });
-  res.send(dataOnGoing);*/
-  console.log("cuman debug image");
+  res.send(dataOnGoing);
 });
 
 const port = 1945;

@@ -49,66 +49,22 @@ babSections.addEventListener("click", function (event) {
   }
 });
 const babForm = document.getElementById("babForm");
-babForm.addEventListener("submit", async function (event) {
+babForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
   // Collect "Bab" sections' data
   const babSectionElements = babSections.querySelectorAll(".babSection");
-  babDataPromises = Array.from(babSectionElements).map(async (section) => {
+  babData = Array.from(babSectionElements).map((section) => {
     const babTitle = section.querySelector('input[name="babTitle"]').value;
     const babContent = section.querySelector(
       'textarea[name="babContent"]'
     ).value;
-
-    // Mengambil input file gambar
-    const babImageInput = section.querySelector('input[name="babImage"]');
-    const babImageFile = babImageInput.files[0];
-
-    if (babImageFile) {
-      const formData = new FormData();
-      formData.append("file", babImageFile);
-
-      // Mengunggah berkas gambar ke ImageKit
-      const response = await fetch(
-        `https://ik.imagekit.io/9hpbqscxd/api/v1/files/upload`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Basic ${btoa(
-              `public_sfR8hcnPMIJ1ilavSLhv5IZiZ7E=:private_eKrKi5RKb3/NijnWKF82mNgH4gA=`
-            )}`,
-          },
-          body: formData,
-          data: {
-            folder: "/RejangPedia",
-          },
-        }
-      );
-
-      if (response.ok) {
-        const imageData = await response.json();
-        return { babTitle, babContent, babImage: imageData.url };
-      } else {
-        console.error("Gagal mengunggah berkas gambar:", response.statusText);
-      }
-    } else {
-      // Jika tidak ada berkas gambar, biarkan babImage menjadi null
-      return { babTitle, babContent, babImage: null };
-    }
+    return { babTitle, babContent };
   });
 
-  // Setelah semua promise selesai, kirim data ke server
-  Promise.all(babDataPromises)
-    .then((babData) => {
-      // Store the collected "Bab" data in the hidden input field
-      document.getElementById("content").value = JSON.stringify(babData);
-
-      // Trigger the form submission when the "Post" button is clicked
-      babForm.submit();
-    })
-    .catch((error) => {
-      console.error("Terjadi kesalahan:", error);
-    });
+  // Store the collected "Bab" data in the hidden input field
+  document.getElementById("content").value = JSON.stringify(babData);
+  this.submit();
 });
 
 const postButton = document.getElementById("postButton");
