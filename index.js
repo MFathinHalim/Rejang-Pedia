@@ -4,12 +4,15 @@ const path = require("path");
 const multer = require("multer");
 const { v1: uuidv1 } = require("uuid");
 const fs = require("fs"); // Import modul fs
+const { mainModel, goingModel } = require("./models/post");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 var ImageKit = require("imagekit");
 var imagekit = new ImageKit({
-  publicKey: "public_sfR8hcnPMIJ1ilavSLhv5IZiZ7E=",
-  privateKey: "private_eKrKi5RKb3/NijnWKF82mNgH4gA=",
-  urlEndpoint: "https://ik.imagekit.io/9hpbqscxd/",
+  publicKey: process.env.publicImg,
+  privateKey: process.env.privateImg,
+  urlEndpoint: process.env.urlEndpoint,
 });
 const server = express();
 server.set("view engine", "ejs");
@@ -24,47 +27,15 @@ server.use(
   })
 );
 
-var data = [
-  {
-    id: 1,
-    Title: "Halo Semuanya",
-    Image: "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-1.jpg",
-    Content: [
-      {
-        babTitle: "Bab 1: Pendahuluan",
-        babContent: "Isi dari Bab 1: Pendahuluan",
-      },
-      {
-        babTitle: "Bab 2: Bab Kedua",
-        babContent: "Isi dari Bab 2: Bab Kedua",
-      },
-      {
-        babTitle: "Bab 3: Bab Ketiga",
-        babContent: "Isi dari Bab 3: Bab Ketiga",
-      },
-    ],
-  },
-];
-var dataOnGoing = [
-  {
-    id: 3,
-    Title: "AKU MAU KE BULAN",
-    Content: [
-      {
-        babTitle: "Bab 1: Pendahuluan",
-        babContent: "MAMAH MAU KE BUULAN",
-      },
-      {
-        babTitle: "Bab 2: Bab Kedua",
-        babContent: "CARANYA GIMANA COOO",
-      },
-      {
-        babTitle: "Bab 3: Bab Ketiga",
-        babContent: "DARI MANA DUITNYAAA",
-      },
-    ],
-  },
-];
+var data = [];
+mainModel.find({}, null).then((docs) => {
+  data = docs;
+});
+
+var dataOnGoing = [];
+goingModel.find({}, null).then((docs) => {
+  dataOnGoing = docs;
+});
 
 server.get("/", function (req, res) {
   res.send("coba ke /details/1 deh");
@@ -129,9 +100,15 @@ server.get("/accept/:id", async function (req, res) {
 
     // Tambahkan data ke "data" dan hapus dari "dataOnGoing"
     data.push(acceptedData);
-    dataOnGoing = dataOnGoing.filter(
-      (obj) => obj.id !== parseInt(req.params.id)
-    );
+    /*await mainModel.create({
+      id: acceptedData.id,
+      Title: acceptedData.title,
+      Image: acceptedData.Image,
+      Content: acceptedData.content,
+    });
+    await goingModel.deleteOne({ id: req.params.id });*/
+
+    dataOnGoing = dataOnGoing.filter((obj) => obj.id !== req.params.id);
 
     res.render("ongoing", {
       data: dataOnGoing,
@@ -152,13 +129,10 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/images/uploads");
   },
-  filename: function (req, file, cb) {
-    // Buat UUID baru
-    const uniqueFileName = uuidv1().substring(0, 8); // Gunakan hanya 8 karakter dari UUID
-
+  filename: async function (req, file, cb) {
+    const uniqueFileName = uuidv1();
     const user = req.body;
 
-    // Tambahkan data ke dataOnGoing
     dataOnGoing.unshift({
       id: uniqueFileName,
       Title: user.title,
@@ -168,6 +142,15 @@ const storage = multer.diskStorage({
         ".jpg",
       Content: JSON.parse(user.content),
     });
+    /*await goingModel.create({
+      id: uniqueFileName,
+      Title: user.title,
+      Image:
+        "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
+        uniqueFileName +
+        ".jpg",
+      Content: JSON.parse(user.content),
+    });*/
 
     // Gunakan UUID sebagai nama berkas gambar
     cb(null, `image-${uniqueFileName}.jpg`);
@@ -182,6 +165,19 @@ server.post("/new", upload.single("image"), function (req, res) {
 });
 
 const port = 1945;
-server.listen(port, () => {
-  console.log(`server is running on port ${port}`);
-});
+const uri = process.env.MONGODBURI;
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000,
+  })
+  .then(() => {
+    server.listen(port, () => {
+      Host: process.env.NODE_ENV !== "production" ? "localhost" : "0.0.0.0";
+      console.log(`server is running on port ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Database connection error:", error);
+  });
