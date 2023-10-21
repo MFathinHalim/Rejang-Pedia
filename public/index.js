@@ -29,8 +29,6 @@ addBabButton.addEventListener("click", function () {
   const imageDiv = document.createElement("div");
   imageDiv.classList.add("form-group"); // Add the Bootstrap class
   imageDiv.innerHTML = `
-    <label for="babImage">Bab Image:</label>
-    <input type="file" name="babImage" class="form-control-file" />
     <button type="button" class="btn btn-danger removeBab">
       Remove Bab
     </button>

@@ -14,17 +14,16 @@
   <body class="p-3">
     <div class="container">
       <h1 class="display-4"><%= data.Title %></h1>
-      <% data.Content.forEach(function(bab) { %>
+      <% if (data.Image) { %>
+      <img
+        src="<%= data.Image %>"
+        style="width: 300px"
+        class="img-fluid"
+        alt="Image" />
+      <% } %> <% data.Content.forEach(function(bab) { %>
       <div class="my-4">
         <h3><%= bab.babTitle %></h3>
         <p><%= bab.babContent %></p>
-        <% if (bab.image) { %>
-        <img
-          src="<%= bab.image %>"
-          style="width: 300px"
-          class="img-fluid"
-          alt="Image" />
-        <% } %>
       </div>
       <% }); %>
     </div>

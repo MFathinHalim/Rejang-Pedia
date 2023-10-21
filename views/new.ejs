@@ -10,13 +10,16 @@
       id="babForm"
       action="/new"
       method="post"
-      enctype="application/json;charset=utf-8">
+      enctype="multipart/form-data">
       <div>
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" />
       </div>
 
       <input type="hidden" id="content" name="content" />
+
+      <label for="image">Cover Image:</label>
+      <input type="file" name="image" class="form-control-file" />
 
       <button type="button" id="addBab">Add Bab</button>
       <div id="babSections"></div>
