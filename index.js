@@ -98,7 +98,7 @@ server.get("/search", function (req, res) {
   });
 });
 
-server.post("/edit/:id", function (req, res) {
+server.post("/edit/:id", async function (req, res) {
   const acceptedData = data.find((obj) => obj.id === req.params.id);
   console.log(acceptedData);
   const user = req.body;
@@ -148,10 +148,12 @@ server.post("/edit/:id", function (req, res) {
         ".jpg",
       Diedit: user.pembuat,
       Content: JSON.parse(user.content),
-    }); 
+    });
   }
 
-  res.send(dataOnGoing);
+  res.render("home", {
+    data: data,
+  });
 });
 
 server.get("/delete/:id", async function (req, res) {
@@ -166,7 +168,9 @@ server.get("/delete/:id", async function (req, res) {
     });
   console.log(data);
 
-  res.send("coba ke /details/1 deh");
+  res.render("home", {
+    data: data,
+  });
 });
 
 server.get("/accept/delete/:id", async function (req, res) {
@@ -227,15 +231,14 @@ server.get("/accept/:id", async function (req, res) {
       data.push(acceptedData);
 
       await mainModel.create({
-      id: acceptedData.id,
-      Title: acceptedData.Title,
-      Pembuat: acceptedData.Pembuat,
-      Image: acceptedData.Image,
-      Diedit: "",
-      Content: acceptedData.Content,
-      
-    });
-    await goingModel.deleteOne({ id: req.params.id });
+        id: acceptedData.id,
+        Title: acceptedData.Title,
+        Pembuat: acceptedData.Pembuat,
+        Image: acceptedData.Image,
+        Diedit: "",
+        Content: acceptedData.Content,
+      });
+      await goingModel.deleteOne({ id: req.params.id });
     }
 
     // Hapus dataOnGoing berdasarkan ID
@@ -300,7 +303,9 @@ const upload = multer({ storage: storage });
 
 server.post("/new", upload.single("image"), function (req, res) {
   // Kirim respons dengan dataOnGoing yang telah diperbarui
-  res.send(dataOnGoing);
+  res.render("home", {
+    data: data,
+  });
 });
 
 const port = 1945;
