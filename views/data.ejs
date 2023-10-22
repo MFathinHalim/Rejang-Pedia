@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('import.ejs') -%>
+
+    <title>Data</title>
+  </head>
+  <script>
+    function checkPasswordAndRedirect(password, url, save) {
+      const enteredPassword = prompt("Please enter the password:");
+      if (enteredPassword === password) {
+        if (save === true) {
+          localStorage.setItem("password", enteredPassword);
+        }
+
+        // Jika password benar, simpan di local storage
+        window.location.href = url;
+      } else {
+        alert("Incorrect password. You will be redirected to the main page.");
+        window.location.href = "/";
+      }
+    }
+    function encrypt(text) {
+      // Contoh sederhana, mengganti karakter
+      return text
+        .split("")
+        .map((char) => String.fromCharCode(char.charCodeAt(0) + 1))
+        .join("");
+    }
+
+    function decrypt(encryptedText) {
+      // Mendekripsi teks (mengganti karakter kembali)
+      return encryptedText
+        .split("")
+        .map((char) => String.fromCharCode(char.charCodeAt(0) - 1))
+        .join("");
+    }
+
+    const initialPassword = decrypt("bunjoNbvMphjo");
+    const savedPassword = localStorage.getItem("password");
+
+    if (!savedPassword && initialPassword) {
+      checkPasswordAndRedirect(initialPassword, window.location.href, true);
+    }
+  </script>
+  <body>
+    <h1>Data</h1>
+    <ul>
+      <% data.forEach(function(entry) { %>
+      <li>
+        <p><strong>ID:</strong> <%= entry.id %></p>
+        <p><strong>Title:</strong> <%= entry.Title %></p>
+        <button
+          onclick="checkPasswordAndRedirect('bunjoTvebiEbuboh', '/delete/<%= entry.id %>', false)">
+          Delete
+        </button>
+      </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>

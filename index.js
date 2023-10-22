@@ -38,15 +38,36 @@ goingModel.find({}, null).then((docs) => {
 });
 
 server.get("/", function (req, res) {
-  res.send("coba ke /details/1 deh");
+  res.render("home", {
+    data: data,
+  });
 });
 
 server.get("/new", function (req, res) {
   res.render("new");
 });
 
+server.get("/peraturan", function (req, res) {
+  res.render("peraturan");
+});
+
+server.get("/tentang", function (req, res) {
+  res.render("tentang");
+});
+
 server.get("/details/:id", function (req, res) {
   const theData = data.find((obj) => obj.id === req.params.id);
+  console.log(theData);
+  if (theData === null) {
+    res.send("The Heck Bro");
+  }
+  res.render("details", {
+    data: theData,
+  });
+});
+
+server.get("/details/ongoing/:id", function (req, res) {
+  const theData = dataOnGoing.find((obj) => obj.id === req.params.id);
   console.log(theData);
   if (theData === null) {
     res.send("The Heck Bro");
@@ -65,42 +86,84 @@ server.get("/edit/:id", function (req, res) {
     data: theData,
   });
 });
+server.get("/search", function (req, res) {
+  const searchTerm = req.query.term;
+  // Lakukan pencarian berdasarkan `searchTerm` di data Anda
+  const searchResults = data.filter((item) =>
+    item.Title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  res.render("search-results", {
+    results: searchResults,
+    searchTerm: searchTerm,
+  });
+});
 
 server.post("/edit/:id", function (req, res) {
+  const acceptedData = data.find((obj) => obj.id === req.params.id);
+  console.log(acceptedData);
   const user = req.body;
   console.log(user);
-  dataOnGoing.unshift({
-    id: req.params.id,
-    Title: user.title,
-    Image:
-      "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
-      req.params.id +
-      ".jpg",
-    Content: JSON.parse(user.content),
-  });
-  /*await goingModel.create({
+  if (acceptedData.Pembuat !== null) {
+    dataOnGoing.unshift({
       id: req.params.id,
-    Title: user.title,
-    Image:
-      "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
-      req.params.id +
-      ".jpg",
-    Content: JSON.parse(user.content),
-    });*/
+      Title: user.title,
+      Pembuat: acceptedData.Pembuat,
+      Image:
+        "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
+        req.params.id +
+        ".jpg",
+      Diedit: user.pembuat,
+      Content: JSON.parse(user.content),
+    });
+    await goingModel.create({
+      id: req.params.id,
+      Title: user.title,
+      Pembuat: acceptedData.Pembuat,
+      Image:
+        "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
+        req.params.id +
+        ".jpg",
+      Diedit: user.pembuat,
+      Content: JSON.parse(user.content),
+    });
+  } else {
+    dataOnGoing.unshift({
+      id: req.params.id,
+      Title: user.title,
+      Pembuat: "Anonymous",
+      Image:
+        "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
+        req.params.id +
+        ".jpg",
+      Diedit: user.pembuat,
+      Content: JSON.parse(user.content),
+    });
+    await goingModel.create({
+      id: req.params.id,
+      Title: user.title,
+      Pembuat: "Anonymous",
+      Image:
+        "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
+        req.params.id +
+        ".jpg",
+      Diedit: user.pembuat,
+      Content: JSON.parse(user.content),
+    }); 
+  }
 
   res.send(dataOnGoing);
 });
 
 server.get("/delete/:id", async function (req, res) {
   data = data.filter((obj) => obj.id !== req.params.id);
-  /*mainModel
+  mainModel
     .deleteOne({ id: req.params.id })
     .then(function () {
       console.log("deleted"); // Success
     })
     .catch(function (error) {
       console.log(error); // Failure
-    });*/
+    });
   console.log(data);
 
   res.send("coba ke /details/1 deh");
@@ -108,14 +171,14 @@ server.get("/delete/:id", async function (req, res) {
 
 server.get("/accept/delete/:id", async function (req, res) {
   dataOnGoing = dataOnGoing.filter((obj) => obj.id !== req.params.id);
-  /*goingModel
+  goingModel
     .deleteOne({ id: req.params.id })
     .then(function () {
       console.log("deleted"); // Success
     })
     .catch(function (error) {
       console.log(error); // Failure
-    });*/
+    });
 
   res.render("ongoing", {
     data: dataOnGoing,
@@ -163,13 +226,16 @@ server.get("/accept/:id", async function (req, res) {
       // Jika belum ada, tambahkan data baru ke 'data'
       data.push(acceptedData);
 
-      /*await mainModel.create({
+      await mainModel.create({
       id: acceptedData.id,
-      Title: acceptedData.title,
+      Title: acceptedData.Title,
+      Pembuat: acceptedData.Pembuat,
       Image: acceptedData.Image,
-      Content: acceptedData.content,
+      Diedit: "",
+      Content: acceptedData.Content,
+      
     });
-    await goingModel.deleteOne({ id: req.params.id });*/
+    await goingModel.deleteOne({ id: req.params.id });
     }
 
     // Hapus dataOnGoing berdasarkan ID
@@ -189,6 +255,12 @@ server.get("/accept/", function (req, res) {
     data: dataOnGoing,
   });
 });
+
+server.get("/data/", function (req, res) {
+  res.render("data", {
+    data: data,
+  });
+});
 // New Post
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -197,8 +269,19 @@ const storage = multer.diskStorage({
   filename: async function (req, file, cb) {
     const uniqueFileName = uuidv1();
     const user = req.body;
-
+    console.log(user);
     dataOnGoing.unshift({
+      id: uniqueFileName,
+      Title: user.title,
+      Pembuat: user.pembuat,
+      Image:
+        "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
+        uniqueFileName +
+        ".jpg",
+      Diedit: "",
+      Content: JSON.parse(user.content),
+    });
+    await goingModel.create({
       id: uniqueFileName,
       Title: user.title,
       Image:
@@ -207,15 +290,6 @@ const storage = multer.diskStorage({
         ".jpg",
       Content: JSON.parse(user.content),
     });
-    /*await goingModel.create({
-      id: uniqueFileName,
-      Title: user.title,
-      Image:
-        "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
-        uniqueFileName +
-        ".jpg",
-      Content: JSON.parse(user.content),
-    });*/
 
     // Gunakan UUID sebagai nama berkas gambar
     cb(null, `image-${uniqueFileName}.jpg`);

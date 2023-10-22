@@ -4,6 +4,8 @@ const postSchema = new Schema({
   id: String,
   Title: String,
   Image: String,
+  Pembuat: String,
+  Diedit: String,
   Content: [
     {
       babTitle: String,
