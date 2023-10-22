@@ -57,12 +57,68 @@ server.get("/details/:id", function (req, res) {
 });
 
 server.get("/edit/:id", function (req, res) {
-  const theData = data[req.params.id - 1];
+  const theData = data.find((obj) => obj.id === req.params.id);
   if (theData === null) {
     res.send("The Heck Bro");
   }
   res.render("edit", {
     data: theData,
+  });
+});
+
+server.post("/edit/:id", function (req, res) {
+  const user = req.body;
+  console.log(user);
+  dataOnGoing.unshift({
+    id: req.params.id,
+    Title: user.title,
+    Image:
+      "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
+      req.params.id +
+      ".jpg",
+    Content: JSON.parse(user.content),
+  });
+  /*await goingModel.create({
+      id: req.params.id,
+    Title: user.title,
+    Image:
+      "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
+      req.params.id +
+      ".jpg",
+    Content: JSON.parse(user.content),
+    });*/
+
+  res.send(dataOnGoing);
+});
+
+server.get("/delete/:id", async function (req, res) {
+  data = data.filter((obj) => obj.id !== req.params.id);
+  /*mainModel
+    .deleteOne({ id: req.params.id })
+    .then(function () {
+      console.log("deleted"); // Success
+    })
+    .catch(function (error) {
+      console.log(error); // Failure
+    });*/
+  console.log(data);
+
+  res.send("coba ke /details/1 deh");
+});
+
+server.get("/accept/delete/:id", async function (req, res) {
+  dataOnGoing = dataOnGoing.filter((obj) => obj.id !== req.params.id);
+  /*goingModel
+    .deleteOne({ id: req.params.id })
+    .then(function () {
+      console.log("deleted"); // Success
+    })
+    .catch(function (error) {
+      console.log(error); // Failure
+    });*/
+
+  res.render("ongoing", {
+    data: dataOnGoing,
   });
 });
 
@@ -86,8 +142,6 @@ server.get("/accept/:id", async function (req, res) {
         useUniqueFileName: false,
       });
 
-      // Jika unggah gambar ke ImageKit berhasil, hapus gambar dari server lokal
-      // (Pastikan Anda menangani kesalahan dengan baik jika ada masalah dalam penghapusan)
       if (uploadResponse && uploadResponse.success) {
         const filePath = `public/images/uploads/image-${acceptedData.id}.jpg`;
         fs.unlink(filePath, (err) => {
@@ -98,16 +152,27 @@ server.get("/accept/:id", async function (req, res) {
       }
     }
 
-    // Tambahkan data ke "data" dan hapus dari "dataOnGoing"
-    data.push(acceptedData);
-    /*await mainModel.create({
+    // Cek apakah dataOnGoing dengan ID tersebut sudah ada di data
+    const existingDataIndex = data.findIndex((obj) => obj.id === req.params.id);
+
+    if (existingDataIndex !== -1) {
+      // Jika sudah ada, gantilah data di 'data' dengan data yang baru
+      data[existingDataIndex] = acceptedData;
+      await mainModel.findOneAndUpdate({ id: req.params.id }, acceptedData);
+    } else {
+      // Jika belum ada, tambahkan data baru ke 'data'
+      data.push(acceptedData);
+
+      /*await mainModel.create({
       id: acceptedData.id,
       Title: acceptedData.title,
       Image: acceptedData.Image,
       Content: acceptedData.content,
     });
     await goingModel.deleteOne({ id: req.params.id });*/
+    }
 
+    // Hapus dataOnGoing berdasarkan ID
     dataOnGoing = dataOnGoing.filter((obj) => obj.id !== req.params.id);
 
     res.render("ongoing", {

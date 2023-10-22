@@ -14,7 +14,11 @@
   <body class="p-3">
     <div class="container mt-5">
       <h1>Edit "<%= data.Title %>"</h1>
-      <form id="babForm">
+      <form
+        id="babForm"
+        action="/edit/<%= data.id %>"
+        method="post"
+        enctype="application/json;charset=utf-8">
         <div class="form-group">
           <label for="title">Title:</label>
           <input
@@ -23,31 +27,30 @@
             name="title"
             class="form-control"
             value="<%= data.Title %>" />
+          <input type="hidden" id="content" name="content" />
+
+          <% if (data.Image) { %>
+          <img
+            src="<%= data.Image %>"
+            style="width: 300px"
+            class="img-fluid"
+            alt="Image" />
+          <% } %>
         </div>
         <div id="babSections">
           <% data.Content.forEach(function(bab) { %>
           <div class="babSection m-2">
-            <div class="form-group">
-              <label for="babTitle">Bab Title:</label>
-              <input
-                type="text"
-                name="babTitle"
-                class="form-control"
-                value="<%= bab.babTitle %>" />
-            </div>
-            <div class="form-group">
-              <label for="babContent">Bab Content:</label>
-              <textarea name="babContent" class="form-control">
+            <label for="babTitle">Bab Title:</label>
+            <input
+              type="text"
+              name="babTitle"
+              class="form-control"
+              value="<%= bab.babTitle %>" />
+
+            <label for="babContent">Bab Content:</label>
+            <textarea name="babContent" class="form-control">
 <%= bab.babContent %></textarea
-              >
-            </div>
-            <div class="form-group">
-              <label for="babImage">Bab Image:</label>
-              <input type="file" name="babImage" class="form-control-file" />
-              <% if (bab.image) { %>
-              <img src="<%= bab.image %>" style="width: 300px" alt="Image" />
-              <% } %>
-            </div>
+            >
             <button type="button" class="btn btn-danger removeBab">
               Remove Bab
             </button>
@@ -58,7 +61,7 @@
         <button type="button" id="addBab" class="m-2 btn btn-primary">
           Add Bab
         </button>
-        <button type="button" id="addBab" class="m-2 btn btn-success">
+        <button type="submit" id="postButton" class="m-2 btn btn-success">
           Post Bab
         </button>
       </form>

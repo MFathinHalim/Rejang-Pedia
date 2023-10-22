@@ -62,7 +62,9 @@ babForm.addEventListener("submit", function (event) {
 
   // Store the collected "Bab" data in the hidden input field
   document.getElementById("content").value = JSON.stringify(babData);
-  this.submit();
+
+  // Trigger the form submission
+  babForm.submit();
 });
 
 const postButton = document.getElementById("postButton");
