@@ -151,7 +151,9 @@ server.post("/edit/:id", async function (req, res) {
     });
   }
 
-  res.send(dataOnGoing);
+  res.render("home", {
+    data: data,
+  });
 });
 
 server.get("/delete/:id", async function (req, res) {
@@ -166,7 +168,9 @@ server.get("/delete/:id", async function (req, res) {
     });
   console.log(data);
 
-  res.send("coba ke /details/1 deh");
+  res.render("home", {
+    data: data,
+  });
 });
 
 server.get("/accept/delete/:id", async function (req, res) {
@@ -299,7 +303,9 @@ const upload = multer({ storage: storage });
 
 server.post("/new", upload.single("image"), function (req, res) {
   // Kirim respons dengan dataOnGoing yang telah diperbarui
-  res.send(dataOnGoing);
+  res.render("home", {
+    data: data,
+  });
 });
 
 const port = 1945;
