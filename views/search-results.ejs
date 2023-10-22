@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('import.ejs') -%>
+    <title>RejangPedia</title>
+  </head>
+  <body>
+    <%- include('navbar.ejs') -%>
+
+    <div class="container mt-5">
+      <h1 class="display-4">Iko Kan Sanak?</h1>
+      <ul class="list-group">
+        <% results.forEach(function (result) { %>
+        <li class="list-group-item">
+          <a href="/details/<%= result.id %>" style="color: #d80032 !important"
+            ><%= result.Title %></a
+          >
+        </li>
+        <% }); %>
+        <hr class="hr" />
+        <h5>Dak Do Lagi lah..</h5>
+      </ul>
+    </div>
+  </body>
+</html>
