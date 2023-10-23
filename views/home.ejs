@@ -66,6 +66,10 @@
           <div class="listing-content">
             <div class="listing-info">
               <h3 class="listing-info-title"><%= entry.Title %></h3>
+              <p>
+                <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
+                '').substring(0, 200) %>...
+              </p>
             </div>
             <div class="listing-price-wrapper">
               <div class="listing-price">

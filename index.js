@@ -6,6 +6,7 @@ const { v1: uuidv1 } = require("uuid");
 const fs = require("fs"); // Import modul fs
 const { mainModel, goingModel } = require("./models/post");
 const mongoose = require("mongoose");
+
 require("dotenv").config();
 const axios = require("axios");
 
@@ -254,8 +255,34 @@ server.get("/accept/:id", async function (req, res) {
       data: dataOnGoing,
     });
   } catch (error) {
-    console.error("Terjadi kesalahan:", error);
-    res.send("Terjadi kesalahan saat mengunggah gambar ke ImageKit");
+    // Cek apakah dataOnGoing dengan ID tersebut sudah ada di data
+    const existingDataIndex = data.findIndex((obj) => obj.id === req.params.id);
+
+    if (existingDataIndex !== -1) {
+      // Jika sudah ada, gantilah data di 'data' dengan data yang baru
+      data[existingDataIndex] = acceptedData;
+      await mainModel.findOneAndUpdate({ id: req.params.id }, acceptedData);
+    } else {
+      // Jika belum ada, tambahkan data baru ke 'data'
+      data.push(acceptedData);
+
+      await mainModel.create({
+        id: acceptedData.id,
+        Title: acceptedData.Title,
+        Pembuat: acceptedData.Pembuat,
+        Image: acceptedData.Image,
+        Diedit: "",
+        Content: acceptedData.Content,
+      });
+      await goingModel.deleteOne({ id: req.params.id });
+    }
+
+    // Hapus dataOnGoing berdasarkan ID
+    dataOnGoing = dataOnGoing.filter((obj) => obj.id !== req.params.id);
+
+    res.render("ongoing", {
+      data: dataOnGoing,
+    });
   }
 });
 
