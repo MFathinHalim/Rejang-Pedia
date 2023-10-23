@@ -13,11 +13,9 @@
   </head>
   <style>
     .custom-input {
-      padding: 10px; /* Adjust the padding to your preference */
-      font-size: 16px; /* Adjust the font size to your preference */
+      padding: 10px; /* Sesuaikan padding sesuai preferensi Anda */
+      font-size: 16px; /* Sesuaikan ukuran font sesuai preferensi Anda */
     }
-
-    
   </style>
   <body>
     <%- include('navbar.ejs') -%>
@@ -25,8 +23,8 @@
     <div class="container">
       <div
         class="header text-white text-center p-4 rounded-bottom"
-        style="background-color: #d80032; font-family: 'Montserrat' !important;">
-        <h1><strong style="color: white !important;">RejangPedia!</strong></h1>
+        style="background-color: #d80032; font-family: 'Montserrat' !important">
+        <h1><strong style="color: white !important">RejangPedia!</strong></h1>
         <p>Sebuah Tempat Berbagi Ilmu</p>
       </div>
       <div class="search-box d-flex justify-content-center">
@@ -34,45 +32,56 @@
           type="text"
           class="form-control search-input custom-input"
           id="searchInput"
-          placeholder="Mau Cari Apa Sanak..."
-        />
-        <button type="submit" class="btn btn-primary border-0 rounded-0" id="searchButton">
+          placeholder="Mau Cari Apa Sanak..." />
+        <button
+          type="submit"
+          class="btn btn-primary border-0 rounded-0"
+          onclick="search()"
+          id="searchButton">
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
       </div>
-      
 
       <h3 class="m-2">Mau Lihat Lihat Artikel?</h3>
-      <ul class="list-group" >
+      <ul class="list-group">
         <!-- Loop through your data to display articles that contain "rejang" -->
-        <% data.forEach(function(entry) { %>
-          <% if (entry.Title.toLowerCase().includes("rejang")) { %>
-            <li class="list-group-item listing m-2"style="border-radius: 24px !important;
-            ">
-              <div class="listing-background">
-                <img class="listing-image" style="width:300px; height: 200px;                 border: 2px solid #ccc; /* Tambahkan border abu-abu */
-                object-fit: cover; border-radius: 24px;" src="<%= entry.Image %>" alt="<%= entry.Title %>">
+        <% data.forEach(function(entry) { %> <% if
+        (entry.Title.toLowerCase().includes("rejang")) { %>
+        <li
+          class="list-group-item listing m-2"
+          style="border-radius: 24px !important">
+          <div class="listing-background">
+            <img
+              class="listing-image"
+              style="
+                width: 300px;
+                height: 200px;
+                border: 2px solid #ccc;
+                object-fit: cover;
+                border-radius: 24px;
+              "
+              src="<%= entry.Image %>"
+              alt="<%= entry.Title %>" />
+          </div>
+          <div class="listing-content">
+            <div class="listing-info">
+              <h3 class="listing-info-title"><%= entry.Title %></h3>
+            </div>
+            <div class="listing-price-wrapper">
+              <div class="listing-price">
+                <a
+                  class="btn btn-primary rounded-pill border-0 m-1"
+                  href="/details/<%= entry.id %>">
+                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                  Read More
+                </a>
               </div>
-              <div class="listing-content">
-                <div class="listing-info">
-                  <h3 class="listing-info-title"><%= entry.Title %></h3>
-                </div>
-                <div class="listing-price-wrapper">
-                  <div class="listing-price">
-                    <a class="btn btn-primary rounded-pill border-0 m-1" href="/details/<%= entry.id %>">
-                      <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                      Read More
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-          <% } %>
-        <% }); %>
+            </div>
+          </div>
+        </li>
+        <% } %> <% }); %>
       </ul>
-      
-
-      
+    </div>
 
     <!-- Tambahkan script Bootstrap -->
     <script
@@ -80,30 +89,24 @@
       integrity="sha384-jOo0BtDHf6my/BsFjEZmc0RivzubPP6Ie4pDMS9/wf1W4lTHj4/f5G5L5z0"
       crossorigin="anonymous"></script>
     <script>
+      function search() {
+        const searchTerm = searchInput.value;
+        console.log("Search term:", searchTerm);
+        window.location.href = `/search?term=${searchTerm}`;
+      }
+
       document
         .getElementById("searchButton")
         .addEventListener("click", function () {
-          // Dapatkan teks pencarian
-          const searchTerm = document.getElementById("searchInput").value;
-
-          // Redirect ke halaman hasil pencarian
-          window.location.href = `/search?term=${searchTerm}`;
+          search();
         });
-      
-        const searchInput = document.getElementById("searchInput");
 
-searchInput.addEventListener("keypress", function (event) {
-  if (event.key === "Enter") {
-    search();
-  }
-});
-
-function search() {
-  const searchTerm = searchInput.value;
-  window.location.href = `/search?term=${searchTerm}`;
-}
-      
-
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          search();
+        }
+      });
     </script>
   </body>
 </html>
