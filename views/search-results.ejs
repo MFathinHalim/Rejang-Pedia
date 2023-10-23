@@ -30,6 +30,10 @@
               href="/details/<%= result.id %>"
               style="color: #d80032 !important; margin-left: 20px">
               <h4><%= result.Title %></h4>
+              <p>
+                <%- result.Content[0].babContent.replace(/<[^>]+>/g,
+                '').substring(0, 200) %>...
+              </p>
             </a>
           </div>
         </li>
