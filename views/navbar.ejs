@@ -70,11 +70,11 @@
       // Redirect ke halaman hasil pencarian
       window.location.href = `/search?term=${searchTerm}`;
     });
-  const searchInput = document.getElementById("searchInputNav");
-  searchInput.addEventListener("keypress", function (event) {
+  const searchInputNav = document.getElementById("searchInputNav");
+  searchInputNav.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       // Dapatkan teks pencarian
-      const searchTerm = searchInput.value;
+      const searchTerm = searchInputNav.value;
 
       // Redirect ke halaman hasil pencarian
       window.location.href = `/search?term=${searchTerm}`;
