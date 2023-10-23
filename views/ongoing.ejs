@@ -69,6 +69,57 @@
           </button>
         </li>
         <% }); %>
+          <hr class="hr"/>
+          <h1>Data Utama</h1>
+          <% data.forEach(function(entry) { %>
+            <li
+              class="list-group-item listing m-2"
+              style="border-radius: 24px !important">
+              <div class="listing-background">
+                <img
+                  class="listing-image"
+                  style="
+                    width: 300px;
+                    height: 200px;
+                    border: 2px solid #ccc;
+                    object-fit: cover;
+                    border-radius: 24px;
+                  "
+                  src="<%= entry.Image %>"
+                  alt="<%= entry.Title %>" />
+              </div>
+              <div class="listing-content">
+                <div class="listing-info">
+                  <h3 class="listing-info-title"><%= entry.Title %></h3>
+                  <p>
+                    <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
+                    '').substring(0, 200) %>...
+                  </p>
+                </div>
+                <div class="listing-price-wrapper">
+                  <div class="listing-price">
+                    <a
+                      class="btn btn-primary rounded-pill delete-button border-0 m-1"
+                      href="/details/<%= entry.id %>">
+                      <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                      Read More
+                    </a>
+                    <button
+                      class="btn btn-primary rounded-pill delete-button border-0 m-1"
+                      onclick="checkPasswordAndRedirect('bunjoTvebiEbuboh', '/delete/<%= entry.id %>', false)">
+                      <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                  </button
+                    <a class="btn btn-info rounded-pill delete-button border-0 m-1" href="/edit/<%= entry.id %>">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Artikel
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+          </li>
+
+          <% }); %>
       </ul>
     </div>
   </body>

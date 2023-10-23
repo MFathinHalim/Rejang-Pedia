@@ -3,9 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <%- include('import.ejs') -%>
-
     <title>Data</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rmok6z1LlBfUTvNTzqFMrjsG5lkZz0AIqrKEj3frjq9p0F65Nebzczr6ew8zI26q"
+      crossorigin="anonymous" />
   </head>
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .delete-button {
+      background-color: #d80032;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .delete-button:hover {
+      background-color: #ff0000;
+    }
+  </style>
   <script>
     function checkPasswordAndRedirect(password, url, save) {
       const enteredPassword = prompt("Please enter the password:");
@@ -36,27 +62,64 @@
         .map((char) => String.fromCharCode(char.charCodeAt(0) - 1))
         .join("");
     }
-
-    const initialPassword = decrypt("bunjoNbvMphjo");
-    const savedPassword = localStorage.getItem("password");
-
-    if (!savedPassword && initialPassword) {
-      checkPasswordAndRedirect(initialPassword, window.location.href, true);
-    }
   </script>
   <body>
-    <h1>Data</h1>
-    <ul>
-      <% data.forEach(function(entry) { %>
-      <li>
-        <p><strong>ID:</strong> <%= entry.id %></p>
-        <p><strong>Title:</strong> <%= entry.Title %></p>
-        <button
-          onclick="checkPasswordAndRedirect('bunjoTvebiEbuboh', '/delete/<%= entry.id %>', false)">
-          <i class="fa fa-trash" aria-hidden="true"></i>
-        </button>
-      </li>
-      <% }); %>
-    </ul>
+    <%- include('navbar.ejs') -%>
+
+    <div class="container">
+      <h1 class="mt-4">Data</h1>
+      <ul class="list-group">
+        <% data.forEach(function(entry) { %>
+        <li
+          class="list-group-item listing m-2"
+          style="border-radius: 24px !important">
+          <div class="listing-background">
+            <img
+              class="listing-image"
+              style="
+                width: 300px;
+                height: 200px;
+                border: 2px solid #ccc;
+                object-fit: cover;
+                border-radius: 24px;
+              "
+              src="<%= entry.Image %>"
+              alt="<%= entry.Title %>" />
+          </div>
+          <div class="listing-content">
+            <div class="listing-info">
+              <h3 class="listing-info-title"><%= entry.Title %></h3>
+              <p>
+                <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
+                '').substring(0, 200) %>...
+              </p>
+            </div>
+            <div class="listing-price-wrapper">
+              <div class="listing-price">
+                <a
+                  class="btn btn-primary rounded-pill delete-button border-0 m-1"
+                  href="/details/<%= entry.id %>">
+                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                  Read More
+                </a>
+                <!--button
+                    class="btn btn-primary rounded-pill delete-button border-0 m-1"
+                    onclick="checkPasswordAndRedirect('bunjoTvebiEbuboh', '/delete/<%= entry.id %>', false)">
+                    <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                </button-->
+                <a
+                  class="btn btn-info rounded-pill delete-button border-0 m-1"
+                  href="/edit/<%= entry.id %>">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+                  Artikel
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <% }); %>
+      </ul>
+    </div>
   </body>
 </html>

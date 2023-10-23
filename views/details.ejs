@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
     <%- include('import.ejs') -%>
     <title>RejangPedia</title>
+    <meta
+      property="og:title"
+      content="RejangPedia untuk Sanak: <%= data.Title %>" />
+    <meta
+      property="og:description"
+      content="<%- data.Content[0].babContent.replace(/<[^>]+>/g,
+    '').substring(0, 200) %>..." />
+    <meta property="og:image" content="<%= data.Image %>" />
+    <meta
+      property="og:url"
+      content="https://rejang-pedia.mfathinhalim.repl.co/details/<%= data.id %>" />
   </head>
   <body>
     <%- include('navbar.ejs') -%>
