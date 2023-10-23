@@ -7,7 +7,13 @@
   </head>
   <body>
     <%- include('navbar.ejs') -%>
-
+    <style>
+      img {
+        width: 300px;
+        height: auto;
+        border-radius: 24px;
+      }
+    </style>
     <div class="container p-3">
       <h1 class="display-4"><%= data.Title %></h1>
       <% if (data.Image) { %>
@@ -25,7 +31,9 @@
       <p>Dimulai Oleh: <%= data.Pembuat %></p>
       <p>Diedit Terakhir: <%= data.Diedit %></p>
 
-      <a class="btn btn-info" href="/edit/<%= data.id %>"> Edit Artikel </a>
+      <a class="btn btn-info rounded-pill" href="/edit/<%= data.id %>">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Artikel
+      </a>
     </div>
   </body>
 </html>

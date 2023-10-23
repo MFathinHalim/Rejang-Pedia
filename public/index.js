@@ -34,7 +34,8 @@ addBabButton.addEventListener("click", function () {
   imageDiv.classList.add("form-group"); // Add the Bootstrap class
   imageDiv.innerHTML = `
     <button type="button" class="btn btn-danger removeBab">
-      Hapus Bab
+    <i class="fa fa-trash" aria-hidden="true"></i>
+
     </button>
   `;
   babSection.appendChild(imageDiv);

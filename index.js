@@ -7,6 +7,7 @@ const fs = require("fs"); // Import modul fs
 const { mainModel, goingModel } = require("./models/post");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const axios = require("axios");
 
 var ImageKit = require("imagekit");
 var imagekit = new ImageKit({
@@ -99,6 +100,11 @@ server.get("/search", function (req, res) {
 });
 
 server.post("/edit/:id", async function (req, res) {
+  const token = req.body["g-recaptcha-response"];
+  const response = await axios.post(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET_KEY}&response=${token}`
+  );
+  if (!response.data.success) return res.json({ msg: "reCAPTCHA tidak valid" });
   const acceptedData = data.find((obj) => obj.id === req.params.id);
   console.log(acceptedData);
   const user = req.body;
@@ -271,6 +277,12 @@ const storage = multer.diskStorage({
   },
   filename: async function (req, file, cb) {
     const uniqueFileName = uuidv1();
+    const token = req.body["g-recaptcha-response"];
+    const response = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET_KEY}&response=${token}`
+    );
+    if (!response.data.success)
+      return res.json({ msg: "reCAPTCHA tidak valid" });
     const user = req.body;
     console.log(user);
     dataOnGoing.unshift({

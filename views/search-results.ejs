@@ -13,9 +13,25 @@
       <ul class="list-group">
         <% results.forEach(function (result) { %>
         <li class="list-group-item">
-          <a href="/details/<%= result.id %>" style="color: #d80032 !important"
-            ><%= result.Title %></a
-          >
+          <div class="d-flex align-items-center">
+            <img
+              class="listing-image"
+              style="
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
+                border: 2px solid #ccc; /* Tambahkan border abu-abu */
+                border-radius: 24px;
+              "
+              src="<%= result.Image %>"
+              alt="<%= result.Title %>" />
+
+            <a
+              href="/details/<%= result.id %>"
+              style="color: #d80032 !important; margin-left: 20px">
+              <h4><%= result.Title %></h4>
+            </a>
+          </div>
         </li>
         <% }); %>
         <hr class="hr" />
