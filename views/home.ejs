@@ -11,45 +11,68 @@
       integrity="sha384-rmok6z1LlBfUTvNTzqFMrjsG5lkZz0AIqrKEj3frjq9p0F65Nebzczr6ew8zI26q"
       crossorigin="anonymous" />
   </head>
+  <style>
+    .custom-input {
+      padding: 10px; /* Adjust the padding to your preference */
+      font-size: 16px; /* Adjust the font size to your preference */
+    }
+
+    
+  </style>
   <body>
     <%- include('navbar.ejs') -%>
 
     <div class="container">
       <div
-        class="header text-white text-center p-4"
-        style="background-color: #d80032">
-        <h1>RejangPedia!</h1>
+        class="header text-white text-center p-4 rounded-bottom"
+        style="background-color: #d80032; font-family: 'Montserrat' !important;">
+        <h1><strong style="color: white !important;">RejangPedia!</strong></h1>
+        <p>Sebuah Tempat Berbagi Ilmu</p>
       </div>
       <div class="search-box d-flex justify-content-center">
         <input
           type="text"
-          class="form-control search-input"
+          class="form-control search-input custom-input"
           id="searchInput"
-          placeholder="Mau Cari Apa Sanak..." />
-        <button class="btn btn-primary" id="searchButton">Search</button>
+          placeholder="Mau Cari Apa Sanak..."
+        />
+        <button type="submit" class="btn btn-primary border-0 rounded-0" id="searchButton">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
       </div>
+      
 
-      <h3>Mau Lihat Lihat Artikel?</h3>
-      <% data.forEach(function(entry) { %>
-      <li class="list-group-item">
-        <div class="random-article bg-light p-4">
-          <h2 class="text-primary m-1"><%= entry.Title %></h2>
-          <img
-            src="<%= entry.Image %>"
-            style="height: 200px; border-radius: 24px"
-            class="m-1"
-            alt="Featured Article Image" />
-          <br />
-          <a
-            class="btn btn-primary"
-            class="m-1"
-            href="/details/<%= entry.id %>">
-            Lihat Contentnya
-          </a>
-        </div>
+      <h3 class="m-2">Mau Lihat Lihat Artikel?</h3>
+      <ul class="list-group" >
+        <!-- Loop through your data to display articles that contain "rejang" -->
+        <% data.forEach(function(entry) { %>
+          <% if (entry.Title.toLowerCase().includes("rejang")) { %>
+            <li class="list-group-item listing m-2"style="border-radius: 24px !important;
+            ">
+              <div class="listing-background">
+                <img class="listing-image" style="width:300px; height: 200px;                 border: 2px solid #ccc; /* Tambahkan border abu-abu */
+                object-fit: cover; border-radius: 24px;" src="<%= entry.Image %>" alt="<%= entry.Title %>">
+              </div>
+              <div class="listing-content">
+                <div class="listing-info">
+                  <h3 class="listing-info-title"><%= entry.Title %></h3>
+                </div>
+                <div class="listing-price-wrapper">
+                  <div class="listing-price">
+                    <a class="btn btn-primary rounded-pill border-0 m-1" href="/details/<%= entry.id %>">
+                      <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+          <% } %>
         <% }); %>
-      </li>
-    </div>
+      </ul>
+      
+
+      
 
     <!-- Tambahkan script Bootstrap -->
     <script
@@ -66,6 +89,21 @@
           // Redirect ke halaman hasil pencarian
           window.location.href = `/search?term=${searchTerm}`;
         });
+      
+        const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    search();
+  }
+});
+
+function search() {
+  const searchTerm = searchInput.value;
+  window.location.href = `/search?term=${searchTerm}`;
+}
+      
+
     </script>
   </body>
 </html>

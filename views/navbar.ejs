@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">RejangPedia</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-light sticky-top">
+  <a class="navbar-brand" href="/">RejangPedia</a>
   <button
     class="navbar-toggler"
     type="button"
@@ -13,14 +13,10 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/"
-          >Home <span class="sr-only">(current)</span></a
-        >
-      </li>
+      <li class="nav-item active"></li>
 
       <li class="nav-item">
-        <a class="nav-link" href="https://kamusrejangkito.rejanglebongkab.go.id"
+        <a class="nav-link" href="https://kamusrejang.rejanglebongkab.go.id"
           >Kamus Rejang</a
         >
       </li>
@@ -36,7 +32,7 @@
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false">
-          Menu
+          Daftar
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/tentang">Tentang</a>
@@ -49,12 +45,18 @@
       </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">
-      <input
-        type="text"
-        class="form-control search-input"
-        id="searchInputNav"
-        placeholder="Mau Cari Apa Sanak..." />
-      <button class="btn btn-primary" id="searchButtonNav">Search</button>
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control search-input"
+          id="searchInputNav"
+          placeholder="Mau Cari Apa Sanak..." />
+        <div class="input-group-append">
+          <button class="btn btn-primary" id="searchButtonNav">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
@@ -68,4 +70,14 @@
       // Redirect ke halaman hasil pencarian
       window.location.href = `/search?term=${searchTerm}`;
     });
+  const searchInput = document.getElementById("searchInputNav");
+  searchInput.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      // Dapatkan teks pencarian
+      const searchTerm = searchInput.value;
+
+      // Redirect ke halaman hasil pencarian
+      window.location.href = `/search?term=${searchTerm}`;
+    }
+  });
 </script>
