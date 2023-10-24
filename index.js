@@ -158,9 +158,7 @@ server.post("/edit/:id", async function (req, res) {
     });
   }
 
-  res.render("home", {
-    data: data,
-  });
+  res.redirect("/");
 });
 
 server.get("/delete/:id", async function (req, res) {
@@ -175,9 +173,7 @@ server.get("/delete/:id", async function (req, res) {
     });
   console.log(data);
 
-  res.render("home", {
-    data: data,
-  });
+  res.redirect("/accept");
 });
 
 server.get("/accept/delete/:id", async function (req, res) {
@@ -191,10 +187,7 @@ server.get("/accept/delete/:id", async function (req, res) {
       console.log(error); // Failure
     });
 
-  res.render("ongoing", {
-    data: dataOnGoing,
-    dataUtama: data,
-  });
+  res.redirect("/accept");
 });
 
 server.get("/accept/:id", async function (req, res) {
@@ -289,10 +282,7 @@ server.get("/accept/:id", async function (req, res) {
     // Hapus dataOnGoing berdasarkan ID
     dataOnGoing = dataOnGoing.filter((obj) => obj.id !== req.params.id);
 
-    res.render("ongoing", {
-      data: dataOnGoing,
-      dataUtama: data,
-    });
+    res.redirect("/accept");
   }
 });
 
@@ -315,12 +305,7 @@ const storage = multer.diskStorage({
   },
   filename: async function (req, file, cb) {
     const uniqueFileName = uuidv1();
-    const token = req.body["g-recaptcha-response"];
-    const response = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET_KEY}&response=${token}`
-    );
-    if (!response.data.success)
-      return res.json({ msg: "reCAPTCHA tidak valid" });
+
     const user = req.body;
     console.log(user);
     dataOnGoing.unshift({
@@ -351,11 +336,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-server.post("/new", upload.single("image"), function (req, res) {
-  // Kirim respons dengan dataOnGoing yang telah diperbarui
-  res.render("home", {
-    data: data,
-  });
+server.post("/new", upload.single("image"), async function (req, res) {
+  const token = req.body["g-recaptcha-response"];
+  const response = await axios.post(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET_KEY}&response=${token}`
+  );
+  if (!response.data.success) return res.json({ msg: "reCAPTCHA tidak valid" });
+
+  res.redirect("/");
 });
 
 const port = 1945;
