@@ -18,14 +18,7 @@
   </head>
   <body>
     <%- include('navbar.ejs') -%>
-    <style>
-      img {
-        width: 460px; /* Default width for desktop */
-        max-width: 100%; /* Ensure it's responsive */
-        height: fit-content;
-        border-radius: 24px;
-      }
-    </style>
+
     <div class="container p-3">
       <h1 class="display-4"><%= data.Title %></h1>
       <% if (data.Image) { %>
@@ -41,7 +34,7 @@
         class="img-fluid"
         alt="Image" />
       <% } %>
-      <div style="border-radius: 24px !important; background: #b30000">
+      <div style="border-radius: 24px !important; background: #3f9f8dff">
         <% data.Content.forEach(function(bab) { %>
         <div class="my-4 p-3 text-white" style="color: white !important">
           <h3><%= bab.babTitle %></h3>

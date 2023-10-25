@@ -16,6 +16,23 @@
       padding: 10px; /* Sesuaikan padding sesuai preferensi Anda */
       font-size: 16px; /* Sesuaikan ukuran font sesuai preferensi Anda */
     }
+    #logo {
+      background-color: rgba(63, 159, 142, 0) !important;
+      height: 10rem;
+      width: 18rem; /* Ensure it's responsive */
+    }
+    @media only screen and (max-width: 600px) {
+      #logo {
+        background-color: rgba(63, 159, 142, 0) !important;
+        height: 28vw;
+        width: 60vw; /* Ensure it's responsive */
+      }
+    }
+    .card {
+      width: 18rem;
+      height: 16rem;
+      border-radius: 24px;
+    }
   </style>
   <body>
     <%- include('navbar.ejs') -%>
@@ -24,12 +41,8 @@
       <div
         class="header text-dark text-center p-4 mt-2 rounded-bottom"
         style="font-family: 'Montserrat' !important">
-        <h1>
-          <strong style="color: rgb(216, 0, 50) !important"
-            >RejangPedia!</strong
-          >
-        </h1>
-        <p>Sebuah Tempat Berbagi Ilmu</p>
+        <img id="logo" class="border-0" src="/logo.png" />
+        <p>Punyo Kito Galo</p>
       </div>
       <div class="search-box d-flex justify-content-center">
         <input
@@ -48,14 +61,13 @@
         </button>
       </div>
 
-      <h3 class="m-2">Semua Data</h3>
       <a href="/" class="btn btn-primary rounded-pill"
-        >Mau Lihat Yang Direkomendasikan?</a
+        >Kembali Ke Halaman Utama</a
       >
       <ul
         class="list-group mt-2"
         style="
-          background: rgb(216, 0, 50);
+          background: #3f9f8dff;
 
           border-radius: 24px 24px 0 0;
         ">
@@ -63,7 +75,7 @@
         <% data.forEach(function(entry) { %>
         <li
           class="list-group-item listing border-0 text-white"
-          style="border-radius: 24px !important; background: rgb(216, 0, 50)">
+          style="border-radius: 24px !important; background: #3f9f8dff">
           <div class="listing-background">
             <img
               class="listing-image mr-2"
@@ -99,7 +111,6 @@
           </div>
         </li>
         <hr style="border: 1px solid white; width: 100% !important" />
-
         <% }); %>
       </ul>
     </div>

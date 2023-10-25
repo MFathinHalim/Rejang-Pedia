@@ -346,7 +346,7 @@ server.post("/new", upload.single("image"), async function (req, res) {
   res.redirect("/");
 });
 
-const port = 1945;
+const port = 3000;
 const uri = process.env.MONGODBURI;
 mongoose
   .connect(uri, {

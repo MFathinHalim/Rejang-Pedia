@@ -16,6 +16,23 @@
       padding: 10px; /* Sesuaikan padding sesuai preferensi Anda */
       font-size: 16px; /* Sesuaikan ukuran font sesuai preferensi Anda */
     }
+    #logo {
+      background-color: rgba(63, 159, 142, 0) !important;
+      height: 10rem;
+      width: 18rem; /* Ensure it's responsive */
+    }
+    @media only screen and (max-width: 600px) {
+      #logo {
+        background-color: rgba(63, 159, 142, 0) !important;
+        height: 28vw;
+        width: 60vw; /* Ensure it's responsive */
+      }
+    }
+    .card {
+      width: 18rem;
+      height: 16rem;
+      border-radius: 24px;
+    }
   </style>
   <body>
     <%- include('navbar.ejs') -%>
@@ -24,12 +41,8 @@
       <div
         class="header text-dark text-center p-4 mt-2 rounded-bottom"
         style="font-family: 'Montserrat' !important">
-        <h1>
-          <strong style="color: rgb(216, 0, 50) !important"
-            >RejangPedia!</strong
-          >
-        </h1>
-        <p>Sebuah Tempat Berbagi Ilmu</p>
+        <img id="logo" class="border-0" src="/logo.png" />
+        <p>Punyo Kito Galo</p>
       </div>
       <div class="search-box d-flex justify-content-center">
         <input
@@ -48,60 +61,46 @@
         </button>
       </div>
 
-      <h3 class="m-2">Mau Lihat Lihat Artikel?</h3>
-      <a href="/data" class="btn btn-primary rounded-pill"
-        >Lihat Semua Artikel</a
-      >
+      <h3 class="m-2">Apo Bae Yang Disiko?</h3>
+
       <ul
         class="list-group mt-2"
         style="
-          background: rgb(216, 0, 50);
+          background: #3f9f8dff;
 
           border-radius: 24px 24px 0 0;
         ">
         <!-- Loop through your data to display articles that contain "rejang" -->
-        <% data.forEach(function(entry) { %> <% if
-        (entry.Title.toLowerCase().includes("rejang")) { %>
-        <li
-          class="list-group-item listing border-0 text-white"
-          style="border-radius: 24px !important; background: rgb(216, 0, 50)">
-          <div class="listing-background">
-            <img
-              class="listing-image mr-2"
-              style="
-                width: 460px; /* Default width for desktop */
-                max-width: 100%; /* Ensure it's responsive */
-                border: 2px solid #ccc;
-                object-fit: cover;
-                border-radius: 24px;
-              "
-              src="<%= entry.Image %>"
-              alt="<%= entry.Title %>" />
-          </div>
-          <div class="listing-content m-1">
-            <div class="listing-info">
-              <h3 class="listing-info-title"><%= entry.Title %></h3>
-              <p style="color: #fffffff1">
-                <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
-                '').substring(0, 200) %>...
-              </p>
-            </div>
-            <div class="listing-price-wrapper">
-              <div class="listing-price">
-                <a
-                  class="btn btn-primary rounded-pill border-0 m-1"
-                  style="background-color: white !important; color: black"
-                  href="/details/<%= entry.id %>">
-                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                  Baca Lebih Banyak
-                </a>
-              </div>
-            </div>
-          </div>
-        </li>
-        <hr style="border: 1px solid white; width: 100% !important" />
-        <% } %> <% }); %>
       </ul>
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <a
+            class="card m-1"
+            style="color: white; background: url('<%= data[5].Image %>')"
+            href="/data">
+            <div class="card-body">
+              <h5 class="card-title">Baco Artikel</h5>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-4">
+          <a
+            class="card m-1"
+            href="https://kamusrejang.rejanglebongkab.go.id"
+            style="background: url('/kamus.jpg'); color: white">
+            <div class="card-body">
+              <h5 class="card-title">Kamus Bahasa Rejang</h5>
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-4">
+          <a class="card m-1" style="background: url('/medsos.jpg')">
+            <div class="card-body">
+              <h5 class="card-title">Media Sosial <br />Coming Soon!</h5>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- Tambahkan script Bootstrap -->
