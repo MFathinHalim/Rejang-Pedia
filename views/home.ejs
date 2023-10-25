@@ -22,20 +22,26 @@
 
     <div class="container">
       <div
-        class="header text-white text-center p-4 rounded-bottom"
-        style="background-color: #d80032; font-family: 'Montserrat' !important">
-        <h1><strong style="color: white !important">RejangPedia!</strong></h1>
+        class="header text-dark text-center p-4 mt-2 rounded-bottom"
+        style="font-family: 'Montserrat' !important">
+        <h1>
+          <strong style="color: rgb(216, 0, 50) !important"
+            >RejangPedia!</strong
+          >
+        </h1>
         <p>Sebuah Tempat Berbagi Ilmu</p>
       </div>
       <div class="search-box d-flex justify-content-center">
         <input
           type="text"
-          class="form-control search-input custom-input"
+          style="border-radius: 12px 8px 8px 12px; padding: 25px"
+          class="form-control search-input custom-input mr-1"
           id="searchInput"
           placeholder="Mau Cari Apa Sanak..." />
         <button
           type="submit"
           class="btn btn-primary border-0 rounded-0"
+          style="border-radius: 8px 12px 12px 8px !important"
           onclick="search()"
           id="searchButton">
           <i class="fa fa-search" aria-hidden="true"></i>
@@ -43,20 +49,28 @@
       </div>
 
       <h3 class="m-2">Mau Lihat Lihat Artikel?</h3>
-      <a href="/data" class="btn btn-primary rounded-pill">Lihat Semua Data</a>
-      <ul class="list-group">
+      <a href="/data" class="btn btn-primary rounded-pill"
+        >Lihat Semua Artikel</a
+      >
+      <ul
+        class="list-group mt-2"
+        style="
+          background: rgb(216, 0, 50);
+
+          border-radius: 24px 24px 0 0;
+        ">
         <!-- Loop through your data to display articles that contain "rejang" -->
         <% data.forEach(function(entry) { %> <% if
         (entry.Title.toLowerCase().includes("rejang")) { %>
         <li
-          class="list-group-item listing m-2"
-          style="border-radius: 24px !important">
+          class="list-group-item listing border-0 text-white"
+          style="border-radius: 24px !important; background: rgb(216, 0, 50)">
           <div class="listing-background">
             <img
-              class="listing-image"
+              class="listing-image mr-2"
               style="
-                width: 300px;
-                height: 200px;
+                width: 460px; /* Default width for desktop */
+                max-width: 100%; /* Ensure it's responsive */
                 border: 2px solid #ccc;
                 object-fit: cover;
                 border-radius: 24px;
@@ -64,10 +78,10 @@
               src="<%= entry.Image %>"
               alt="<%= entry.Title %>" />
           </div>
-          <div class="listing-content">
+          <div class="listing-content m-1">
             <div class="listing-info">
               <h3 class="listing-info-title"><%= entry.Title %></h3>
-              <p>
+              <p style="color: #fffffff1">
                 <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
                 '').substring(0, 200) %>...
               </p>
@@ -76,6 +90,7 @@
               <div class="listing-price">
                 <a
                   class="btn btn-primary rounded-pill border-0 m-1"
+                  style="background-color: white !important; color: black"
                   href="/details/<%= entry.id %>">
                   <i class="fa fa-chevron-right" aria-hidden="true"></i>
                   Baca Lebih Banyak
@@ -84,6 +99,7 @@
             </div>
           </div>
         </li>
+        <hr style="border: 1px solid white; width: 100% !important" />
         <% } %> <% }); %>
       </ul>
     </div>

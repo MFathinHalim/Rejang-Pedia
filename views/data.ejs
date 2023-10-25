@@ -2,83 +2,74 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>Homepage - Rejang Pedia</title>
     <%- include('import.ejs') -%>
-    <title>Data</title>
+    <!-- Tambahkan link ke Bootstrap CSS -->
     <link
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-rmok6z1LlBfUTvNTzqFMrjsG5lkZz0AIqrKEj3frjq9p0F65Nebzczr6ew8zI26q"
       crossorigin="anonymous" />
   </head>
   <style>
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .delete-button {
-      background-color: #d80032;
-      color: white;
-      border: none;
-      border-radius: 50px;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-
-    .delete-button:hover {
-      background-color: #ff0000;
+    .custom-input {
+      padding: 10px; /* Sesuaikan padding sesuai preferensi Anda */
+      font-size: 16px; /* Sesuaikan ukuran font sesuai preferensi Anda */
     }
   </style>
-  <script>
-    function checkPasswordAndRedirect(password, url, save) {
-      const enteredPassword = prompt("Please enter the password:");
-      if (enteredPassword === password) {
-        if (save === true) {
-          localStorage.setItem("password", enteredPassword);
-        }
-
-        // Jika password benar, simpan di local storage
-        window.location.href = url;
-      } else {
-        alert("Incorrect password. You will be redirected to the main page.");
-        window.location.href = "/";
-      }
-    }
-    function encrypt(text) {
-      // Contoh sederhana, mengganti karakter
-      return text
-        .split("")
-        .map((char) => String.fromCharCode(char.charCodeAt(0) + 1))
-        .join("");
-    }
-
-    function decrypt(encryptedText) {
-      // Mendekripsi teks (mengganti karakter kembali)
-      return encryptedText
-        .split("")
-        .map((char) => String.fromCharCode(char.charCodeAt(0) - 1))
-        .join("");
-    }
-  </script>
   <body>
     <%- include('navbar.ejs') -%>
 
     <div class="container">
-      <h1 class="mt-4">Data</h1>
-      <ul class="list-group">
+      <div
+        class="header text-dark text-center p-4 mt-2 rounded-bottom"
+        style="font-family: 'Montserrat' !important">
+        <h1>
+          <strong style="color: rgb(216, 0, 50) !important"
+            >RejangPedia!</strong
+          >
+        </h1>
+        <p>Sebuah Tempat Berbagi Ilmu</p>
+      </div>
+      <div class="search-box d-flex justify-content-center">
+        <input
+          type="text"
+          style="border-radius: 12px 8px 8px 12px; padding: 25px"
+          class="form-control search-input custom-input mr-1"
+          id="searchInput"
+          placeholder="Mau Cari Apa Sanak..." />
+        <button
+          type="submit"
+          class="btn btn-primary border-0 rounded-0"
+          style="border-radius: 8px 12px 12px 8px !important"
+          onclick="search()"
+          id="searchButton">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <h3 class="m-2">Semua Data</h3>
+      <a href="/" class="btn btn-primary rounded-pill"
+        >Mau Lihat Yang Direkomendasikan?</a
+      >
+      <ul
+        class="list-group mt-2"
+        style="
+          background: rgb(216, 0, 50);
+
+          border-radius: 24px 24px 0 0;
+        ">
+        <!-- Loop through your data to display articles that contain "rejang" -->
         <% data.forEach(function(entry) { %>
         <li
-          class="list-group-item listing m-2"
-          style="border-radius: 24px !important">
+          class="list-group-item listing border-0 text-white"
+          style="border-radius: 24px !important; background: rgb(216, 0, 50)">
           <div class="listing-background">
             <img
-              class="listing-image"
+              class="listing-image mr-2"
               style="
-                width: 300px;
-                height: 200px;
+                width: 460px; /* Default width for desktop */
+                max-width: 100%; /* Ensure it's responsive */
                 border: 2px solid #ccc;
                 object-fit: cover;
                 border-radius: 24px;
@@ -86,10 +77,10 @@
               src="<%= entry.Image %>"
               alt="<%= entry.Title %>" />
           </div>
-          <div class="listing-content">
+          <div class="listing-content m-1">
             <div class="listing-info">
               <h3 class="listing-info-title"><%= entry.Title %></h3>
-              <p>
+              <p style="color: #fffffff1">
                 <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
                 '').substring(0, 200) %>...
               </p>
@@ -97,29 +88,46 @@
             <div class="listing-price-wrapper">
               <div class="listing-price">
                 <a
-                  class="btn btn-primary rounded-pill delete-button border-0 m-1"
+                  class="btn btn-primary rounded-pill border-0 m-1"
+                  style="background-color: white !important; color: black"
                   href="/details/<%= entry.id %>">
                   <i class="fa fa-chevron-right" aria-hidden="true"></i>
                   Baca Lebih Banyak
-                </a>
-                <!--button
-                    class="btn btn-primary rounded-pill delete-button border-0 m-1"
-                    onclick="checkPasswordAndRedirect('bunjoTvebiEbuboh', '/delete/<%= entry.id %>', false)">
-                    <i class="fa fa-trash" aria-hidden="true"></i> Delete
-                </button-->
-                <a
-                  class="btn btn-info rounded-pill delete-button border-0 m-1"
-                  href="/edit/<%= entry.id %>">
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                  Artikel
                 </a>
               </div>
             </div>
           </div>
         </li>
+        <hr style="border: 1px solid white; width: 100% !important" />
 
         <% }); %>
       </ul>
     </div>
+
+    <!-- Tambahkan script Bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      integrity="sha384-jOo0BtDHf6my/BsFjEZmc0RivzubPP6Ie4pDMS9/wf1W4lTHj4/f5G5L5z0"
+      crossorigin="anonymous"></script>
+    <script>
+      function search() {
+        const searchTerm = searchInput.value;
+        console.log("Search term:", searchTerm);
+        window.location.href = `/search?term=${searchTerm}`;
+      }
+
+      document
+        .getElementById("searchButton")
+        .addEventListener("click", function () {
+          search();
+        });
+
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          search();
+        }
+      });
+    </script>
   </body>
 </html>

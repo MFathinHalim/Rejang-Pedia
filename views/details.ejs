@@ -20,8 +20,9 @@
     <%- include('navbar.ejs') -%>
     <style>
       img {
-        width: 300px;
-        height: auto;
+        width: 460px; /* Default width for desktop */
+        max-width: 100%; /* Ensure it's responsive */
+        height: fit-content;
         border-radius: 24px;
       }
     </style>
@@ -30,15 +31,24 @@
       <% if (data.Image) { %>
       <img
         src="<%= data.Image %>"
-        style="width: 300px; border-radius: 24px"
+        style="
+          width: 460px; /* Default width for desktop */
+          max-width: 100%; /* Ensure it's responsive */
+          border: 2px solid #ccc;
+          object-fit: cover;
+          border-radius: 24px;
+        "
         class="img-fluid"
         alt="Image" />
-      <% } %> <% data.Content.forEach(function(bab) { %>
-      <div class="my-4">
-        <h3><%= bab.babTitle %></h3>
-        <p><%- bab.babContent %></p>
+      <% } %>
+      <div style="border-radius: 24px !important; background: #b30000">
+        <% data.Content.forEach(function(bab) { %>
+        <div class="my-4 p-3 text-white" style="color: white !important">
+          <h3><%= bab.babTitle %></h3>
+          <p><%- bab.babContent %></p>
+        </div>
+        <% }); %>
       </div>
-      <% }); %>
       <p>Dimulai Oleh: <%= data.Pembuat %></p>
       <p>Diedit Terakhir: <%= data.Diedit %></p>
 
