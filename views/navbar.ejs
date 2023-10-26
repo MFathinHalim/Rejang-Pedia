@@ -1,11 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-light sticky-top">
-  <a class="navbar-brand" href="/">
+  <a class="navbar-brand" href="/" style="font-family: 'Montserrat' !important">
     <img
       src="/logo.png"
       width="30"
       height="30"
       alt=""
       style="width: 30px !important; height: 30px !important" />
+    rejangpedia
   </a>
 
   <button
@@ -19,20 +20,18 @@
     aria-label="Toggle navigation">
     <i class="fa fa-bars"></i>
   </button>
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active"></li>
-
+    <!-- Centered navigation items -->
+    <ul class="navbar-nav mx-auto">
       <li class="nav-item">
         <a class="nav-link" href="https://kamusrejang.rejanglebongkab.go.id">
-          <i class="fa fa-book"></i> Kamus Rejang</a
-        >
+          <i class="fa fa-book"></i> Kamus Rejang
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/new">
-          <i class="fa fa-plus"></i> Tambah Artikel</a
-        >
+          <i class="fa fa-plus"></i> Tambah Artikel
+        </a>
       </li>
       <li class="nav-item dropdown">
         <a
@@ -47,26 +46,27 @@
           Daftar
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/tentang"
-            ><i class="fa fa-question" aria-hidden="true"></i> Tentang</a
-          >
-          <a class="dropdown-item" href="/peraturan"
-            ><i class="fa fa-ban" aria-hidden="true"></i> Peraturan</a
-          >
+          <a class="dropdown-item" href="/tentang">
+            <i class="fa fa-question" aria-hidden="true"></i> Tentang
+          </a>
+          <a class="dropdown-item" href="/peraturan">
+            <i class="fa fa-ban" aria-hidden="true"></i> Peraturan
+          </a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="https://doma.mfathinhalim.repl.co"
-            ><i class="fa fa-question-circle" aria-hidden="true"></i> Tentang
-            Fathin</a
-          >
+          <a class="dropdown-item" href="https://doma.mfathinhalim.repl.co">
+            <i class="fa fa-question-circle" aria-hidden="true"></i> Tentang
+            Fathin
+          </a>
         </div>
       </li>
     </ul>
+
     <div class="form-inline my-2 my-lg-0">
       <div class="input-group">
         <input
           type="text"
           class="form-control search-input mr-1"
-          style="border-radius: 12px 8px 8px 12px; padding: 15px"
+          style="border-radius: 12px 8px 8px 12px; padding: 15px; width: 120px"
           id="searchInputNav"
           placeholder="Mau Cari Apa Sanak..." />
         <div class="input-group-append">
@@ -81,6 +81,7 @@
     </div>
   </div>
 </nav>
+
 <script>
   document
     .getElementById("searchButtonNav")
