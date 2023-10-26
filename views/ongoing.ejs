@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <%- include('import.ejs') -%>
 
-    <title>Data OnGoing</title>
+    <title>Admin Dashboard</title>
     <script>
       function checkPasswordAndRedirect(password, url, save) {
         const enteredPassword = prompt("Please enter the password:");
@@ -48,110 +48,111 @@
     <%- include('navbar.ejs') -%>
 
     <div class="container">
-      <h1 class="mt-3">Data OnGoing</h1>
+      <h1 class="mt-3">
+        <i class="fa fa-spinner" aria-hidden="true"></i> Data OnGoing
+      </h1>
       <ul class="list-group">
         <% data.forEach(function(entry) { %>
-          <li
-            class="list-group-item listing m-2"
-            style="border-radius: 24px !important">
-            <div class="listing-background">
-              <img
-                class="listing-image"
-                style="
-                  width: 300px;
-                  height: 200px;
-                  border: 2px solid #ccc;
-                  object-fit: cover;
-                  border-radius: 24px;
-                "
-                src="<%= entry.Image %>"
-                alt="<%= entry.Title %>" />
+        <li
+          class="list-group-item listing m-2"
+          style="border-radius: 24px !important">
+          <div class="listing-background">
+            <img
+              class="listing-image"
+              style="
+                width: 300px;
+                height: 200px;
+                border: 2px solid #ccc;
+                object-fit: cover;
+                border-radius: 24px;
+              "
+              src="<%= entry.Image %>"
+              alt="<%= entry.Title %>" />
+          </div>
+          <div class="listing-content">
+            <div class="listing-info">
+              <h3 class="listing-info-title"><%= entry.Title %></h3>
+              <p>
+                <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
+                '').substring(0, 200) %>...
+              </p>
             </div>
-            <div class="listing-content">
-              <div class="listing-info">
-                <h3 class="listing-info-title"><%= entry.Title %></h3>
-                <p>
-                  <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
-                  '').substring(0, 200) %>...
-                </p>
-              </div>
-              <div class="listing-price-wrapper">
-                <div class="listing-price">
-                  <a
-                    class="btn btn-primary rounded-pill delete-button border-0 m-1"
-                    href="/details/ongoing/<%= entry.id %>">
-                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
-Baca
-                  </a>
-                  <button
-                    class="btn btn-success"
-                    onclick="checkPasswordAndRedirect('atminSudahDatang', '/accept/<%= entry.id %>', false)">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                  </button>
-                  <button
-                    class="btn btn-danger"
-                    onclick="checkPasswordAndRedirect('atminSudahDatang', '/accept/delete/<%= entry.id %>', false)">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                  </button>
-                </div>
+            <div class="listing-price-wrapper">
+              <div class="listing-price">
+                <a
+                  class="btn btn-primary rounded-pill delete-button border-0 m-1"
+                  href="/details/ongoing/<%= entry.id %>">
+                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                  Baca
+                </a>
+                <button
+                  class="btn btn-success"
+                  onclick="checkPasswordAndRedirect('atminSudahDatang', '/accept/<%= entry.id %>', false)">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </button>
+                <button
+                  class="btn btn-danger"
+                  onclick="checkPasswordAndRedirect('atminSudahDatang', '/accept/delete/<%= entry.id %>', false)">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
               </div>
             </div>
-
-
+          </div>
         </li>
 
         <% }); %>
-          <hr class="hr"/>
-          <h1>Data Utama</h1>
-          <% dataUtama.forEach(function(entry) { %>
-            <li
-              class="list-group-item listing m-2"
-              style="border-radius: 24px !important">
-              <div class="listing-background">
-                <img
-                  class="listing-image"
-                  style="
-                    width: 300px;
-                    height: 200px;
-                    border: 2px solid #ccc;
-                    object-fit: cover;
-                    border-radius: 24px;
-                  "
-                  src="<%= entry.Image %>"
-                  alt="<%= entry.Title %>" />
+        <hr class="hr" />
+        <h1><i class="fa fa-list" aria-hidden="true"></i> Data Utama</h1>
+        <% dataUtama.forEach(function(entry) { %>
+        <li
+          class="list-group-item listing m-2"
+          style="border-radius: 24px !important">
+          <div class="listing-background">
+            <img
+              class="listing-image"
+              style="
+                width: 300px;
+                height: 200px;
+                border: 2px solid #ccc;
+                object-fit: cover;
+                border-radius: 24px;
+              "
+              src="<%= entry.Image %>"
+              alt="<%= entry.Title %>" />
+          </div>
+          <div class="listing-content">
+            <div class="listing-info">
+              <h3 class="listing-info-title"><%= entry.Title %></h3>
+              <p>
+                <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
+                '').substring(0, 200) %>...
+              </p>
+            </div>
+            <div class="listing-price-wrapper">
+              <div class="listing-price">
+                <a
+                  class="btn btn-primary rounded-pill delete-button border-0 m-1"
+                  href="/details/<%= entry.id %>">
+                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                  Baca
+                </a>
+                <button
+                  class="btn btn-danger rounded-pill delete-button border-0 m-1"
+                  onclick="checkPasswordAndRedirect('bunjoTvebiEbuboh', '/delete/<%= entry.id %>', false)">
+                  <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                </button>
+                <a
+                  class="btn btn-info rounded-pill"
+                  href="/edit/<%= data.id %>">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                  Edit Artikel
+                </a>
               </div>
-              <div class="listing-content">
-                <div class="listing-info">
-                  <h3 class="listing-info-title"><%= entry.Title %></h3>
-                  <p>
-                    <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
-                    '').substring(0, 200) %>...
-                  </p>
-                </div>
-                <div class="listing-price-wrapper">
-                  <div class="listing-price">
-                    <a
-                      class="btn btn-primary rounded-pill delete-button border-0 m-1"
-                      href="/details/<%= entry.id %>">
-                      <i class="fa fa-chevron-right" aria-hidden="true"></i>
-Baca
-                    </a>
-                    <button
-                      class="btn btn-primary rounded-pill delete-button border-0 m-1"
-                      onclick="checkPasswordAndRedirect('bunjoTvebiEbuboh', '/delete/<%= entry.id %>', false)">
-                      <i class="fa fa-trash" aria-hidden="true"></i> Delete
-                  </button
-                    <a class="btn btn-info rounded-pill delete-button border-0 m-1" href="/edit/<%= entry.id %>">
-                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Artikel
-                    </a>
-                  </div>
-                </div>
-              </div>
+            </div>
+          </div>
+        </li>
 
-
-          </li>
-
-          <% }); %>
+        <% }); %>
       </ul>
     </div>
   </body>

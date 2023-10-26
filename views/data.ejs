@@ -62,7 +62,8 @@
       </div>
 
       <a href="/" class="btn btn-primary rounded-pill"
-        >Kembali Ke Halaman Utama</a
+        ><i class="fa fa-chevron-left" aria-hidden="true"></i> Kembali Ke
+        Halaman Utama</a
       >
       <ul
         class="list-group mt-2"
@@ -72,7 +73,13 @@
           border-radius: 24px 24px 0 0;
         ">
         <!-- Loop through your data to display articles that contain "rejang" -->
-        <% data.forEach(function(entry) { %>
+        <% data.forEach(function(entry) { %> <% if
+        (entry.Title.toLowerCase().includes("rejang") ||
+        entry.Title.toLowerCase().includes("bengkulu") ||
+        entry.Content[0].babTitle.toLowerCase().includes("rejang") ||
+        entry.Content[0].babTitle.toLowerCase().includes("bengkulu") ||
+        entry.Content[0].babContent.toLowerCase().includes("rejang") ||
+        entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
         <li
           class="list-group-item listing border-0 text-white"
           style="border-radius: 24px !important; background: #3f9f8dff">
@@ -80,8 +87,8 @@
             <img
               class="listing-image mr-2"
               style="
-                width: 460px; /* Default width for desktop */
-                max-width: 100%; /* Ensure it's responsive */
+                width: 460px;
+                max-width: 100%;
                 border: 2px solid #ccc;
                 object-fit: cover;
                 border-radius: 24px;
@@ -101,17 +108,20 @@
               <div class="listing-price">
                 <a
                   class="btn btn-primary rounded-pill border-0 m-1"
-                  style="background-color: white !important; color: black"
+                  style="
+                    background-color: rgb(243, 216, 120) !important;
+                    color: black;
+                  "
                   href="/details/<%= entry.id %>">
-                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                  Baca Lebih Banyak
+                  <i class="fa fa-chevron-right" aria-hidden="true"></i> Baca
+                  Lebih Banyak
                 </a>
               </div>
             </div>
           </div>
         </li>
         <hr style="border: 1px solid white; width: 100% !important" />
-        <% }); %>
+        <% } %> <% }); %>
       </ul>
     </div>
 

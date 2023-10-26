@@ -79,14 +79,15 @@
             style="color: white; background: url('<%= data[5].Image %>')"
             href="/data">
             <div class="card-body">
-              <h5 class="card-title">Baco Artikel</h5>
+              <h5 class="card-title">Tengok Artikel</h5>
             </div>
           </a>
           <a
-            href="/details/962de910-70a5-11ee-acd8-7d4adb250123"
+            href="/details/<%= data[5].id %>"
             class="btn btn-primary m-1 rounded-pill border-0"
             style="background-color: #0d7502ff !important"
-            >Baco yang direkomendasikan</a
+            ><i class="fa fa-chevron-right" aria-hidden="true"></i> Baco Tentang
+            ( <%= data[5].Title %> )</a
           >
         </div>
         <div class="col-12 col-md-4">
@@ -102,7 +103,7 @@
             href="https://kamusrejang.rejanglebongkab.go.id/database"
             class="btn btn-primary m-1 rounded-pill border-0"
             style="background-color: #dac26aff !important"
-            >Tambahkan Kata</a
+            ><i class="fa fa-plus" aria-hidden="true"></i> Tambahkan Kata</a
           >
         </div>
         <div class="col-12 col-md-4">
