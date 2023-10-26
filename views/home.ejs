@@ -74,20 +74,38 @@
       </ul>
       <div class="row">
         <div class="col-12 col-md-4">
+          <% var op = Math.floor(Math.random()*data.length) %>
           <a
             class="card m-1"
-            style="color: white; background: url('<%= data[5].Image %>')"
+            style="
+              color: white;
+              background: url('<%= data[op].Image %>');
+              background-repeat: no-repeat;
+              background-size: cover;
+            "
             href="/data">
-            <div class="card-body">
-              <h5 class="card-title">Tengok Artikel</h5>
+            <div
+              class="dark-overlay"
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 24px;
+                background: rgba(0, 0, 0, 0.2);
+              ">
+              <div class="card-body">
+                <h5 class="card-title">Tengok Artikel</h5>
+              </div>
             </div>
           </a>
           <a
-            href="/details/<%= data[5].id %>"
+            href="/details/<%= data[op].id %>"
             class="btn btn-primary m-1 rounded-pill border-0"
             style="background-color: #0d7502ff !important"
-            ><i class="fa fa-chevron-right" aria-hidden="true"></i> Baco Tentang
-            ( <%= data[5].Title %> )</a
+            ><i class="fa fa-chevron-right" aria-hidden="true"></i> Baco ( <%=
+            data[op].Title %> )</a
           >
         </div>
         <div class="col-12 col-md-4">
@@ -95,8 +113,20 @@
             class="card m-1"
             href="https://kamusrejang.rejanglebongkab.go.id"
             style="background: url('/kamus.jpg'); color: white">
-            <div class="card-body">
-              <h5 class="card-title">Kamus Bahasa Rejang</h5>
+            <div
+              class="dark-overlay"
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 24px;
+                background: rgba(0, 0, 0, 0.2);
+              ">
+              <div class="card-body">
+                <h5 class="card-title">Kamus Bahasa Rejang</h5>
+              </div>
             </div>
           </a>
           <a

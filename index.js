@@ -40,8 +40,15 @@ goingModel.find({}, null).then((docs) => {
 });
 
 server.get("/", function (req, res) {
+  // Filter data berdasarkan properti Title
+  var filteredData = data.filter(
+    (item) =>
+      item.Title.toLowerCase().includes("rejang") ||
+      item.Title.toLowerCase().includes("bengkulu")
+  );
+
   res.render("home", {
-    data: data,
+    data: filteredData,
   });
 });
 
