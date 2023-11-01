@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('import.ejs') -%>
+    <title>Edit</title>
+  </head>
+  <body>
+    <%- include('navbar.ejs') -%>
+
+    <div class="container mt-5">
+      <a class="dropdown-item" href="/tentang">
+        <i class="fa fa-question" aria-hidden="true"></i> Tentang
+      </a>
+      <a class="dropdown-item" href="/peraturan">
+        <i class="fa fa-ban" aria-hidden="true"></i> Peraturan
+      </a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="https://doma.mfathinhalim.repl.co">
+        <i class="fa fa-question-circle" aria-hidden="true"></i> Tentang Fathin
+      </a>
+    </div>
+  </body>
+  <script src="../index.js"></script>
+
+  <script>
+    function initializeQuillEditors() {
+      document.querySelectorAll(".quill-editor").forEach(function (element) {
+        const quill = new Quill(element, {
+          theme: "snow",
+        });
+      });
+    }
+
+    // Call the initialization function after adding dynamic content
+    initializeQuillEditors();
+  </script>
+</html>

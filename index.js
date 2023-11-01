@@ -63,6 +63,9 @@ server.get("/peraturan", function (req, res) {
 server.get("/tentang", function (req, res) {
   res.render("tentang");
 });
+server.get("/dropdown", function (req, res) {
+  res.render("dropdown");
+});
 
 server.get("/details/:id", function (req, res) {
   const theData = data.find((obj) => obj.id === req.params.id);
