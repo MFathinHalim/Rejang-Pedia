@@ -27,18 +27,20 @@
               alt="<%= result.Title %>" />
 
             <a
+              class="mt-2"
               href="/details/<%= result.id %>"
-              style="color: #d80032 !important; margin-left: 20px">
+              style="color: #0aa2c4ff !important; margin-left: 20px">
               <h4><%= result.Title %></h4>
               <p>
                 <%- result.Content[0].babContent.replace(/<[^>]+>/g,
-                '').substring(0, 200) %>...
+                '').substring(0, 20) %>...
               </p>
             </a>
           </div>
+          <hr class="hr" />
         </li>
+
         <% }); %>
-        <hr class="hr" />
         <h5>Dak Do Lagi lah..</h5>
       </ul>
     </div>

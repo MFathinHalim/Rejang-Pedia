@@ -1,27 +1,37 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-light sticky-top">
-  <a class="navbar-brand" href="/">RejangPedia</a>
+  <a class="navbar-brand" href="/" style="font-family: 'Montserrat' !important">
+    <img
+      src="/logo.png"
+      width="30"
+      height="30"
+      alt=""
+      style="width: 30px !important; height: 30px !important" />
+    rejangpedia
+  </a>
+
   <button
-    class="navbar-toggler"
+    class="navbar-toggler border-0"
+    style="border-radius: 0"
     type="button"
     data-toggle="collapse"
     data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent"
     aria-expanded="false"
     aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <i class="fa fa-bars"></i>
   </button>
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active"></li>
-
+    <!-- Centered navigation items -->
+    <ul class="navbar-nav mx-auto">
       <li class="nav-item">
-        <a class="nav-link" href="https://kamusrejang.rejanglebongkab.go.id"
-          >Kamus Rejang</a
-        >
+        <a class="nav-link" href="https://kamusrejang.rejanglebongkab.go.id">
+          <i class="fa fa-book"></i> Kamus Rejang
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/new">Tambah Artikel</a>
+        <a class="nav-link" href="/new">
+          <i class="fa fa-plus"></i> Tambah Artikel
+        </a>
       </li>
       <li class="nav-item dropdown">
         <a
@@ -32,27 +42,38 @@
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false">
+          <i class="fa fa-bars"></i>
           Daftar
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/tentang">Tentang</a>
-          <a class="dropdown-item" href="/peraturan">Peraturan</a>
+          <a class="dropdown-item" href="/tentang">
+            <i class="fa fa-question" aria-hidden="true"></i> Tentang
+          </a>
+          <a class="dropdown-item" href="/peraturan">
+            <i class="fa fa-ban" aria-hidden="true"></i> Peraturan
+          </a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="https://doma.mfathinhalim.repl.co"
-            >Tentang Fathin</a
-          >
+          <a class="dropdown-item" href="https://doma.mfathinhalim.repl.co">
+            <i class="fa fa-question-circle" aria-hidden="true"></i> Tentang
+            Fathin
+          </a>
         </div>
       </li>
     </ul>
+
     <div class="form-inline my-2 my-lg-0">
       <div class="input-group">
         <input
           type="text"
-          class="form-control search-input"
+          class="form-control search-input mr-1"
+          style="border-radius: 12px 8px 8px 12px; padding: 15px; width: 120px"
           id="searchInputNav"
           placeholder="Mau Cari Apa Sanak..." />
         <div class="input-group-append">
-          <button class="btn btn-primary" id="searchButtonNav">
+          <button
+            class="btn btn-primary border-0 mr-1"
+            id="searchButtonNav"
+            style="border-radius: 8px 12px 12px 8px !important">
             <i class="fa fa-search" aria-hidden="true"></i>
           </button>
         </div>
@@ -60,6 +81,7 @@
     </div>
   </div>
 </nav>
+
 <script>
   document
     .getElementById("searchButtonNav")

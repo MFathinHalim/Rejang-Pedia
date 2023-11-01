@@ -2,61 +2,159 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>Homepage - Rejang Pedia</title>
     <%- include('import.ejs') -%>
-
-    <title>Data</title>
+    <!-- Tambahkan link ke Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rmok6z1LlBfUTvNTzqFMrjsG5lkZz0AIqrKEj3frjq9p0F65Nebzczr6ew8zI26q"
+      crossorigin="anonymous" />
+    <meta property="og:title" content="RejangPedia" />
+    <meta property="og:description" content="Punyo Kito Galo" />
+    <meta property="og:image" content="/logo.png" />
+    <meta
+      property="og:url"
+      content="https://rejang-pedia.mfathinhalim.repl.co/" />
   </head>
-  <script>
-    function checkPasswordAndRedirect(password, url, save) {
-      const enteredPassword = prompt("Please enter the password:");
-      if (enteredPassword === password) {
-        if (save === true) {
-          localStorage.setItem("password", enteredPassword);
-        }
-
-        // Jika password benar, simpan di local storage
-        window.location.href = url;
-      } else {
-        alert("Incorrect password. You will be redirected to the main page.");
-        window.location.href = "/";
+  <style>
+    .custom-input {
+      padding: 10px; /* Sesuaikan padding sesuai preferensi Anda */
+      font-size: 16px; /* Sesuaikan ukuran font sesuai preferensi Anda */
+    }
+    #logo {
+      background-color: rgba(63, 159, 142, 0) !important;
+      height: 10rem;
+      width: 18rem; /* Ensure it's responsive */
+    }
+    @media only screen and (max-width: 600px) {
+      #logo {
+        background-color: rgba(63, 159, 142, 0) !important;
+        height: 28vw;
+        width: 60vw; /* Ensure it's responsive */
       }
     }
-    function encrypt(text) {
-      // Contoh sederhana, mengganti karakter
-      return text
-        .split("")
-        .map((char) => String.fromCharCode(char.charCodeAt(0) + 1))
-        .join("");
+    .card {
+      width: 18rem;
+      height: 16rem;
+      border-radius: 24px;
     }
-
-    function decrypt(encryptedText) {
-      // Mendekripsi teks (mengganti karakter kembali)
-      return encryptedText
-        .split("")
-        .map((char) => String.fromCharCode(char.charCodeAt(0) - 1))
-        .join("");
-    }
-
-    const initialPassword = decrypt("bunjoNbvMphjo");
-    const savedPassword = localStorage.getItem("password");
-
-    if (!savedPassword && initialPassword) {
-      checkPasswordAndRedirect(initialPassword, window.location.href, true);
-    }
-  </script>
+  </style>
   <body>
-    <h1>Data</h1>
-    <ul>
-      <% data.forEach(function(entry) { %>
-      <li>
-        <p><strong>ID:</strong> <%= entry.id %></p>
-        <p><strong>Title:</strong> <%= entry.Title %></p>
+    <%- include('navbar.ejs') -%>
+
+    <div class="container">
+      <div
+        class="header text-dark text-center mt-2 rounded-bottom"
+        style="font-family: 'Montserrat' !important">
+        <img id="logo" class="border-0" src="/logo.png" />
+        <p>Punyo Kito Galo</p>
+      </div>
+      <div class="search-box d-flex justify-content-center">
+        <input
+          type="text"
+          style="border-radius: 12px 8px 8px 12px; padding: 25px"
+          class="form-control search-input custom-input mr-1"
+          id="searchInput"
+          placeholder="Mau Cari Apa Sanak..." />
         <button
-          onclick="checkPasswordAndRedirect('bunjoTvebiEbuboh', '/delete/<%= entry.id %>', false)">
-          <i class="fa fa-trash" aria-hidden="true"></i>
+          type="submit"
+          class="btn btn-primary border-0 rounded-0"
+          style="border-radius: 8px 12px 12px 8px !important"
+          onclick="search()"
+          id="searchButton">
+          <i class="fa fa-search" aria-hidden="true"></i>
         </button>
-      </li>
-      <% }); %>
-    </ul>
+      </div>
+
+      <a href="/" class="btn btn-primary rounded-pill"
+        ><i class="fa fa-chevron-left" aria-hidden="true"></i> Kembali Ke
+        Halaman Utama</a
+      >
+      <ul
+        class="list-group mt-2"
+        style="
+          background: #3f9f8dff;
+
+          border-radius: 24px 24px 0 0;
+        ">
+        <!-- Loop through your data to display articles that contain "rejang" -->
+        <% data.forEach(function(entry) { %> <% if
+        (entry.Title.toLowerCase().includes("rejang") ||
+        entry.Title.toLowerCase().includes("bengkulu") ||
+        entry.Content[0].babTitle.toLowerCase().includes("rejang") ||
+        entry.Content[0].babTitle.toLowerCase().includes("bengkulu") ||
+        entry.Content[0].babContent.toLowerCase().includes("rejang") ||
+        entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
+        <li
+          class="list-group-item listing border-0 text-white"
+          style="border-radius: 24px !important; background: #3f9f8dff">
+          <div class="listing-background">
+            <img
+              class="listing-image mr-2"
+              style="
+                width: 460px;
+                max-width: 100%;
+                border: 2px solid #ccc;
+                object-fit: cover;
+                border-radius: 24px;
+              "
+              src="<%= entry.Image %>"
+              alt="<%= entry.Title %>" />
+          </div>
+          <div class="listing-content m-1">
+            <div class="listing-info">
+              <h3 class="listing-info-title"><%= entry.Title %></h3>
+              <p style="color: #fffffff1">
+                <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
+                '').substring(0, 200) %>...
+              </p>
+            </div>
+            <div class="listing-price-wrapper">
+              <div class="listing-price">
+                <a
+                  class="btn btn-primary rounded-pill border-0 m-1"
+                  style="
+                    background-color: rgb(243, 216, 120) !important;
+                    color: black;
+                  "
+                  href="/details/<%= entry.id %>">
+                  <i class="fa fa-chevron-right" aria-hidden="true"></i> Baca
+                  Lebih Banyak
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <hr style="border: 1px solid white; width: 100% !important" />
+        <% } %> <% }); %>
+      </ul>
+    </div>
+
+    <!-- Tambahkan script Bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      integrity="sha384-jOo0BtDHf6my/BsFjEZmc0RivzubPP6Ie4pDMS9/wf1W4lTHj4/f5G5L5z0"
+      crossorigin="anonymous"></script>
+    <script>
+      function search() {
+        const searchTerm = searchInput.value;
+        console.log("Search term:", searchTerm);
+        window.location.href = `/search?term=${searchTerm}`;
+      }
+
+      document
+        .getElementById("searchButton")
+        .addEventListener("click", function () {
+          search();
+        });
+
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          search();
+        }
+      });
+    </script>
   </body>
 </html>

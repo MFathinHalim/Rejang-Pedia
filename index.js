@@ -40,8 +40,15 @@ goingModel.find({}, null).then((docs) => {
 });
 
 server.get("/", function (req, res) {
+  // Filter data berdasarkan properti Title
+  var filteredData = data.filter(
+    (item) =>
+      item.Title.toLowerCase().includes("rejang") ||
+      item.Title.toLowerCase().includes("bengkulu")
+  );
+
   res.render("home", {
-    data: data,
+    data: filteredData,
   });
 });
 
@@ -158,9 +165,7 @@ server.post("/edit/:id", async function (req, res) {
     });
   }
 
-  res.render("home", {
-    data: data,
-  });
+  res.redirect("/");
 });
 
 server.get("/delete/:id", async function (req, res) {
@@ -175,9 +180,7 @@ server.get("/delete/:id", async function (req, res) {
     });
   console.log(data);
 
-  res.render("home", {
-    data: data,
-  });
+  res.redirect("/accept");
 });
 
 server.get("/accept/delete/:id", async function (req, res) {
@@ -191,9 +194,7 @@ server.get("/accept/delete/:id", async function (req, res) {
       console.log(error); // Failure
     });
 
-  res.render("ongoing", {
-    data: dataOnGoing,
-  });
+  res.redirect("/accept");
 });
 
 server.get("/accept/:id", async function (req, res) {
@@ -245,7 +246,14 @@ server.get("/accept/:id", async function (req, res) {
         Diedit: "",
         Content: acceptedData.Content,
       });
-      await goingModel.deleteOne({ id: req.params.id });
+      await goingModel
+        .deleteOne({ id: req.params.id })
+        .then(function () {
+          console.log("deleted"); // Success
+        })
+        .catch(function (error) {
+          console.log(error); // Failure
+        });
     }
 
     // Hapus dataOnGoing berdasarkan ID
@@ -253,6 +261,7 @@ server.get("/accept/:id", async function (req, res) {
 
     res.render("ongoing", {
       data: dataOnGoing,
+      dataUtama: data,
     });
   } catch (error) {
     // Cek apakah dataOnGoing dengan ID tersebut sudah ada di data
@@ -280,15 +289,14 @@ server.get("/accept/:id", async function (req, res) {
     // Hapus dataOnGoing berdasarkan ID
     dataOnGoing = dataOnGoing.filter((obj) => obj.id !== req.params.id);
 
-    res.render("ongoing", {
-      data: dataOnGoing,
-    });
+    res.redirect("/accept");
   }
 });
 
 server.get("/accept/", function (req, res) {
   res.render("ongoing", {
     data: dataOnGoing,
+    dataUtama: data,
   });
 });
 
@@ -304,12 +312,7 @@ const storage = multer.diskStorage({
   },
   filename: async function (req, file, cb) {
     const uniqueFileName = uuidv1();
-    const token = req.body["g-recaptcha-response"];
-    const response = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET_KEY}&response=${token}`
-    );
-    if (!response.data.success)
-      return res.json({ msg: "reCAPTCHA tidak valid" });
+
     const user = req.body;
     console.log(user);
     dataOnGoing.unshift({
@@ -340,14 +343,17 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-server.post("/new", upload.single("image"), function (req, res) {
-  // Kirim respons dengan dataOnGoing yang telah diperbarui
-  res.render("home", {
-    data: data,
-  });
+server.post("/new", upload.single("image"), async function (req, res) {
+  const token = req.body["g-recaptcha-response"];
+  const response = await axios.post(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET_KEY}&response=${token}`
+  );
+  if (!response.data.success) return res.json({ msg: "reCAPTCHA tidak valid" });
+
+  res.redirect("/");
 });
 
-const port = 1945;
+const port = 3000;
 const uri = process.env.MONGODBURI;
 mongoose
   .connect(uri, {
