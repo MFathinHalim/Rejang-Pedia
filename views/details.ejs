@@ -87,6 +87,8 @@
 
       // Copy the text inside the text field
       if (navigator.share) {
+        navigator.clipboard.writeText(copyText);
+
         navigator
           .share({
             title: "rejangpedia",
