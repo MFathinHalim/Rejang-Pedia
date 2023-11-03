@@ -238,7 +238,14 @@ server.get("/accept/:id", async function (req, res) {
 
     // Cek apakah dataOnGoing dengan ID tersebut sudah ada di data
     const existingDataIndex = data.findIndex((obj) => obj.id === req.params.id);
-
+    await goingModel
+      .deleteOne({ id: req.params.id })
+      .then(function () {
+        console.log("deleted"); // Success
+      })
+      .catch(function (error) {
+        console.log(error); // Failure
+      });
     if (existingDataIndex !== -1) {
       // Jika sudah ada, gantilah data di 'data' dengan data yang baru
       data[existingDataIndex] = acceptedData;
@@ -256,14 +263,6 @@ server.get("/accept/:id", async function (req, res) {
         Link: acceptedData.Link,
         Content: acceptedData.Content,
       });
-      await goingModel
-        .deleteOne({ id: req.params.id })
-        .then(function () {
-          console.log("deleted"); // Success
-        })
-        .catch(function (error) {
-          console.log(error); // Failure
-        });
     }
 
     // Hapus dataOnGoing berdasarkan ID
