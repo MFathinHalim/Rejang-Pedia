@@ -86,10 +86,18 @@
       var copyText = window.location.href;
 
       // Copy the text inside the text field
-      navigator.clipboard.writeText(copyText);
-
-      // Alert the copied text
-      alert("Udah Di Salin Nih, Silahkan Share Ke Orang Lain Ya ^_^");
+      if (navigator.share) {
+        navigator
+          .share({
+            title: "rejangpedia",
+            text: "artikel untuk sanak",
+            url: copyText,
+          })
+          .then(() => console.log("Successful share"))
+          .catch((error) => console.log("Error sharing", error));
+      } else {
+        navigator.clipboard.writeText(copyText);
+      }
     }
   </script>
 </html>
