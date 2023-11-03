@@ -48,14 +48,18 @@
     <%- include('navbar.ejs') -%>
 
     <div class="container">
-      <h1 class="mt-3">
-        <i class="fa fa-spinner" aria-hidden="true"></i> Data OnGoing
-      </h1>
-      <ul class="list-group">
+      <ul
+        class="list-group p-3"
+        style="
+          border-radius: 24px !important;
+          background: #0aa2c4ff !important;
+          list-style-type: none;
+        ">
+        <h1 class="mt-3">
+          <i class="fa fa-spinner" aria-hidden="true"></i> Data OnGoing
+        </h1>
         <% data.forEach(function(entry) { %>
-        <li
-          class="list-group-item listing m-2"
-          style="border-radius: 24px !important">
+        <li class="m-2" style="border-radius: 24px !important">
           <div class="listing-background">
             <img
               class="listing-image"
@@ -69,7 +73,7 @@
               src="<%= entry.Image %>"
               alt="<%= entry.Title %>" />
           </div>
-          <div class="listing-content">
+          <div>
             <div class="listing-info">
               <h3 class="listing-info-title"><%= entry.Title %></h3>
               <p>
@@ -104,9 +108,7 @@
         <hr class="hr" />
         <h1><i class="fa fa-list" aria-hidden="true"></i> Data Utama</h1>
         <% dataUtama.forEach(function(entry) { %>
-        <li
-          class="list-group-item listing m-2"
-          style="border-radius: 24px !important">
+        <li class="m-2" style="border-radius: 24px !important">
           <div class="listing-background">
             <img
               class="listing-image"

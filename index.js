@@ -63,6 +63,9 @@ server.get("/peraturan", function (req, res) {
 server.get("/tentang", function (req, res) {
   res.render("tentang");
 });
+server.get("/dropdown", function (req, res) {
+  res.render("dropdown");
+});
 
 server.get("/details/:id", function (req, res) {
   const theData = data.find((obj) => obj.id === req.params.id);
@@ -127,6 +130,7 @@ server.post("/edit/:id", async function (req, res) {
         req.params.id +
         ".jpg",
       Diedit: user.pembuat,
+      Link: user.link.replace("/watch?v=", "/embed/"),
       Content: JSON.parse(user.content),
     });
     await goingModel.create({
@@ -138,6 +142,7 @@ server.post("/edit/:id", async function (req, res) {
         req.params.id +
         ".jpg",
       Diedit: user.pembuat,
+      Link: user.link.replace("/watch?v=", "/embed/"),
       Content: JSON.parse(user.content),
     });
   } else {
@@ -150,6 +155,8 @@ server.post("/edit/:id", async function (req, res) {
         req.params.id +
         ".jpg",
       Diedit: user.pembuat,
+      Link: user.link.replace("/watch?v=", "/embed/"),
+
       Content: JSON.parse(user.content),
     });
     await goingModel.create({
@@ -161,6 +168,8 @@ server.post("/edit/:id", async function (req, res) {
         req.params.id +
         ".jpg",
       Diedit: user.pembuat,
+      Link: user.link.replace("/watch?v=", "/embed/"),
+
       Content: JSON.parse(user.content),
     });
   }
@@ -244,6 +253,7 @@ server.get("/accept/:id", async function (req, res) {
         Pembuat: acceptedData.Pembuat,
         Image: acceptedData.Image,
         Diedit: "",
+        Link: acceptedData.Link,
         Content: acceptedData.Content,
       });
       await goingModel
@@ -282,6 +292,7 @@ server.get("/accept/:id", async function (req, res) {
         Image: acceptedData.Image,
         Diedit: "",
         Content: acceptedData.Content,
+        Link: acceptedData.Link,
       });
       await goingModel.deleteOne({ id: req.params.id });
     }
@@ -324,6 +335,8 @@ const storage = multer.diskStorage({
         uniqueFileName +
         ".jpg",
       Diedit: "",
+      Link: user.link.replace("/watch?v=", "/embed/"),
+
       Content: JSON.parse(user.content),
     });
     await goingModel.create({
@@ -333,6 +346,9 @@ const storage = multer.diskStorage({
         "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
         uniqueFileName +
         ".jpg",
+      Pembuat: user.pembuat,
+      Link: user.link.replace("/watch?v=", "/embed/"),
+
       Content: JSON.parse(user.content),
     });
 

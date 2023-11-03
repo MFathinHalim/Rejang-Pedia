@@ -26,7 +26,7 @@
   </style>
   <body>
     <div class="container p-3">
-      <h1 class="display-4"><%= data.Title %></h1>
+      <h1><%= data.Title %></h1>
       <% if (data.Image) { %>
       <img
         src="<%= data.Image %>"
@@ -39,7 +39,30 @@
         "
         class="img-fluid"
         alt="Image" />
+      <br />
+      <% } %> <% if (data.Link) { %>
+      <h4 class="mt-2">
+        <i class="fa fa-youtube-play" aria-hidden="true"></i> Link Youtube:
+      </h4>
+      <iframe
+        style="
+          width: 460px; /* Default width for desktop */
+          height: 260px;
+          max-width: 100%; /* Ensure it's responsive */
+          border: 2px solid #ccc;
+          object-fit: cover;
+          border-radius: 24px;
+        "
+        class="img-fluid"
+        src="<%= data.Link %>">
+      </iframe>
       <% } %>
+
+      <br />
+      <button class="btn btn-info rounded-pill mt-3" onclick="search()">
+        <i class="fa fa-share" aria-hidden="true"></i>
+        Bagikan
+      </button>
       <div style="border-radius: 24px !important; background: #3f9f8dff">
         <% data.Content.forEach(function(bab) { %>
         <div class="my-4 p-3 text-white" style="color: white !important">
@@ -57,4 +80,16 @@
       </a>
     </div>
   </body>
+  <script>
+    function search() {
+      // Get the text field
+      var copyText = window.location.href;
+
+      // Copy the text inside the text field
+      navigator.clipboard.writeText(copyText);
+
+      // Alert the copied text
+      alert("Udah Di Salin Nih, Silahkan Share Ke Orang Lain Ya ^_^");
+    }
+  </script>
 </html>

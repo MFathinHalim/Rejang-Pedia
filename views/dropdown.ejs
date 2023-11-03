@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('import.ejs') -%>
+    <title>Edit</title>
+  </head>
+  <body>
+    <%- include('navbar.ejs') -%>
+
+    <div class="container mt-5 text-white">
+      <a
+        class="dropdown-item"
+        href="https://doma.mfathinhalim.repl.co"
+        id="hpDp">
+        <i class="fa fa-question-circle" aria-hidden="true"></i> Tentang Fathin
+      </a>
+      <div class="dropdown-divider"></div>
+
+      <h1 class="display-4">Tentang</h1>
+      <p>
+        rejangpedia adalah aplikasi yang dibuat dan dikembangkan oleh
+        <strong>M. FATHIN HALIM</strong>, siswa kelas VIII SMPN 1 rejang lebong.
+        Konsep dr rejangpedia adalah apalikasi all in dengan semangat gotong
+        royong dalam melestarikan budaya bengkulu pada umumnya dan rejang lebong
+        pada khususnya dalam bentuk digital literasi dimana setiap orang bisa
+        ikut berpartisipasi. Fitur yang sudah bisa dinikmati pada rejangpedia
+        saat ini yaitu artikel budaya, artikel umum, kamus kata bahasa rejang,
+        konverter kaganga. Kedepan Insyaallah akan terus dikembang dengan
+        menambah fitur media sosial dan kamus-kamus bahasa daerah lain yang ada
+        diwilayah Bengkulu. Setiap orang dapat ikut berpartisipasi dengan
+        menambahkan informasi dalam bentuk artikel dan kata-arti database kamus
+        dengan melalui filtering moderasi terlebih dahulu
+      </p>
+
+      <h3>Tujuan</h3>
+      <p>
+        Tujuan kami adalah untuk memberikan platform bagi pengguna untuk berbagi
+        pengetahuan dan informasi yang bermanfaat.
+      </p>
+
+      <h3>Ingin Ikut Membantu dalam RejangPedia ?</h3>
+      <p>
+        Bisa! Dengan Donasi ke Saweria anda dapat membantu kami dalam
+        pengembangan aplikasi ini!
+      </p>
+      <a href="https://saweria.co/domaTomoharu">Saweria!</a>
+      <div class="dropdown-divider"></div>
+
+      <h1 class="display-4">Peraturan</h1>
+      <h3>1. Pedoman Konten</h3>
+      <p>
+        Kami menghargai kontribusi pengguna, namun konten yang tidak sesuai
+        seperti konten berbahaya, spam, atau pelanggaran hak cipta akan dihapus.
+      </p>
+
+      <h3>2. Perlindungan Privasi</h3>
+      <p>
+        Kami menghormati privasi pengguna. Informasi pribadi tidak akan
+        dibagikan tanpa izin pengguna.
+      </p>
+
+      <h3>3. Hak Cipta</h3>
+      <p>
+        Seluruh konten yang diunggah ke Rejang Pedia harus mematuhi hak cipta.
+      </p>
+
+      <h3>4. Referensi</h3>
+      <p>Harap cantumkan Referensi yang anda gunakan.</p>
+    </div>
+  </body>
+  <script src="../index.js"></script>
+
+  <script>
+    function initializeQuillEditors() {
+      document.querySelectorAll(".quill-editor").forEach(function (element) {
+        const quill = new Quill(element, {
+          theme: "snow",
+        });
+      });
+    }
+
+    // Call the initialization function after adding dynamic content
+    initializeQuillEditors();
+  </script>
+</html>
