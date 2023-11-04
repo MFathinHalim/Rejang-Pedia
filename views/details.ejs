@@ -98,7 +98,12 @@
           .then(() => console.log("Successful share"))
           .catch((error) => console.log("Error sharing", error));
       } else {
-        navigator.clipboard.writeText(copyText);
+        try {
+          window.AndroidShareHandler.share(copyText);
+        } catch {
+          navigator.clipboard.writeText(copyText);
+          alert("Sudah Di Salin Ya, silahkan Beri ke Temanmu ya ^_^");
+        }
       }
     }
   </script>

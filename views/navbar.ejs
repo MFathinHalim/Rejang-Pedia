@@ -96,6 +96,9 @@
             <i class="fa fa-question-circle" aria-hidden="true"></i> Tentang
             Fathin
           </a>
+          <button class="dropdown-item" onclick="openApp()">
+            Buka di Aplikasi
+          </button>
         </div>
       </li>
     </ul>
@@ -214,4 +217,30 @@
     }
     prevScrollpos = currentScrollPos;
   };
+  function openApp() {
+    // Coba membuka tautan
+    if (navigator.supportedURLScheme) {
+      navigator.supportedURLScheme.open(
+        "rejang://pedia" +
+          window.location.href.replace(
+            "https://rejang-pedia.mfathinhalim.repl.co"
+          ),
+        function () {
+          // Tautan berhasil dibuka, tidak ada tindakan lanjutan diperlukan
+        },
+        function () {
+          // Tautan tidak dapat dibuka, tetap di halaman web saat ini
+          // Anda dapat menambahkan logika lain di sini jika diperlukan
+        }
+      );
+    } else {
+      // Tautan kustom akan digunakan jika navigator.supportedURLScheme tidak tersedia
+      window.location.href =
+        "rejang://pedia" +
+        window.location.href.replace(
+          "https://rejang-pedia.mfathinhalim.repl.co",
+          ""
+        );
+    }
+  }
 </script>
