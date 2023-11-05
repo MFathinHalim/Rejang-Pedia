@@ -63,11 +63,16 @@
         <i class="fa fa-share" aria-hidden="true"></i>
         Bagikan
       </button>
-      <div style="border-radius: 24px !important; background: #3f9f8dff">
+      <div
+        style="
+          border-radius: 24px !important;
+          background: #3f9f8dff;
+          color: white !important;
+        ">
         <% data.Content.forEach(function(bab) { %>
         <div class="my-4 p-3 text-white" style="color: white !important">
-          <h3><%= bab.babTitle %></h3>
-          <p><%- bab.babContent %></p>
+          <h3 style="color: white !important"><%= bab.babTitle %></h3>
+          <p style="color: white !important"><%- bab.babContent %></p>
         </div>
         <% }); %>
       </div>

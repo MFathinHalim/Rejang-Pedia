@@ -7,7 +7,31 @@
   </head>
   <body>
     <%- include('navbar.ejs') -%>
-
+    <style>
+      h1,
+      p,
+      h3 {
+        color: black !important;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #121212 !important; /* Warna biru tua */
+          color: #ffffff !important;
+        }
+        p,
+        h1,
+        h3,
+        button {
+          color: #ffffff !important;
+        }
+        img {
+          background-color: #f7fcfe !important;
+        }
+        #hpDp {
+          color: white !important;
+        }
+      }
+    </style>
     <div class="container mt-5 text-white">
       <a
         class="dropdown-item"

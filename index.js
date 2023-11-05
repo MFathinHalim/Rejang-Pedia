@@ -46,9 +46,20 @@ server.get("/", function (req, res) {
       item.Title.toLowerCase().includes("rejang") ||
       item.Title.toLowerCase().includes("bengkulu")
   );
+  const dataPilihan = [];
+  while (dataPilihan.length < 3) {
+    const random = Math.floor(Math.random() * filteredData.length);
+    const randomData = filteredData[random];
 
+    // Periksa apakah data tersebut sudah ada di dataPilihan
+    if (!dataPilihan.includes(randomData)) {
+      dataPilihan.push(randomData);
+    }
+  }
+  console.log(dataPilihan);
   res.render("home", {
     data: filteredData,
+    dataPilihan: dataPilihan,
   });
 });
 

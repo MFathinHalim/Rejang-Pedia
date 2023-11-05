@@ -35,10 +35,13 @@
       }
     }
     .card {
-      width: 18rem;
-      height: 16rem;
+      width: 230px;
+      height: 230px;
       border-radius: 24px;
     }
+    ::-webkit-scrollbar { 
+      display: none;  /* Safari and Chrome */
+  }
   </style>
   <body>
     <%- include('navbar.ejs') -%>
@@ -78,8 +81,8 @@
         ">
         <!-- Loop through your data to display articles that contain "rejang" -->
       </ul>
-      <div class="row">
-        <div class="col-12 col-md-4">
+      <div class="row flex-nowrap overflow-auto" style="max-width: 100%; overflow-x: auto">
+        <div class="col col-md-4">
           <% var op = Math.floor(Math.random()*data.length) %>
           <a
             class="card m-1"
@@ -111,10 +114,10 @@
             class="btn btn-primary m-1 rounded-pill border-0"
             style="background-color: #0d7502ff !important"
             ><i class="fa fa-chevron-right" aria-hidden="true"></i> Baco <%=
-            data[op].Title %>
+            data[op].Title.substring(0, 15)  %>...
           </a>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col col-md-4">
           <a
             class="card m-1"
             href="https://kamusrejang.rejanglebongkab.go.id"
@@ -142,7 +145,7 @@
             ><i class="fa fa-plus" aria-hidden="true"></i> Tambahkan Kata</a
           >
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col col-md-4">
           <a class="card m-1" style="background: url('/medsos.jpg')">
             <div class="card-body">
               <h5 class="card-title" style="color: black !important">
@@ -151,6 +154,40 @@
             </div>
           </a>
         </div>
+      </div>
+      <hr class="hr" />
+      <ul
+        class="list-group mt-2"
+        style="
+          background: #3f9f8dff;
+
+          border-radius: 24px 24px 0 0;
+        ">
+        <!-- Loop through your data to display articles that contain "rejang" -->
+      </ul>
+      <div class="p-1 mb-2 " style="max-width: 100%; border-radius: 24px; background: #3f9f8dff; color: white !important;">
+
+        <h3 class="ml-4 mt-3 mb-3" style="color: white !important;">Artikel Pilihan</h3>
+      <div class="row flex-nowrap overflow-auto m-1" style="overflow-x: auto">
+
+        <% dataPilihan.forEach(function(entry) { %> 
+          <% if (entry.Title.toLowerCase().includes("rejang") || entry.Title.toLowerCase().includes("bengkulu") || entry.Content[0].babTitle.toLowerCase().includes("rejang") || entry.Content[0].babTitle.toLowerCase().includes("bengkulu") || entry.Content[0].babContent.toLowerCase().includes("rejang") || entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
+            <div class="col col-md-4">
+              <a class="card m-1" href="/details/<%= entry.id %>" style="height:260px; border-radius: 24px; background: rgb(56, 151, 134); border: none; background-repeat: no-repeat; background-size: cover;">
+                <img class="card-img-top" style="height: 130px; width: 100%; border-radius: 24px 24px 0 0 !important; border: none;" src="<%= entry.Image %>"/>
+                  <div class="card-body">
+                    <h5 class="card-title" style="color: white !important;"><%= entry.Title %></h5>
+                    <p class="card-text" style="color: white !important;"><%- entry.Content[0].babContent.replace(/<[^>]+>/g,
+                      '').substring(0, 20) %>...</p>
+                  </div>
+              </a>
+            </div>
+          <% } %> 
+        <% }); %>
+      </div>
+    </div>
+
+      
       </div>
     </div>
 
