@@ -100,7 +100,7 @@ server.get("/dropdown", function(req, res) {
 
 server.get("/details/:id", function(req, res) {
   const theData = data.find((obj) => obj.id === req.params.id);
-  console.log(theData);
+  //console.log(theData);
   if (theData === null) {
     res.send("The Heck Bro");
   }
@@ -147,9 +147,9 @@ server.post("/edit/:id", async function(req, res) {
   );
   if (!response.data.success) return res.json({ msg: "reCAPTCHA tidak valid" });
   const acceptedData = data.find((obj) => obj.id === req.params.id);
-  console.log(acceptedData);
+  //console.log(acceptedData);
   const user = req.body;
-  console.log(user);
+  //console.log(user);
   if (acceptedData.Pembuat !== null) {
     dataOnGoing.unshift({
       id: req.params.id,
@@ -212,12 +212,12 @@ server.get("/delete/:id", async function(req, res) {
   mainModel
     .deleteOne({ id: req.params.id })
     .then(function() {
-      console.log("deleted"); // Success
+      //console.log("deleted"); // Success
     })
     .catch(function(error) {
-      console.log(error); // Failure
+      //console.log(error); // Failure
     });
-  console.log(data);
+  //console.log(data);
 
   res.redirect("/accept");
 });
@@ -227,10 +227,10 @@ server.get("/accept/delete/:id", async function(req, res) {
   goingModel
     .deleteOne({ id: req.params.id })
     .then(function() {
-      console.log("deleted"); // Success
+      //console.log("deleted"); // Success
     })
     .catch(function(error) {
-      console.log(error); // Failure
+      //console.log(error); // Failure
     });
 
   res.redirect("/accept");
@@ -271,10 +271,10 @@ server.get("/accept/:id", async function(req, res) {
     await goingModel
       .deleteOne({ id: req.params.id })
       .then(function() {
-        console.log("deleted"); // Success
+        //console.log("deleted"); // Success
       })
       .catch(function(error) {
-        console.log(error); // Failure
+        //console.log(error); // Failure
       });
     if (existingDataIndex !== -1) {
       // Jika sudah ada, gantilah data di 'data' dengan data yang baru
@@ -354,7 +354,7 @@ const storage = multer.diskStorage({
     const uniqueFileName = uuidv1();
 
     const user = req.body;
-    console.log(user);
+    //console.log(user);
     dataOnGoing.unshift({
       id: uniqueFileName,
       Title: user.title,
@@ -409,7 +409,7 @@ mongoose
   .then(() => {
     server.listen(port, () => {
       Host: process.env.NODE_ENV !== "production" ? "localhost" : "0.0.0.0";
-      console.log(`server is running on port ${port}`);
+      //console.log(`server is running on port ${port}`);
     });
   })
   .catch((error) => {
