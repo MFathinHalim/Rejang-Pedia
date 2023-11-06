@@ -68,13 +68,14 @@
       </div>
 
       <a href="/" class="btn btn-primary rounded-pill"
+      style="background: #7a7a7a !important; border: none;" 
         ><i class="fa fa-chevron-left" aria-hidden="true"></i> Kembali Ke
         Halaman Utama</a
       >
       <ul
         class="list-group mt-2"
+        id="pilihan"
         style="
-          background: #3f9f8dff;
 
           border-radius: 24px 24px 0 0;
         ">
@@ -88,7 +89,8 @@
         entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
         <li
           class="list-group-item listing border-0 text-white"
-          style="border-radius: 24px !important; background: #3f9f8dff">
+          id="pilihan"
+          style="border-radius: 24px !important;">
           <div class="listing-background">
             <img
               class="listing-image mr-2"
@@ -126,7 +128,7 @@
             </div>
           </div>
         </li>
-        <hr style="border: 1px solid white; width: 100% !important" />
+        <hr style="border: 1px solid #7a7a7a; width: 100% !important" />
         <% } %> <% }); %>
       </ul>
     </div>

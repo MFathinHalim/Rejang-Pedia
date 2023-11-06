@@ -27,12 +27,14 @@
       height: 10rem;
       width: 18rem; /* Ensure it's responsive */
     }
+    
     @media only screen and (max-width: 600px) {
       #logo {
         background-color: rgba(63, 159, 142, 0) !important;
         height: 28vw;
         width: 60vw; /* Ensure it's responsive */
       }
+
     }
     .card {
       width: 230px;
@@ -42,6 +44,7 @@
     ::-webkit-scrollbar { 
       display: none;  /* Safari and Chrome */
   }
+
   </style>
   <body>
     <%- include('navbar.ejs') -%>
@@ -165,7 +168,7 @@
         ">
         <!-- Loop through your data to display articles that contain "rejang" -->
       </ul>
-      <div class="p-1 mb-2 " style="max-width: 100%; border-radius: 24px; background: #3f9f8dff; color: white !important;">
+      <div class="p-1 mb-2 " id="pilihan" style="max-width: 100%; border-radius: 24px; color: white !important;">
 
         <h3 class="ml-4 mt-3 mb-3" style="color: white !important;">Artikel Pilihan</h3>
       <div class="row flex-nowrap overflow-auto m-1" style="overflow-x: auto">
@@ -173,7 +176,7 @@
         <% dataPilihan.forEach(function(entry) { %> 
           <% if (entry.Title.toLowerCase().includes("rejang") || entry.Title.toLowerCase().includes("bengkulu") || entry.Content[0].babTitle.toLowerCase().includes("rejang") || entry.Content[0].babTitle.toLowerCase().includes("bengkulu") || entry.Content[0].babContent.toLowerCase().includes("rejang") || entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
             <div class="col col-md-4">
-              <a class="card m-1" href="/details/<%= entry.id %>" style="height:260px; border-radius: 24px; background: rgb(56, 151, 134); border: none; background-repeat: no-repeat; background-size: cover;">
+              <a class="card m-1" id="card-pilihan" href="/details/<%= entry.id %>" style="height:260px; border-radius: 24px; border: none; background-repeat: no-repeat; background-size: cover;">
                 <img class="card-img-top" style="height: 130px; width: 100%; border-radius: 24px 24px 0 0 !important; border: none;" src="<%= entry.Image %>"/>
                   <div class="card-body">
                     <h5 class="card-title" style="color: white !important;"><%= entry.Title %></h5>
@@ -183,6 +186,26 @@
               </a>
             </div>
           <% } %> 
+        <% }); %>
+      </div>
+      <hr class="hr" style="border: 1px solid #7F8487;" />
+
+      <div class="p-1 mb-2 " id="pilihan" style="max-width: 100%; border-radius: 24px; color: white !important;">
+
+        <h3 class="ml-4 mt-3 mb-3" style="color: white !important;">Artikel Acak</h3>
+      <div class="row flex-nowrap overflow-auto m-1" style="overflow-x: auto">
+
+        <% dataAcak.forEach(function(entry) { %> 
+            <div class="col col-md-4">
+              <a class="card m-1" id="card-pilihan" href="/details/<%= entry.id %>" style="height:260px; border-radius: 24px; border: none; background-repeat: no-repeat; background-size: cover;">
+                <img class="card-img-top" style="height: 130px; width: 100%; border-radius: 24px 24px 0 0 !important; border: none;" src="<%= entry.Image %>"/>
+                  <div class="card-body">
+                    <h5 class="card-title" style="color: white !important;"><%= entry.Title %></h5>
+                    <p class="card-text" style="color: white !important;"><%- entry.Content[0].babContent.replace(/<[^>]+>/g,
+                      '').substring(0, 20) %>...</p>
+                  </div>
+              </a>
+            </div>
         <% }); %>
       </div>
     </div>

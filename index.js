@@ -46,22 +46,42 @@ server.get("/", function (req, res) {
       item.Title.toLowerCase().includes("rejang") ||
       item.Title.toLowerCase().includes("bengkulu")
   );
+
+  // Buat Set untuk melacak data yang sudah ada
+  const existingData = new Set();
   const dataPilihan = [];
+  const dataAcak = [];
+
   while (dataPilihan.length < 3) {
     const random = Math.floor(Math.random() * filteredData.length);
     const randomData = filteredData[random];
 
-    // Periksa apakah data tersebut sudah ada di dataPilihan
-    if (!dataPilihan.includes(randomData)) {
+    if (!existingData.has(randomData)) {
       dataPilihan.push(randomData);
+      existingData.add(randomData);
     }
   }
+
+  // Buat Set untuk melacak data yang sudah ada dalam dataPilihan
+  const existingDataPilihan = new Set(dataPilihan);
+
+  while (dataAcak.length < 3) {
+    const random2 = Math.floor(Math.random() * data.length);
+    const randomData2 = data[random2];
+
+    if (!existingData.has(randomData2) && !existingDataPilihan.has(randomData2)) {
+      dataAcak.push(randomData2);
+    }
+  }
+
   console.log(dataPilihan);
   res.render("home", {
     data: filteredData,
     dataPilihan: dataPilihan,
+    dataAcak: dataAcak,
   });
 });
+
 
 server.get("/new", function (req, res) {
   res.render("new");
