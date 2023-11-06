@@ -39,7 +39,9 @@ goingModel.find({}, null).then((docs) => {
   dataOnGoing = docs;
 });
 
-server.get("/", function (req, res) {
+
+
+server.get("/", function(req, res) {
   // Filter data berdasarkan properti Title
   var filteredData = data.filter(
     (item) =>
@@ -52,7 +54,7 @@ server.get("/", function (req, res) {
   const dataPilihan = [];
   const dataAcak = [];
 
-  while (dataPilihan.length < 3) {
+  for (i = 0; i<3; i++) {
     const random = Math.floor(Math.random() * filteredData.length);
     const randomData = filteredData[random];
 
@@ -65,7 +67,7 @@ server.get("/", function (req, res) {
   // Buat Set untuk melacak data yang sudah ada dalam dataPilihan
   const existingDataPilihan = new Set(dataPilihan);
 
-  while (dataAcak.length < 3) {
+  for (i = 0; i<3; i++) {
     const random2 = Math.floor(Math.random() * data.length);
     const randomData2 = data[random2];
 
@@ -73,8 +75,6 @@ server.get("/", function (req, res) {
       dataAcak.push(randomData2);
     }
   }
-
-  console.log(dataPilihan);
   res.render("home", {
     data: filteredData,
     dataPilihan: dataPilihan,
@@ -83,24 +83,24 @@ server.get("/", function (req, res) {
 });
 
 
-server.get("/new", function (req, res) {
+server.get("/new", function(req, res) {
   res.render("new");
 });
 
-server.get("/peraturan", function (req, res) {
+server.get("/peraturan", function(req, res) {
   res.render("peraturan");
 });
 
-server.get("/tentang", function (req, res) {
+server.get("/tentang", function(req, res) {
   res.render("tentang");
 });
-server.get("/dropdown", function (req, res) {
+server.get("/dropdown", function(req, res) {
   res.render("dropdown");
 });
 
-server.get("/details/:id", function (req, res) {
+server.get("/details/:id", function(req, res) {
   const theData = data.find((obj) => obj.id === req.params.id);
-  console.log(theData);
+  //console.log(theData);
   if (theData === null) {
     res.send("The Heck Bro");
   }
@@ -109,9 +109,8 @@ server.get("/details/:id", function (req, res) {
   });
 });
 
-server.get("/details/ongoing/:id", function (req, res) {
+server.get("/details/ongoing/:id", function(req, res) {
   const theData = dataOnGoing.find((obj) => obj.id === req.params.id);
-  console.log(theData);
   if (theData === null) {
     res.send("The Heck Bro");
   }
@@ -120,7 +119,7 @@ server.get("/details/ongoing/:id", function (req, res) {
   });
 });
 
-server.get("/edit/:id", function (req, res) {
+server.get("/edit/:id", function(req, res) {
   const theData = data.find((obj) => obj.id === req.params.id);
   if (theData === null) {
     res.send("The Heck Bro");
@@ -129,7 +128,7 @@ server.get("/edit/:id", function (req, res) {
     data: theData,
   });
 });
-server.get("/search", function (req, res) {
+server.get("/search", function(req, res) {
   const searchTerm = req.query.term;
   // Lakukan pencarian berdasarkan `searchTerm` di data Anda
   const searchResults = data.filter((item) =>
@@ -141,16 +140,16 @@ server.get("/search", function (req, res) {
   });
 });
 
-server.post("/edit/:id", async function (req, res) {
+server.post("/edit/:id", async function(req, res) {
   const token = req.body["g-recaptcha-response"];
   const response = await axios.post(
     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET_KEY}&response=${token}`
   );
   if (!response.data.success) return res.json({ msg: "reCAPTCHA tidak valid" });
   const acceptedData = data.find((obj) => obj.id === req.params.id);
-  console.log(acceptedData);
+  //console.log(acceptedData);
   const user = req.body;
-  console.log(user);
+  //console.log(user);
   if (acceptedData.Pembuat !== null) {
     dataOnGoing.unshift({
       id: req.params.id,
@@ -208,36 +207,36 @@ server.post("/edit/:id", async function (req, res) {
   res.redirect("/");
 });
 
-server.get("/delete/:id", async function (req, res) {
+server.get("/delete/:id", async function(req, res) {
   data = data.filter((obj) => obj.id !== req.params.id);
   mainModel
     .deleteOne({ id: req.params.id })
-    .then(function () {
-      console.log("deleted"); // Success
+    .then(function() {
+      //console.log("deleted"); // Success
     })
-    .catch(function (error) {
-      console.log(error); // Failure
+    .catch(function(error) {
+      //console.log(error); // Failure
     });
-  console.log(data);
+  //console.log(data);
 
   res.redirect("/accept");
 });
 
-server.get("/accept/delete/:id", async function (req, res) {
+server.get("/accept/delete/:id", async function(req, res) {
   dataOnGoing = dataOnGoing.filter((obj) => obj.id !== req.params.id);
   goingModel
     .deleteOne({ id: req.params.id })
-    .then(function () {
-      console.log("deleted"); // Success
+    .then(function() {
+      //console.log("deleted"); // Success
     })
-    .catch(function (error) {
-      console.log(error); // Failure
+    .catch(function(error) {
+      //console.log(error); // Failure
     });
 
   res.redirect("/accept");
 });
 
-server.get("/accept/:id", async function (req, res) {
+server.get("/accept/:id", async function(req, res) {
   const acceptedData = dataOnGoing.find((obj) => obj.id === req.params.id);
 
   if (!acceptedData) {
@@ -271,11 +270,11 @@ server.get("/accept/:id", async function (req, res) {
     const existingDataIndex = data.findIndex((obj) => obj.id === req.params.id);
     await goingModel
       .deleteOne({ id: req.params.id })
-      .then(function () {
-        console.log("deleted"); // Success
+      .then(function() {
+        //console.log("deleted"); // Success
       })
-      .catch(function (error) {
-        console.log(error); // Failure
+      .catch(function(error) {
+        //console.log(error); // Failure
       });
     if (existingDataIndex !== -1) {
       // Jika sudah ada, gantilah data di 'data' dengan data yang baru
@@ -334,28 +333,28 @@ server.get("/accept/:id", async function (req, res) {
   }
 });
 
-server.get("/accept/", function (req, res) {
+server.get("/accept/", function(req, res) {
   res.render("ongoing", {
     data: dataOnGoing,
     dataUtama: data,
   });
 });
 
-server.get("/data/", function (req, res) {
+server.get("/data/", function(req, res) {
   res.render("data", {
     data: data,
   });
 });
 // New Post
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function(req, file, cb) {
     cb(null, "public/images/uploads");
   },
-  filename: async function (req, file, cb) {
+  filename: async function(req, file, cb) {
     const uniqueFileName = uuidv1();
 
     const user = req.body;
-    console.log(user);
+    //console.log(user);
     dataOnGoing.unshift({
       id: uniqueFileName,
       Title: user.title,
@@ -389,7 +388,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-server.post("/new", upload.single("image"), async function (req, res) {
+server.post("/new", upload.single("image"), async function(req, res) {
   const token = req.body["g-recaptcha-response"];
   const response = await axios.post(
     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_RECAPTCHA_SECRET_KEY}&response=${token}`
@@ -410,7 +409,7 @@ mongoose
   .then(() => {
     server.listen(port, () => {
       Host: process.env.NODE_ENV !== "production" ? "localhost" : "0.0.0.0";
-      console.log(`server is running on port ${port}`);
+      //console.log(`server is running on port ${port}`);
     });
   })
   .catch((error) => {
