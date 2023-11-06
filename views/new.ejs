@@ -21,6 +21,10 @@
           <input type="text" id="title" name="title" class="form-control" />
         </div>
         <div class="form-group">
+          <label for="link">Link Video (Optional):</label>
+          <input type="text" id="link" name="link" class="form-control" />
+        </div>
+        <div class="form-group">
           <label for="pembuat">Pembuat (Optional):</label>
           <input type="text" id="pembuat" name="pembuat" class="form-control" />
         </div>
@@ -29,7 +33,25 @@
 
         <div class="form-group">
           <label for="image">Cover Image:</label>
-          <input type="file" name="image" class="form-control-file" required />
+          <input
+            type="file"
+            name="image"
+            id="image"
+            class="form-control-file"
+            required />
+        </div>
+        <div class="form-group">
+          <img
+            id="preview"
+            style="
+              width: 460px; /* Default width for desktop */
+              max-width: 100%; /* Ensure it's responsive */
+              border: 2px solid #ccc;
+              object-fit: cover;
+              border-radius: 24px;
+            "
+            class="img-fluid"
+            alt="Image" />
         </div>
 
         <button type="button" id="addBab" class="btn btn-primary">
@@ -51,5 +73,20 @@
     </div>
 
     <script src="../index.js"></script>
+    <script>
+      const input = document.getElementById("image");
+      const previewPhoto = () => {
+        const file = input.files;
+        if (file) {
+          const fileReader = new FileReader();
+          const preview = document.getElementById("preview");
+          fileReader.onload = function (event) {
+            preview.setAttribute("src", event.target.result);
+          };
+          fileReader.readAsDataURL(file[0]);
+        }
+      };
+      input.addEventListener("change", previewPhoto);
+    </script>
   </body>
 </html>

@@ -2,6 +2,10 @@
   #khususHp {
     display: none;
   }
+  #khususHpBawah {
+    display: none;
+    transition: all 0.3s ease-in-out; /* Animasi smooth */
+  }
   @media only screen and (max-width: 600px) {
     #khususDekstop {
       display: none;
@@ -9,14 +13,22 @@
     #khususHp {
       display: block;
     }
-    body {
-      padding-bottom: 76px;
+    #khususHpBawah {
+      display: block;
     }
 
     #khususHp .nav-link i {
       font-size: 1.3rem;
     }
     #khususHp .nav-link .d-block {
+      font-size: 0.8rem;
+      color: rgb(199, 199, 199);
+    }
+
+    #khususHpBawah .nav-link i {
+      font-size: 1.3rem;
+    }
+    #khususHpBawah .nav-link .d-block {
       font-size: 0.8rem;
       color: rgb(199, 199, 199);
     }
@@ -83,6 +95,9 @@
             <i class="fa fa-question-circle" aria-hidden="true"></i> Tentang
             Fathin
           </a>
+          <button class="dropdown-item" onclick="openApp()">
+            Buka di Aplikasi
+          </button>
         </div>
       </li>
     </ul>
@@ -123,17 +138,50 @@
         </a>
       </div>
       <div class="col-3 text-right">
-        <a class="navbar-brand" href="/">
+        <button
+    class=" navbar-brand border-0"
+    style="border-radius: 0; background: rgba(0,0,0,0) !important;"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation">
           <i class="fa fa-search" style="color: white !important"></i>
-        </a>
+  </button>
       </div>
+
+
+  <div class="collapse navbar-collapse p-3" id="navbarSupportedContent">
+    <!-- Centered navigation items -->
+    <div class="form-inline my-2 my-lg-0">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control search-input mr-1"
+          style="border-radius: 12px 8px 8px 12px; padding: 15px; width: 120px"
+          id="searchInputNavv"
+          placeholder="Mau Cari Apa Sanak..."
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-primary border-0 mr-1"
+            id="searchButtonNavv"
+            style="border-radius: 8px 12px 12px 8px !important"
+          >
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
     </div>
   </div>
 </nav>
 
 <nav
-  class="navbar fixed-bottom navbar-expand navbar-light bg-light"
-  id="khususHp">
+  class="navbar fixed-bottom bawah navbar-expand navbar-light bg-light"
+  id="khususHpBawah">
   <ul class="navbar-nav nav-justified w-100">
     <li class="nav-item">
       <a class="nav-link text-white" href="/">
@@ -184,4 +232,66 @@
       window.location.href = `/search?term=${searchTerm}`;
     }
   });
+
+  document
+    .getElementById("searchButtonNavv")
+    .addEventListener("click", function () {
+      // Dapatkan teks pencarian
+      const searchTerm = document.getElementById("searchInputNavv").value;
+
+      // Redirect ke halaman hasil pencarian
+      window.location.href = `/search?term=${searchTerm}`;
+    });
+  const searchInputNavv = document.getElementById("searchInputNavv");
+  searchInputNavv.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      // Dapatkan teks pencarian
+      const searchTerm = searchInputNavv.value;
+
+      // Redirect ke halaman hasil pencarian
+      window.location.href = `/search?term=${searchTerm}`;
+    }
+  });
+
+  var prevScrollpos = window.pageYOffset;
+  window.onscroll = function () {
+    var currentScrollPos = window.pageYOffset;
+    var bawahNavbar = document.getElementById("khususHpBawah");
+    var atasNavbar = document.getElementById("khususHp");
+
+    if (prevScrollpos > currentScrollPos) {
+      // Scroll ke atas, tampilkan navbar khusus HP
+      bawahNavbar.style.bottom = "0";
+    } else {
+      // Scroll ke bawah, sembunyikan navbar khusus HP
+      bawahNavbar.style.bottom = "-100px"; // Ubah sesuai dengan tinggi navbar
+    }
+    prevScrollpos = currentScrollPos;
+  };
+  function openApp() {
+    // Coba membuka tautan
+    if (navigator.supportedURLScheme) {
+      navigator.supportedURLScheme.open(
+        "rejang://pedia" +
+          window.location.href.replace(
+            "https://rejang-pedia.mfathinhalim.repl.co"
+          ),
+        function () {
+          // Tautan berhasil dibuka, tidak ada tindakan lanjutan diperlukan
+        },
+        function () {
+          // Tautan tidak dapat dibuka, tetap di halaman web saat ini
+          // Anda dapat menambahkan logika lain di sini jika diperlukan
+        }
+      );
+    } else {
+      // Tautan kustom akan digunakan jika navigator.supportedURLScheme tidak tersedia
+      window.location.href =
+        "rejang://pedia" +
+        window.location.href.replace(
+          "https://rejang-pedia.mfathinhalim.repl.co",
+          ""
+        );
+    }
+  }
 </script>

@@ -6,6 +6,7 @@ const postSchema = new Schema({
   Image: String,
   Pembuat: String,
   Diedit: String,
+  Link: String,
   Content: [
     {
       babTitle: String,

@@ -47,10 +47,41 @@ server.get("/", function (req, res) {
       item.Title.toLowerCase().includes("bengkulu")
   );
 
+  // Buat Set untuk melacak data yang sudah ada
+  const existingData = new Set();
+  const dataPilihan = [];
+  const dataAcak = [];
+
+  while (dataPilihan.length < 3) {
+    const random = Math.floor(Math.random() * filteredData.length);
+    const randomData = filteredData[random];
+
+    if (!existingData.has(randomData)) {
+      dataPilihan.push(randomData);
+      existingData.add(randomData);
+    }
+  }
+
+  // Buat Set untuk melacak data yang sudah ada dalam dataPilihan
+  const existingDataPilihan = new Set(dataPilihan);
+
+  while (dataAcak.length < 3) {
+    const random2 = Math.floor(Math.random() * data.length);
+    const randomData2 = data[random2];
+
+    if (!existingData.has(randomData2) && !existingDataPilihan.has(randomData2)) {
+      dataAcak.push(randomData2);
+    }
+  }
+
+  console.log(dataPilihan);
   res.render("home", {
     data: filteredData,
+    dataPilihan: dataPilihan,
+    dataAcak: dataAcak,
   });
 });
+
 
 server.get("/new", function (req, res) {
   res.render("new");
@@ -130,6 +161,7 @@ server.post("/edit/:id", async function (req, res) {
         req.params.id +
         ".jpg",
       Diedit: user.pembuat,
+      Link: user.link.replace("/watch?v=", "/embed/"),
       Content: JSON.parse(user.content),
     });
     await goingModel.create({
@@ -141,6 +173,7 @@ server.post("/edit/:id", async function (req, res) {
         req.params.id +
         ".jpg",
       Diedit: user.pembuat,
+      Link: user.link.replace("/watch?v=", "/embed/"),
       Content: JSON.parse(user.content),
     });
   } else {
@@ -153,6 +186,8 @@ server.post("/edit/:id", async function (req, res) {
         req.params.id +
         ".jpg",
       Diedit: user.pembuat,
+      Link: user.link.replace("/watch?v=", "/embed/"),
+
       Content: JSON.parse(user.content),
     });
     await goingModel.create({
@@ -164,6 +199,8 @@ server.post("/edit/:id", async function (req, res) {
         req.params.id +
         ".jpg",
       Diedit: user.pembuat,
+      Link: user.link.replace("/watch?v=", "/embed/"),
+
       Content: JSON.parse(user.content),
     });
   }
@@ -232,7 +269,14 @@ server.get("/accept/:id", async function (req, res) {
 
     // Cek apakah dataOnGoing dengan ID tersebut sudah ada di data
     const existingDataIndex = data.findIndex((obj) => obj.id === req.params.id);
-
+    await goingModel
+      .deleteOne({ id: req.params.id })
+      .then(function () {
+        console.log("deleted"); // Success
+      })
+      .catch(function (error) {
+        console.log(error); // Failure
+      });
     if (existingDataIndex !== -1) {
       // Jika sudah ada, gantilah data di 'data' dengan data yang baru
       data[existingDataIndex] = acceptedData;
@@ -247,16 +291,9 @@ server.get("/accept/:id", async function (req, res) {
         Pembuat: acceptedData.Pembuat,
         Image: acceptedData.Image,
         Diedit: "",
+        Link: acceptedData.Link,
         Content: acceptedData.Content,
       });
-      await goingModel
-        .deleteOne({ id: req.params.id })
-        .then(function () {
-          console.log("deleted"); // Success
-        })
-        .catch(function (error) {
-          console.log(error); // Failure
-        });
     }
 
     // Hapus dataOnGoing berdasarkan ID
@@ -285,6 +322,7 @@ server.get("/accept/:id", async function (req, res) {
         Image: acceptedData.Image,
         Diedit: "",
         Content: acceptedData.Content,
+        Link: acceptedData.Link,
       });
       await goingModel.deleteOne({ id: req.params.id });
     }
@@ -327,6 +365,8 @@ const storage = multer.diskStorage({
         uniqueFileName +
         ".jpg",
       Diedit: "",
+      Link: user.link.replace("/watch?v=", "/embed/"),
+
       Content: JSON.parse(user.content),
     });
     await goingModel.create({
@@ -336,6 +376,9 @@ const storage = multer.diskStorage({
         "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
         uniqueFileName +
         ".jpg",
+      Pembuat: user.pembuat,
+      Link: user.link.replace("/watch?v=", "/embed/"),
+
       Content: JSON.parse(user.content),
     });
 

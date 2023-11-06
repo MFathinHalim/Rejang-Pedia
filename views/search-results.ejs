@@ -8,12 +8,18 @@
   <body>
     <%- include('navbar.ejs') -%>
 
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
       <h1 class="display-4">Iko Kan Sanak?</h1>
-      <ul class="list-group">
-        <% results.forEach(function (result) { %>
-        <li class="list-group-item">
-          <div class="d-flex align-items-center">
+      <ul
+        class="list-group"
+        id="pilihan"
+        style="
+          border-radius: 24px !important;
+          list-style-type: none;
+        ">
+        <% results.forEach(function (result, index) { %>
+        <li>
+          <div class="d-flex align-items-center m-3">
             <img
               class="listing-image"
               style="
@@ -29,19 +35,25 @@
             <a
               class="mt-2"
               href="/details/<%= result.id %>"
-              style="color: #0aa2c4ff !important; margin-left: 20px">
+              style="color: #f7ffff !important; margin-left: 20px">
               <h4><%= result.Title %></h4>
-              <p>
+              <p style="color: white !important">
                 <%- result.Content[0].babContent.replace(/<[^>]+>/g,
                 '').substring(0, 20) %>...
               </p>
             </a>
           </div>
-          <hr class="hr" />
+          <% if (index !== results.length - 1) { %>
+          <hr class="hr" style="border-top: 1px solid white" />
+          <% } %>
         </li>
 
         <% }); %>
-        <h5>Dak Do Lagi lah..</h5>
+        <div class="d-flex align-items-center m-3">
+          <a class="mt-2" style="color: #f7ffff !important; margin-left: 20px">
+            <h4>Dak Do Lagi lah..</h4>
+          </a>
+        </div>
       </ul>
     </div>
   </body>
