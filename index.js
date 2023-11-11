@@ -81,64 +81,7 @@ userModel.find({}, null).then(docs => { users = docs })
  */
 var shuf = true; //* for shuffle
 var postCounter = 0;
-async function post(data, noteContent, noteName, noteId, color, model, file, res) {
-  try {
-    if (noteContent.trim() !== "" && noteName.trim() !== "") {
-      //TODO next we will add the post to database first.
-      await model.create({ noteContent, noteName, noteId, color, comment: [], like: 0})
-      data.unshift({ noteId, noteContent, noteName, like: 0, comment: [], color })
-      shuf = false
-    }
-    if (file) {
-      const ext = file.filename.split(".")[file.filename.split(".").length - 1]
-      if (ext == "jpg") {
-        console.log(file)
-        fs.readFile(path.join(__dirname, '/public/images/uploads', 'image-'+(data.length + 99)+'.jpg'), async function(err, data) {
-          if (err) throw err; // Fail if the file can't be read.
-          await imagekit.upload({
-            file : data, //required
-            fileName : 'image-'+noteId+'.jpg', //required
-            folder: "/RejangConnection",
-            useUniqueFileName: false,
-          }, function(error, result) {
-            if(error) console.log(error);
-            else console.log(result);
-            res.redirect("/chat")
-          });
-        });
-        const imageFileName = `image-${data.length + 99}.jpg`;
-        const imageFilePath = path.join(__dirname, '/public/images/uploads', imageFileName);
-        if (fs.existsSync(imageFilePath)) {
-          fs.unlinkSync(imageFilePath);
-        }
-      }else if(ext == "mp4"){
-        console.log(file)
-        fs.readFile(path.join(__dirname, '/public/videos', 'video-'+data.length + 99+'.mp4'), async function(err, data) {
-          if (err) throw err; // Fail if the file can't be read.
-          await imagekit.upload({
-            file : data, //required
-            fileName : 'video-'+noteId+'.mp4', //required
-            useUniqueFileName: false,
-          }, function(error, result) {
-            if(error) console.log(error);
-            else console.log(result);
-            res.redirect("/chat")
-          });
-        });
-        const imageFileName = `video-${noteId}.mp4`;
-        const imageFilePath = path.join(__dirname, '/public/videos', imageFileName);
-        if (fs.existsSync(imageFilePath)) {
-          fs.unlinkSync(imageFilePath);
-        }
-      }
-    }
-    res.redirect("/chat")
 
-  } catch (err) {
-    console.error(err)
-  }
-}
-//==================
 const server = express();
 server.set("view engine", "ejs");
 server.use(express.static(path.join(__dirname, "/public")));
@@ -552,9 +495,65 @@ server.post("/new", upload.single("image"), async function(req, res) {
 });
 //===============================================================
 //MEDSOOOOOS
+async function post(data, noteContent, noteName, noteId, color, model, file, res) {
+  try {
+    if (noteContent.trim() !== "" && noteName.trim() !== "") {
+      //TODO next we will add the post to database first.
+      await model.create({ noteContent, noteName, noteId, color, comment: [], like: 0})
+      data.unshift({ noteId, noteContent, noteName, like: 0, comment: [], color })
+      shuf = false
+    }
+    if (file) {
+      const ext = file.filename.split(".")[file.filename.split(".").length - 1]
+      if (ext == "jpg") {
+        console.log(file)
+        fs.readFile(path.join(__dirname, '/public/images/uploads', 'image-'+(data.length + 99)+'.jpg'), async function(err, data) {
+          if (err) throw err; // Fail if the file can't be read.
+          await imagekit.upload({
+            file : data, //required
+            fileName : 'image-'+noteId+'.jpg', //required
+            folder: "/RejangConnection",
+            useUniqueFileName: false,
+          }, function(error, result) {
+            if(error) console.log(error);
+            else console.log(result);
+            res.redirect("/chat")
+          });
+        });
+        const imageFileName = `image-${data.length + 99}.jpg`;
+        const imageFilePath = path.join(__dirname, '/public/images/uploads', imageFileName);
+        if (fs.existsSync(imageFilePath)) {
+          fs.unlinkSync(imageFilePath);
+        }
+      }else if(ext == "mp4"){
+        console.log(file)
+        fs.readFile(path.join(__dirname, '/public/videos', 'video-'+data.length + 99+'.mp4'), async function(err, data) {
+          if (err) throw err; // Fail if the file can't be read.
+          await imagekit.upload({
+            file : data, //required
+            fileName : 'video-'+noteId+'.mp4', //required
+            useUniqueFileName: false,
+          }, function(error, result) {
+            if(error) console.log(error);
+            else console.log(result);
+            res.redirect("/chat")
+          });
+        });
+        const imageFileName = `video-${noteId}.mp4`;
+        const imageFilePath = path.join(__dirname, '/public/videos', imageFileName);
+        if (fs.existsSync(imageFilePath)) {
+          fs.unlinkSync(imageFilePath);
+        }
+      }
+    }
+    res.redirect("/chat")
+
+  } catch (err) {
+    console.error(err)
+  }
+}
 //==================
 var dataSocial = []
-
 socialModel.find({}, null).then((docs) => {
   dataSocial = docs;
   console.log(dataSocial)
