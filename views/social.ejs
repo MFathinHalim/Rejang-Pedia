@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+  <!-- Header -->
+  <head>
+    <title>rejangpedia</title>
+    <link rel="icon" href="images/logo.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2998592050723815"
+      crossorigin="anonymous"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-EH2KLaN0StGPTkBD1a9/9gNJiMcKj1S1rqAMH6w7P6iQ12rsyz4cUpnD4et4leGv"
+      crossorigin="anonymous"></script>
+  </head>
+  <%- include('top.html') -%>
+
+  <!-- Script -->
+  <!--JS-->
+  <script src="/js/main.js"></script>
+  <script>
+    // Fungsi untuk menampilkan form komentar
+    function showComment(noteId) {
+      var x = document.getElementById("testt" + noteId);
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  </script>
+  <script>
+    function previewImage(event) {
+      var imageElement = document.getElementById("imagePreview");
+      var fileInput = event.target;
+      var file = fileInput.files[0];
+
+      if (file) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          imageElement.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        imageElement.src = ""; // Clear the preview if no image is selected
+      }
+    }
+  </script>
+  <!-- Body(Tampilan) -->
+  <body style="background: #000000">
+        <%- include('navbarSocial.ejs') -%>
+
+    <div id="phone">
+      <div id="main-wrapper" class="fancy-scrollbar">
+        
+        <!-- Tampilan Pada Aplikasi agar tidak mengganggu Sidebar -->
+        <div
+          class="container-fluid mt-4"
+          style="
+            border-radius: 32px 32px 0px 0px;
+            background: linear-gradient(
+              180deg,
+              #39375B 100%,
+              rgba(78, 79, 235, 0) 100%
+            );
+            padding-bottom: 50px;">
+          <div class="text-center mb-4" id="tentang">
+            <div
+              class="card"
+              style="
+                margin-top: 20px;
+                border-radius: 7px;
+                background: rgba(217, 217, 217, 0);
+                border: 0;
+              ">
+              <div class="card-body text-white">
+                <!-- Form untuk Posting -->
+                <h4 id="greeting">Halo</h4>
+<form action="/chat" method="post" id="add" enctype="multipart/form-data">
+                  <input type="number" name="noteId" hidden />
+                  <!-- noteId (Seperti Biasa) -->
+                  <input
+                    type="number"
+                    name="noteColor"
+                    id="noteColor"
+                    value="0"
+                    hidden />
+                    <label for="noteContent">Tulis Apa Yang Terjadi!</label>
+                  <textarea
+                    class="form-control text-white"
+                    rows="6"
+                    placeholder="Tulis Apa Yang Terjadi!"
+                    name="noteContent"></textarea>
+                  <!-- Mengenai apa yang ingin diposting -->
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control input"
+                      placeholder="Judul Diskusi"
+                      id="noteName"
+                      name="noteName" 
+                      style="display: none"/>
+                  </div>
+                  <!-- Nama -->
+                  <img
+                    id="imagePreview"
+                    src="https://www.preview.ph/preview-2.jpg"
+                    alt="Preview"
+                    style="
+                      max-width: 100%;
+                      max-height: 200px;
+                      margin: 10px;
+                      border-radius: 33px;
+                    " />
+                  <div class="form-group">
+                    <input type="file" class="form-control-file" name="image" id="choose" style="display: none" onchange="previewImage(event)" />
+                    <label for="choose" class="btn btn-primary" style="border-radius: 33px; background: rgba(255, 255, 255, 0.33);">Pilih Gambar!</label>
+                    <button
+                      data-sitekey="6LfslRQoAAAAAHVBGwEVitjEQSjCD6F8unKDUdct"
+                      data-callback="onSubmit"
+                      name="g-recaptcha-response"
+                      class="g-recaptcha btn btn-primary"
+                      data-action="submit"
+                      type="submit"
+                      style="border-radius: 33px; background: rgba(255, 255, 255, 0.33);">
+                      Posting!
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <hr class="hr text-white" />
+          <% data.forEach(element => { %>
+                    <hr class="border-white"/>
+
+          <div
+            id="cardp<%= element.noteId %>"
+            class="card mb-3 text-white"
+            style="border-radius: 38px; background: rgba(255, 255, 255, 0); border: none;">
+            <div class="card-body rounded">
+              <a class="card-title" href="https://rejangpedia-connect.mfathinhalim.repl.co/<%= element.noteName %>">
+                <strong><p><%= element.noteName %></p>
+</strong>
+                
+              </a>
+              <button
+                  onclick="share('<%= element.noteId %>')"
+                  class="btn btn-primaryy m-4"
+                  style="
+                    color: rgb(255, 255, 255);
+                    border-radius: 24px;
+                    background: rgba(77, 78, 231, 0.76);
+                  ">
+                  <ion-icon name="share-social-outline"></ion-icon>
+                </button>
+              <p class="card-text"><%= element.noteContent %></p>
+
+              <img
+                class="img-fluid"
+                name="img"
+                src="https://ik.imagekit.io/9hpbqscxd/RejangConnection/image-<%= element.noteId %>.jpg"
+                onerror="this.remove();"
+                alt="Gambar"
+                style="object-fit: cover; border-radius: 24px" />
+              <div
+                class="d-flex justify-content-between align-items-center m-4">
+                <form
+                  action="/like/<%= element.noteId %>"
+                  method="post"
+                  enctype="multipart/form-data">
+                  <button
+                    type="submit"
+                    class="btn btn-primary p-3 rounded-pill"
+                    style="background: #4d4ee7">
+<ion-icon name="thumbs-up-sharp"></ion-icon>                  </button>
+                </form>
+
+                <script>
+                  function share(text) {
+                    var copyText =
+                      "https://rejangpedia-connect.mfathinhalim.repl.co" +
+                      "/share/" +
+                      text;
+
+                    // Copy the text inside the text field
+                    if (navigator.share) {
+                      navigator.clipboard.writeText(copyText);
+
+                      navigator
+                        .share({
+                          title: "rejangpedia",
+                          text: "postingan dari sanak",
+                          url: copyText,
+                        })
+                        .then(() => console.log("Successful share"))
+                        .catch((error) => console.log("Error sharing", error));
+                    } else {
+                      try {
+                        window.AndroidShareHandler.share(copyText);
+                      } catch {
+                        navigator.clipboard.writeText(copyText);
+                        alert("Sudah Di Salin Ya, silahkan Beri ke Temanmu ya ^_^");
+                      }
+                    }
+                  }
+                </script>
+
+                <button
+                  onclick="toggleComments('comments<%= element.noteId %>')"
+                  class="btn btn-primary p-3 rounded-pill"
+                  style="
+                    background: rgba(77, 78, 231, 0.76);
+                  ">
+                  <ion-icon name="chatbubble-outline"></ion-icon> Komentar
+                </button>
+              </div>
+              <div
+                id="comments<%= element.noteId %>"
+                class="mt-3"
+                style="display: none">
+                <form action="/comment/<%= element.noteId %>" id="comment" method="post">
+                  <h4 class="card-title">Comments:</h4>
+                  <input
+                    type="number"
+                    name="noteId"
+                    value="<%= element.noteId %>"
+                    hidden />
+                  <div class="mb-3">
+                    <label for="commentContent" class="form-label"
+                      >Apa Yang Anda Pikirkan?</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="commentContent"
+                      placeholder="Tulis Yang Anda Pikirkan!"
+                      name="commentContent" />
+                  </div>
+                  <div class="mb-3">
+                    <label for="commenterName" class="form-label">Nama?</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="commenterName"
+                      placeholder="Nama Anda?"
+                      name="commenterName" />
+                  </div>
+                  <button type="submit" class="btn btn-primary m-1 rounded-pill" style="background: rgba(255,255,255,0.33);">
+                    Add Comment
+                  </button>
+                  <hr class="border-white" />
+                </form>
+                <div>
+                  <% if (element.comment && element.comment.length > 0) { %>
+                  <ul class="list-group mt-3">
+                    <% (element.comment).forEach(comments => { %>
+                    <li class="list-group-item text-white" style="border-radius: 38px; background: rgba(255, 255, 255, 0.33)">
+                      <strong><%= comments.commenterName %>:</strong> <%=
+                      comments.commentContent %>
+                    </li>
+                    <% }) %>
+                  </ul>
+                  <% } else{ %>
+                  <li class="list-group-item text-white" style="border-radius: 38px; background: rgba(255, 255, 255, 0.33)">Belum Ada Comment</li>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous">
+          var socket = io();
+
+          function addMessages(message){
+           $(“#messages”).append(`
+              <div
+            id="cardp{message.id}"
+            class="card mb-3 text-white"
+            style="border-radius: 38px; background: rgba(255, 255, 255, 0.33)">
+            <div class="card-body rounded">
+              <h2 class="card-title">
+                <strong>{message.noteName}</strong>
+                <button
+                  onclick="share('{message.noteId}')"
+                  class="btn btn-primaryy m-4"
+                  style="
+                    color: rgb(255, 255, 255);
+                    border-radius: 24px;
+                    background: rgba(77, 78, 231, 0.76);
+                  ">
+                  <ion-icon name="share-social-outline"></ion-icon>
+                </button>
+              </h2>
+              <p class="card-text">{message.noteContent}</p>
+
+              <img
+                class="img-fluid"
+                name="img"
+                src="https://ik.imagekit.io/9hpbqscxd/image-{message.noteId}.jpg"
+                onerror="this.remove();"
+                alt="Gambar"
+                style="object-fit: cover; border-radius: 38px" />
+              <div
+                class="d-flex justify-content-between align-items-center m-4">
+                <form
+                  action="/like/{message.noteId}"
+                  method="post"
+                  enctype="multipart/form-data">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style="border-radius: 73px; background: #4d4ee7">
+                    <ion-icon name="caret-up-outline"></ion-icon>
+                  </button>
+                </form>
+
+                
+
+                <button
+                  onclick="toggleComments('comments{message.noteId}')"
+                  class="btn btn-primary"
+                  style="
+                    border-radius: 24px;
+                    background: rgba(77, 78, 231, 0.76);
+                  ">
+                  <ion-icon name="chatbubble-outline"></ion-icon> Komentar
+                </button>
+              </div>
+              <div
+                id="comments{message.noteId}"
+                class="mt-3"
+                style="display: none">
+                <form action="/comment/{message.noteId}" method="post">
+                  <h4 class="card-title">Comments:</h4>
+                  <input
+                    type="number"
+                    name="noteId"
+                    value="{message.noteId}"
+                    hidden />
+                  <div class="mb-3">
+                    <label for="commentContent" class="form-label"
+                      >Apa Yang Anda Pikirkan?</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="commentContent"
+                      placeholder="Tulis Yang Anda Pikirkan!"
+                      name="commentContent" />
+                  </div>
+                  <div class="mb-3">
+                    <label for="commenterName" class="form-label">Nama?</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="commenterName"
+                      placeholder="Nama Anda?"
+                      name="commenterName" />
+                  </div>
+                  <button type="submit" class="btn btn-primaryy">
+                    Add Comment
+                  </button>
+                </form>
+                <div>
+
+                  <li class="list-group-item">Belum Ada Comment</li>
+                </div>
+              </div>
+            </div>
+          </div>`)
+           }
+           function getMessages(){
+            $.get(‘http://localhost:3000/messages', (data) => {
+             data.forEach(addMessages);
+             })
+           }
+           
+          function sendMessage(message){
+             $.post(‘http://localhost:3000/messages', message)
+           }
+          socket.on(‘message’, addMessages)
+
+        </script>
+        <script>
+          function onSubmit() {
+            document.getElementById("add").submit()
+          }
+          document.getElementById("noteName").value = localStorage.getItem("loggedInUser")
+          document.getElementById("greeting").innerText = "Halo, " + localStorage.getItem("loggedInUser")
+
+
+          var aButtons = document.querySelectorAll(".pagination a");
+          aButtons.forEach(function (button) {
+            button.addEventListener("click", function (event) {
+              event.preventDefault();
+              var href = this.getAttribute("href");
+              window.location.href = href;
+            });
+          });
+
+          function toggleComments(commentId) {
+            var comments = document.getElementById(commentId);
+            if (comments.style.display === "none") {
+              comments.style.display = "block";
+            } else {
+              comments.style.display = "none";
+            }
+          }
+        </script>
+        <script src="/socket.io/socket.io.js"></script>
+
+      </div>
+    </div>
+  </body>
+  <script>
+  // Mendapatkan data pengguna dari userProfile jika tersedia
+  const userData = localStorage.getItem('loggedInUser');
+  if (!userData) {
+    window.location.href = "/"
+  }
+</script>
+</html>

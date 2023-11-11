@@ -15,7 +15,25 @@ const postSchema = new Schema({
   ],
 });
 
+const postSchemaSocial = new Schema({
+    noteId: String,
+    noteName: String,
+    noteContent: String,
+    like: {
+        type: Number,
+        default: 0
+    },
+    color: String,
+    comment: [{
+        commentId: String,
+        commenterName: String,
+        commentContent: String
+    }],
+})
+
+
 module.exports = {
   mainModel: model("mains", postSchema),
   goingModel: model("ongoings", postSchema),
+  socialModel: model("chat", postSchemaSocial),
 };
