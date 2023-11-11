@@ -516,9 +516,7 @@ async function post(data, noteContent, noteName, noteId, color, model, file, res
             useUniqueFileName: false,
           }, function(error, result) {
             if(error) console.log(error);
-            else console.log(result);
-            res.redirect("/chat")
-          });
+            else console.log(result);          });
         });
         const imageFileName = `image-${data.length + 99}.jpg`;
         const imageFilePath = path.join(__dirname, '/public/images/uploads', imageFileName);
@@ -536,7 +534,6 @@ async function post(data, noteContent, noteName, noteId, color, model, file, res
           }, function(error, result) {
             if(error) console.log(error);
             else console.log(result);
-            res.redirect("/chat")
           });
         });
         const imageFileName = `video-${noteId}.mp4`;
@@ -546,7 +543,7 @@ async function post(data, noteContent, noteName, noteId, color, model, file, res
         }
       }
     }
-    res.redirect("/chat")
+                res.redirect("/chat")
 
   } catch (err) {
     console.error(err)
