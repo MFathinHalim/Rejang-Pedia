@@ -155,7 +155,7 @@
             class="card mb-3 text-white"
             style="border-radius: 38px; background: rgba(255, 255, 255, 0); border: none;">
             <div class="card-body rounded">
-              <a class="card-title" href="https://rejangpedia-connect.mfathinhalim.repl.co/<%= element.noteName %>">
+              <a class="card-title" href="https://rejang-pedia.mfathinhalim.repl.co/chat/<%= element.noteName %>">
                 <strong><p><%= element.noteName %></p>
 </strong>
                 
@@ -435,7 +435,7 @@
   // Mendapatkan data pengguna dari userProfile jika tersedia
   const userData = localStorage.getItem('loggedInUser');
   if (!userData) {
-    window.location.href = "/"
+    window.location.href = "/login"
   }
 </script>
 </html>
