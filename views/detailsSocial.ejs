@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <!-- Header -->
   <head>
@@ -8,24 +8,29 @@
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2998592050723815"
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"
+    ></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-      crossorigin="anonymous" />
+      crossorigin="anonymous"
+    />
     <script
       type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
     <script
       nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-EH2KLaN0StGPTkBD1a9/9gNJiMcKj1S1rqAMH6w7P6iQ12rsyz4cUpnD4et4leGv"
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"
+    ></script>
   </head>
   <%- include('top.html') -%>
 
@@ -63,42 +68,43 @@
     }
   </script>
   <!-- Body(Tampilan) -->
-  <body style="background: #000000">
-        <%- include('navbarSocial.ejs') -%>
+  <body>
+    <%- include('navbarSocial.ejs') -%>
 
     <div id="phone">
       <div id="main-wrapper" class="fancy-scrollbar">
-        
         <!-- Tampilan Pada Aplikasi agar tidak mengganggu Sidebar -->
         <div
           class="container-fluid mt-4"
           style="
-            border-radius: 32px 32px 0px 0px;
+            border-radius: 32px;
             background: linear-gradient(
               180deg,
-              #39375B 100%,
+              #79AC78 100%,
               rgba(78, 79, 235, 0) 100%
             );
-            padding-bottom: 50px;">
+            padding-bottom: 50px;
+          "
+        >
           <div
             id="cardp<%= element.noteId %>"
             class="card mb-3 text-white"
-            style="border-radius: 38px; background: rgba(255, 255, 255, 0); border: none;">
-
+            style="
+              border-radius: 38px;
+              background: rgba(255, 255, 255, 0);
+              border: none;
+            "
+          >
             <div class="card-body rounded">
-              <a class="card-title" href="https://rejangpedia-connect.mfathinhalim.repl.co/<%= element.noteName %>">
-                <strong><%= element.noteName %></strong>
-                <button
-                  onclick="share('<%= element.noteId %>')"
-                  class="btn btn-primaryy m-4"
-                  style="
-                    color: rgb(255, 255, 255);
-                    border-radius: 24px;
-                    background: rgba(77, 78, 231, 0.76);
-                  ">
-                  <ion-icon name="share-social-outline"></ion-icon>
-                </button>
-              </a>
+              <article class="card-title">
+                <a href="/chat/<%= element.noteName %>">
+                  <strong>
+                    <h4 class="card-title text-white">
+                      <strong><%= element.noteName %></strong>
+                    </h2>
+                  </strong>
+                </a>
+              </article>
               <p class="card-text"><%= element.noteContent %></p>
 
               <img
@@ -107,13 +113,13 @@
                 src="https://ik.imagekit.io/9hpbqscxd/RejangConnection/image-<%= element.noteId %>.jpg"
                 onerror="this.remove();"
                 alt="Gambar"
-                style="object-fit: cover; border-radius: 24px" />
+                style="object-fit: cover; border-radius: 24px"
+              />
               <div
-                class="d-flex justify-content-between align-items-center m-4">
-
-
+                class="d-flex justify-content-between align-items-center m-4"
+              >
                 <script>
-                   function share(text) {
+                  function share(text) {
                     var copyText =
                       "https://rejangpedia-connect.mfathinhalim.repl.co" +
                       "/share/" +
@@ -136,78 +142,104 @@
                         window.AndroidShareHandler.share(copyText);
                       } catch {
                         navigator.clipboard.writeText(copyText);
-                        alert("Sudah Di Salin Ya, silahkan Beri ke Temanmu ya ^_^");
+                        alert(
+                          "Sudah Di Salin Ya, silahkan Beri ke Temanmu ya ^_^",
+                        );
                       }
                     }
                   }
                 </script>
-
               </div>
-              <div
-                id="comments<%= element.noteId %>"
-                class="mt-3">
-                <form action="/chat/comment/<%= element.noteId %>" id="comment" method="post">
-                  <h4 class="card-title">Comments:</h4>
-                  <input
+                        <hr class="border-white" />
+
+              <div id="comments<%= element.noteId %>" class="mt-3">
+                <form
+                  action="/chat/comment/<%= element.noteId %>"
+                  id="comment"
+                  method="post"
+                >                  <input
                     type="number"
                     name="noteId"
                     value="<%= element.noteId %>"
-                    hidden />
+                    hidden
+                  />
                   <div class="mb-3">
                     <label for="commentContent" class="form-label"
-                      >Apa Yang Anda Pikirkan?</label
+                      ><h5>Apa Yang Anda Pikirkan? </h5></label
                     >
                     <input
                       type="text"
                       class="form-control"
                       id="commentContent"
+                      style="border-radius: 12px;"
                       placeholder="Tulis Yang Anda Pikirkan!"
-                      name="commentContent" />
+                      name="commentContent"
+                    />
                   </div>
-                  <div class="mb-3" style="display: none;">
+
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style="background: rgba(255, 255, 255, 0.33); border-radius: 12px; border: none;"
+                  >
+                    Add Comment
+                  </button>
+            <div class="mb-3" style="display: none">
                     <label for="commenterName" class="form-label">Nama?</label>
                     <input
                       type="text"
                       class="form-control"
                       id="noteName"
                       placeholder="Nama Anda?"
-                      name="commenterName" />
+                      name="commenterName"
+                    />
                   </div>
-                  <button type="submit" class="btn btn-primary m-1 rounded-pill" style="background: rgba(255,255,255,0.33);">
-                    Add Comment
-                  </button>
                   <hr class="border-white" />
                 </form>
                 <div>
                   <% if (element.comment && element.comment.length > 0) { %>
                   <ul class="list-group mt-3">
                     <% (element.comment).forEach(comments => { %>
-                    <li class="list-group-item text-white" style="border-radius: 38px; background: rgba(255, 255, 255, 0.33)">
+                    <li
+                      class="list-group-item text-white"
+                      style="
+                        border-radius: 12px;
+                        background: rgba(255, 255, 255, 0.33);
+                      "
+                    >
                       <strong><%= comments.commenterName %>:</strong> <%=
                       comments.commentContent %>
                     </li>
                     <% }) %>
                   </ul>
                   <% } else{ %>
-                  <li class="list-group-item text-white" style="border-radius: 38px; background: rgba(255, 255, 255, 0.33)">Belum Ada Comment</li>
+                  <li
+                    class="list-group-item text-white"
+                    style="
+                      border-radius: 12px;
+                      background: rgba(255, 255, 255, 0.33);
+                    "
+                  >
+                    Belum Ada Comment
+                  </li>
                   <% } %>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
 
-      
         <script>
           function onSubmit() {
-            document.getElementById("add").submit()
+            document.getElementById("add").submit();
           }
-          document.getElementById("noteName").value = localStorage.getItem("loggedInUser")
-          document.getElementById("commenterName").value = localStorage.getItem("loggedInUser")
+          document.getElementById("noteName").value =
+            localStorage.getItem("loggedInUser");
+          document.getElementById("commenterName").value =
+            localStorage.getItem("loggedInUser");
 
-          document.getElementById("greeting").innerText = "Halo, " + localStorage.getItem("loggedInUser")
-
+          document.getElementById("greeting").innerText =
+            "Halo, " + localStorage.getItem("loggedInUser");
 
           var aButtons = document.querySelectorAll(".pagination a");
           aButtons.forEach(function (button) {
@@ -228,15 +260,14 @@
           }
         </script>
         <script src="/socket.io/socket.io.js"></script>
-
       </div>
     </div>
   </body>
   <script>
-  // Mendapatkan data pengguna dari userProfile jika tersedia
-  const userData = localStorage.getItem('loggedInUser');
-  if (!userData) {
-    window.location.href = "/"
-  }
-</script>
+    // Mendapatkan data pengguna dari userProfile jika tersedia
+    const userData = localStorage.getItem("loggedInUser");
+    if (!userData) {
+      window.location.href = "/";
+    }
+  </script>
 </html>

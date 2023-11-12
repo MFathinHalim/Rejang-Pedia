@@ -566,7 +566,7 @@ server.get("/chat/:noteId", function(req, res) {
 
   const matchingItems = dataSocial.filter(({ noteName }) => noteName === noteIdGet);
    const itemIndex = users.findIndex(({username}) => username == noteIdGet)
-  res.render("userDetails ", {
+  res.render("user", {
     data: matchingItems,
     userData: users[itemIndex]
   })

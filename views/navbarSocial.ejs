@@ -54,6 +54,7 @@
     display: none;
     transition: all 0.3s ease-in-out; /* Animasi smooth */
   }
+
   @media only screen and (max-width: 600px) {
     #khususDekstop {
       display: none;
@@ -84,7 +85,7 @@
 </style>
 <nav
   class="navbar navbar-expand-lg navbar-dark sticky-top text-white"
-  style="background: rgba(0, 0, 0, 0.6);
+  style="background: rgba(88, 88, 88, 0.6);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);"
@@ -123,11 +124,7 @@
           <i class="fa fa-plus"></i> Bicarakan Sesuatu!
         </a>
       </li>
-      <li class="nav-item">
-        <button class="nav-link text-white" onclick="logOut()">
-          LOG OUT
-        </button>
-      </li>
+      
       <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
@@ -155,6 +152,9 @@
           <button class="dropdown-item" onclick="openApp()">
             Buka di Aplikasi
           </button>
+            <button class="dropdown-item" onclick="logOut()">
+              LOG OUT
+            </button>
         </div>
       </li>
     </ul>
