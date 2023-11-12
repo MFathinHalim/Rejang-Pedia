@@ -65,7 +65,7 @@ const storageSocial = multer.diskStorage({
     cb(null, `public/images/uploads`)
   },
   filename: function(req, file, cb) {
-    cb(null, `image-${data.length + 100}.jpg`)
+    cb(null, `image-${(data.length + 100)}.jpg`)
   }
 })
 
@@ -505,43 +505,25 @@ async function post(data, noteContent, noteName, noteId, color, model, file, res
     }
     if (file) {
       const ext = file.filename.split(".")[file.filename.split(".").length - 1]
-      if (ext == "jpg") {
         console.log(file)
-        fs.readFile(path.join(__dirname, '/public/images/uploads', 'image-'+(data.length + 99)+'.jpg'), async function(err, data) {
+        fs.readFile(path.join(__dirname, '/public/images/uploads', 'image-'+(data.length + 99)+".jpg"), async function(err, data) {
           if (err) throw err; // Fail if the file can't be read.
           await imagekit.upload({
             file : data, //required
-            fileName : 'image-'+noteId+'.jpg', //required
+            fileName : 'image-'+noteId+".jpg", //required
             folder: "/RejangConnection",
             useUniqueFileName: false,
           }, function(error, result) {
             if(error) console.log(error);
             else console.log(result);          });
         });
-        const imageFileName = `image-${data.length + 99}.jpg`;
+        const imageFileName = `image-${(data.length + 99) }.jpg`;
         const imageFilePath = path.join(__dirname, '/public/images/uploads', imageFileName);
         if (fs.existsSync(imageFilePath)) {
           fs.unlinkSync(imageFilePath);
         }
-      }else if(ext == "mp4"){
-        console.log(file)
-        fs.readFile(path.join(__dirname, '/public/videos', 'video-'+data.length + 99+'.mp4'), async function(err, data) {
-          if (err) throw err; // Fail if the file can't be read.
-          await imagekit.upload({
-            file : data, //required
-            fileName : 'video-'+noteId+'.mp4', //required
-            useUniqueFileName: false,
-          }, function(error, result) {
-            if(error) console.log(error);
-            else console.log(result);
-          });
-        });
-        const imageFileName = `video-${noteId}.mp4`;
-        const imageFilePath = path.join(__dirname, '/public/videos', imageFileName);
-        if (fs.existsSync(imageFilePath)) {
-          fs.unlinkSync(imageFilePath);
-        }
-      }
+
+
     }
                 res.redirect("/chat")
 
@@ -583,9 +565,10 @@ server.get("/chat/:noteId", function(req, res) {
   const noteIdGet = req.params.noteId.trim();
 
   const matchingItems = dataSocial.filter(({ noteName }) => noteName === noteIdGet);
-  
-  res.render("social", {
+   const itemIndex = users.findIndex(({username}) => username == noteIdGet)
+  res.render("userDetails ", {
     data: matchingItems,
+    userData: users[itemIndex]
   })
 });
 //==============================================
@@ -605,28 +588,22 @@ server.post("/chat",uploadSocial.single("image"), async (req, res) => {
   //TODO then call the function
   await post(dataSocial, noteContent, noteName, noteId, noteColor, socialModel, file, res);
 })
-server.post("/chat/comment/:noteId", (req, res) => {
+server.post("/chat/comment/:noteId", async (req, res) => {
   const commentContent = req.body.commentContent;
   const commenterName = req.body.commenterName;
-  const noteIdPost = parseInt(req.params.noteId.trim());
+  const noteIdPost = req.params.noteId;
   const commentID = dataSocial.length + 50;
 
-  if (commentContent.trim() !== "" && commenterName.trim() !== "") {
-    socialModel.findOneAndUpdate({ noteId: noteIdPost }, { $push: { comment: { commentContent, commentId: commentID, commenterName } } })
-      .then(() => {
-        const itemIndex = dataSocial.findIndex(({noteId}) => noteId == noteIdPost)
-
+    await socialModel.findOneAndUpdate({ noteId: noteIdPost }, { $push: { comment: { commentContent, commentId: commentID, commenterName } } })
+      const itemIndex = dataSocial.findIndex(({noteId}) => noteId == noteIdPost)
+      console.log(itemIndex)
         if (itemIndex !== -1) {
-          const item = dataSocial.splice(itemIndex, 1)[0];
-          dataSocial.unshift(item);
-          item.comment.push({ commentID, commenterName, commentContent });
+          dataSocial[itemIndex].comment.push({ commentID, commenterName, commentContent });
         }
 
         shuf = false;
-        res.redirect("/chat")
-      })
-      .catch(err => console.error(err))
-  }
+        
+
 });
 server.post("/chat/like/:noteId", (req, res) => {
   //TODO first the shuf we will be false

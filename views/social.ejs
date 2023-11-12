@@ -129,7 +129,7 @@
                       border-radius: 33px;
                     " />
                   <div class="form-group">
-                    <input type="file" class="form-control-file" name="image" id="choose" style="display: none" onchange="previewImage(event)" />
+                    <input type="file" class="form-control-file" name="image" id="choose" style="display: none" accept="image/*" onchange="previewImage(event)" />
                     <label for="choose" class="btn btn-primary" style="border-radius: 33px; background: rgba(255, 255, 255, 0.33);">Pilih Gambar!</label>
                     <button
                       data-sitekey="6LfslRQoAAAAAHVBGwEVitjEQSjCD6F8unKDUdct"
@@ -166,7 +166,7 @@
         <img class="img-fluid" name="img" src="https://ik.imagekit.io/9hpbqscxd/RejangConnection/image-<%= element.noteId %>.jpg" onerror="this.remove();" alt="Gambar" style="object-fit: cover; border-radius: 24px" />
 
         <div class="d-flex justify-content-between align-items-center m-4">
-            <form action="/like/<%= element.noteId %>" method="post" enctype="multipart/form-data">
+            <form action="/chat/like/<%= element.noteId %>" method="post" enctype="multipart/form-data">
                 <button type="submit" class="btn btn-primary p-3 rounded-pill" style="background: #4d4ee7;">
                     <ion-icon name="thumbs-up-sharp"></ion-icon>
                 </button>
@@ -174,7 +174,7 @@
 
             <script>
                 function share(text) {
-                    var copyText = "https://rejangpedia-connect.mfathinhalim.repl.co" + "/share/" + text;
+                    var copyText = window.location.href + "/share/" + text;
 
                     if (navigator.share) {
                         navigator.clipboard.writeText(copyText);

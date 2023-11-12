@@ -4,6 +4,7 @@ const postSchema = new Schema({
     id : String,
     username : String,
     password : String,
+    desc: String,
 })
 
 
