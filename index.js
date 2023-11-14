@@ -787,32 +787,14 @@ mongoose
         }
       });
 
-      //For like feature(we dont use it now, but we will use it later)
-      /*server.post("/chat/like/:noteId", (req, res) => {
-  //TODO first the shuf we will be false
-  shuf = false;
-  const noteIdPost = parseInt(req.params.noteId.trim());
+      //Edit Profile
+      server.get("/edit-profile", (req, res) => {
+        //res.render('edit-profile')
+      }); //get the edit profile page
 
-  //TODO next we will be search the position of noteId
-  const itemIndex = dataSocial.findIndex(({ noteId }) => noteId == noteIdPost);
-
-  if (itemIndex !== -1) {
-    const item = data.splice(itemIndex, 1)[0];
-    dataSocial.unshift(item);
-    if (!item.hasLiked) {
-      //TODO like usualy,the script will run the database first
-      socialModel
-        .findOneAndUpdate({ noteId: noteIdPost }, { $inc: { like: 1 } })
-        .then(() => {
-          item.like >= 0 ? item.like++ : (item.like = 1);
-          item.hasLiked = true;
-          res.cookie(`liked_${noteIdPost}`, "true");
-          res.redirect("/chat");
-        })
-        .catch((err) => console.error(err));
-    }
-  }
-});*/
+      server.post("/edit-profile", (req, res) => {
+        //Edit Profile will be here
+      }) //Edit Profile Feature
 
       //==============================================
     });
