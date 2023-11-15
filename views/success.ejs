@@ -21,6 +21,7 @@
     window.location.href = "/chat"
   }else{
     localStorage.setItem('loggedInUser', "<%= user %>");
+    localStorage.setItem('userId', "<%= id %>");
     window.location.href = "/chat"
 
   }

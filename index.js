@@ -255,6 +255,7 @@ mongoose
         if (userIndex !== -1) {
           return res.render("success", {
             user: users[userIndex].username,
+            id: users[userIndex].id,
           }); //redirect it to success for localStorage
         } else {
           return res.send("Password Salah"); //the password is wrong
@@ -714,18 +715,23 @@ mongoose
 
       //it for user details
       server.get("/chat/:noteId", function (req, res) {
-        const noteIdGet = req.params.noteId.trim();
-        const matchingItems = dataSocial.filter(
-          ({ noteName }) => noteName === noteIdGet,
-        ); //user post
-        const itemIndex = users.findIndex(
-          ({ username }) => username == noteIdGet,
-        ); //search the user in user data
+          const usernameToFind = req.params.noteId.trim();
 
-        res.render("user", {
-          data: matchingItems,
-          userData: users[itemIndex],
-        });
+          // Find the user in the users array based on the username
+          const user = users.find(({ username, id }) => id === usernameToFind || username === usernameToFind );
+
+          if (user) {
+              // If the user is found, use their id to filter dataSocial
+            const matchingItems = dataSocial.filter(({ noteName }) => noteName === user.id || noteName === usernameToFind);
+
+              res.render("user", {
+                  data: matchingItems,
+                  userData: user,
+              });
+          } else {
+              // Handle the case where the user is not found
+              res.status(404).send("User not found");
+          }
       });
 
       //==============================================
@@ -788,14 +794,43 @@ mongoose
       });
 
       //Edit Profile
-      server.get("/edit-profile", (req, res) => {
-        //res.render('edit-profile')
+      server.get("/edit-profile/:id", (req, res) => {
+        const acceptedData = users.findIndex((obj) => obj.id === req.params.id); //search the data first
+        res.render("profile-edit", {
+          data: users[acceptedData]
+        })
       }); //get the edit profile page
 
-      server.post("/edit-profile", (req, res) => {
-        //Edit Profile will be here
-      }) //Edit Profile Feature
+      server.post("/edit-profile/:id", async (req, res) => {
+          try {
+              // Edit Profile will be here
+              const acceptedData = users.findIndex((obj) => obj.id === req.params.id); // search the data first
+              const user = req.body;
+              if(user.password === users[acceptedData].password){
+                users[acceptedData].username = user.username;
+              users[acceptedData].password = user.password;
+              users[acceptedData].desc = user.desc;
 
+              await userModel.findOneAndUpdate(
+                  { id: req.params.id },
+                  { $set: user }, // Use $set to update the fields
+                  { new: true } // Return the updated document
+              );
+              }
+
+              
+
+              res.redirect(`/chat/${req.params.id}`);
+          } catch (error) {
+              // Handle errors appropriately
+              console.error(error);
+              res.status(500).send("Internal Server Error");
+          }
+      }); // Edit Profile Feature
+
+/*\
+
+*/
       //==============================================
     });
   })

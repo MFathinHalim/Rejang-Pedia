@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Rejangpedia</title>
+    <link rel="icon" href="images/logo.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+
+<body style="background: url('https://indonesiakaya.com/wp-content/uploads/2020/10/curug_embun_1200.jpg') center/cover; position: relative;" class="text-white">
+  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 1000px; background-color: rgba(0, 0, 0, 0.6);"></div>
+  <%- include('navbarSocial.ejs') -%>
+  <div class="container mt-5" style="margin-bottom: 75px;">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card bg-transparent text-white">
+          <div class="card-body">
+            <h1 class="text-center mb-4 display-4">Edit Profil Anda</h1>
+            <form action="/edit-profile/<%= data.id %>" method="POST" id="form">
+              <input type="hidden" name="id" value="<%= data.id %>">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" style="border-radius: 12px;" autocomplete="off"
+                  name="username" value="<%= data.username %>" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="password" autocomplete="off"  value="<%= data.password %>"style="border-radius: 12px;"
+                    name="password" required>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="desc" class="form-label">Deskripsi (Opsional)</label>
+                <textarea class="form-control text-black" id="desc" name="desc" style="border-radius: 12px; height: 120px;" required autocomplete="off"><%= data.desc %></textarea>
+
+              </div>
+              <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="showPassword" onclick="myFunction()">
+                <label class="form-check-label" for="showPassword">Show Password</label>
+              </div>
+              <button type="submit" class="btn btn-primary" style="border-radius: 12px;">Update Profile</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const data = localStorage.getItem("userId");
+            console.log(data)
+
+            if (!data) {
+                localStorage.removeItem("loggedInUser");
+                window.location.href = "/"
+            }else{
+              if (data !== document.getElementById("userid").value) {
+                window.location.href = "/chat";
+            }
+            }
+
+            
+        });
+        document.getElementById("form").addEventListener("submit", function () {
+              localStorage.setItem('loggedInUser', document.getElementById("username").value);
+
+        })
+        function myFunction() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-EH2KLaN0StGPTkBD1a9/9gNJiMcKj1S1rqAMH6w7P6iQ12rsyz4cUpnD4et4leGv" crossorigin="anonymous"></script>
+</body>
+</html>
