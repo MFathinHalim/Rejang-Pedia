@@ -144,6 +144,7 @@ server.use(
     extended: true,
   }),
 );
+
 //now run the server
 const port = 3000; //define the port
 const uri = process.env.MONGODBURI; //get the mongodb env
@@ -165,6 +166,20 @@ mongoose
       });
       //=================================================================================
       var users = []; // Array for users
+      userModel.find({}, null).then((docs) => {
+          // Iterasi melalui setiap dokumen
+          docs.forEach(async (user) => {
+              // Periksa dan tambahkan properti 'atmin' jika belum ada
+              if (user.atmin === undefined) {
+                  await userModel.updateOne({ _id: user._id }, { $set: { atmin: false } });
+              }
+          });
+
+          // Sekarang, semua dokumen seharusnya memiliki properti 'atmin'
+          console.log("Proses selesai.");
+      }).catch((error) => {
+          console.error("Terjadi kesalahan:", error);
+      });
       userModel.find({}, null).then((docs) => {
         users = docs;
       }); //get the array from mongodb and put it to local array!
@@ -235,6 +250,7 @@ mongoose
           username: username,
           password: password,
           desc: desc,
+          atmin: false,
         });
         //then push to local array
         users.push({
@@ -252,10 +268,12 @@ mongoose
         const userIndex = users.findIndex(
           (u) => u.username === username && u.password === password,
         ); // does the user password is correct ?
+
         if (userIndex !== -1) {
           return res.render("success", {
             user: users[userIndex].username,
             id: users[userIndex].id,
+            atmin: users[userIndex].atmin,
           }); //redirect it to success for localStorage
         } else {
           return res.send("Password Salah"); //the password is wrong
@@ -359,6 +377,36 @@ mongoose
           data: theData,
         });
       });
+      server.get("/rekrutatmin", function (req, res) {
+
+        res.render("recrut", {
+          data: users,
+        });
+      });
+      server.get("/admin-new/:id", async function (req, res) {
+    const userId = req.params.id;
+
+    try {
+        // Cari pengguna dengan id yang sesuai
+        const foundUser = await userModel.findOne({ id: userId });
+        const foundUserServer = users.find(user => user.id === userId);
+
+        if (foundUser) {
+            // Jika pengguna ditemukan, ubah properti atmin menjadi true
+            if (!foundUser.atmin) {
+                await userModel.updateOne({ _id: foundUser._id }, { $set: { atmin: true } });
+                foundUserServer.atmin = true;
+
+            } 
+        } else {
+            res.status(404).send(`User dengan ID ${userId} tidak ditemukan.`);
+        }
+        res.redirect("/rekrutatmin")
+    } catch (error) {
+        console.error("Terjadi kesalahan:", error);
+        res.status(500).send("Terjadi kesalahan server.");
+    }
+});
       //=============================================
       server.get("/edit/:id", function (req, res) {
         const theData = data.find((obj) => obj.id === req.params.id); //get the data

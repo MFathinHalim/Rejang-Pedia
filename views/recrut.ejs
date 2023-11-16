@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <%- include('import.ejs') -%>
+    <title>Rekrut Atmin</title>
+</head>
+<body>
+    <%- include('navbar.ejs') -%>
+
+    <style type="text/css">::placeholder {
+  color: white !important;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Edge 12 -18 */
+  color: white !important;
+}
+</style>
+    <div class="container mt-5">
+        <h1>Rekrut Atmin</h1>
+
+        <!-- Input Pencarian -->
+        <div class="mb-3 input-group">
+    <input type="text" class="form-control" style="background: #A25772; color: white; border-color: #A25772;" autocomplete="off" id="searchInput" placeholder="Cari berdasarkan nama" oninput="searchAtmin()">
+    <div class="input-group-append">
+        <span class="input-group-text" style="background: #A25772; color: white; border-color: #A25772;">
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+    </div>
+</div>
+
+
+        <% if (data.length === 0) { %>
+            <p>Tidak ada data atmin yang tersedia.</p>
+        <% } else { %>
+            <table class="table table-bordered" style="background: #7C93C3; color: lightgray;">
+                <thead style="background: #9EB8D9; color: black">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="atminTableBody">
+                    <% data.forEach(function(atmin) { %>
+                        <tr>
+                            <th scope="row"><%= atmin.id %></th>
+                            <td><%= atmin.username %></td>
+                            <td>
+                                <% if (!atmin.atmin) { %>
+                                    <button class="btn btn-success" onclick="rekrutAtmin('<%= atmin.id %>')">Rekrut</button>
+                                <% } else { %>
+                                    <span class="badge bg-secondary">Sudah Atmin</span>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+
+    <script>
+        function searchAtmin() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const tableBody = document.getElementById('atminTableBody');
+            const rows = tableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const username = rows[i].getElementsByTagName('td')[0].innerText.toLowerCase();
+                if (username.includes(input)) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+if(!localStorage.getItem("atmin")){
+        window.location.href = "/"
+      }
+        function rekrutAtmin(atminId) {
+            window.location.href = "/admin-new/" + atminId;
+        }
+    </script>
+</body>
+</html>

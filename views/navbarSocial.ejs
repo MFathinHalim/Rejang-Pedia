@@ -295,6 +295,8 @@
 <script>
 function logOut(){
       localStorage.removeItem("loggedInUser");
+      localStorage.removeItem("atmin");
+      localStorage.removeItem("userId");
       window.location.href = "/"
     }
   document

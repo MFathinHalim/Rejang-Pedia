@@ -5,6 +5,7 @@ const postSchema = new Schema({
     username : String,
     password : String,
     desc: String,
+    atmin: Boolean,
 })
 
 
