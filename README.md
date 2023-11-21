@@ -1,4 +1,4 @@
-
+![rejangpedia](https://rejang-pedia.mfathinhalim.repl.co/logo.png)
 # rejangpedia
 
 RejangPedia is an online information platform dedicated to sharing knowledge and information with users. Developed by Ananda M. Fathin Halim, this application is committed to providing accessible and high-quality content.
