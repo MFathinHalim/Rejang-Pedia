@@ -1,4 +1,7 @@
 const multer = require("multer"); // Multer is used for handling file uploads, specifically for images
+const axios = require("axios");
+const { v1: uuidv1 } = require("uuid");
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/images/uploads");
@@ -50,6 +53,7 @@ module.exports = function (
   userModel,
   goingModel,
   imagekit,
+  users,
 ) {
   // Route to get the main page of Rejangpedia
   server.get("/", function (req, res) {

@@ -1,4 +1,6 @@
 const multer = require("multer"); // Multer is used for file uploads, specifically for images
+const axios = require("axios");
+const { v1: uuidv1 } = require("uuid");
 
 // Storage configuration for multer for social media posts
 const storageSocial = multer.diskStorage({
@@ -109,13 +111,46 @@ module.exports = function (server, dataSocial, users, socialModel, imagekit) {
 
       // Handle uploaded image
       if (file) {
-        // Process the uploaded image and upload it to ImageKit CDN
-        // (Code for reading and uploading the image is incomplete in the provided code)
+        const ext =
+          file.filename.split(".")[file.filename.split(".").length - 1];
+        console.log(file);
+        fs.readFile(
+          path.join(
+            __dirname,
+            "/public/images/uploads",
+            "image-" + (data.length + 99) + ".jpg",
+          ),
+          async function (err, data) {
+            if (err) throw err; // Fail if the file can't be read.
+            await imagekit.upload(
+              {
+                file: data, //required
+                fileName: "image-" + noteId + ".jpg", //required
+                folder: "/RejangConnection",
+                useUniqueFileName: false,
+              },
+              function (error, result) {
+                if (error) console.log(error);
+                else console.log(result);
+              },
+            );
+          },
+        );
+        const imageFileName = `image-${data.length + 99}.jpg`;
+        const imageFilePath = path.join(
+          __dirname,
+          "/public/images/uploads",
+          imageFileName,
+        );
+        if (fs.existsSync(imageFilePath)) {
+          fs.unlinkSync(imageFilePath);
+        }
       }
+      res.redirect("/chat/share/" + noteId);
     } catch (err) {
       console.error(err);
+      res.redirect("/chat");
     }
-    res.redirect("/chat");
   });
 
   // Route for adding a new comment to a post

@@ -3,11 +3,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const multer = require("multer");
-const { v1: uuidv1 } = require("uuid");
 const fs = require("fs");
 const passport = require("passport");
 const session = require("express-session");
-const axios = require("axios");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 var ImageKit = require("imagekit");
@@ -77,10 +75,14 @@ mongoose
 
       // Fetching data from MongoDB collections
       mainModel.find({}, null).then((docs1) => {
+        userModel.find({}, null).then((docs) => {
         goingModel.find({}, null).then((docs2) => {
           data = docs1;
+          users = docs;
           dataOnGoing = docs2;
-          // Importing main router and passing necessary parameters
+          // Importing account router and passing necessary parameters      
+          require("./Router/account.js")(server, users, userModel);
+          // Importing main router and passing necessary parameters1
           require("./Router/rejangpedia.js")(
             server,
             data,
@@ -89,7 +91,9 @@ mongoose
             userModel,
             goingModel,
             imagekit,
+            users,
           );
+        });
         });
       });
 
@@ -104,12 +108,6 @@ mongoose
           socialModel,
           imagekit,
         );
-      });
-
-      userModel.find({}, null).then((docs) => {
-        users = docs;
-        // Importing account router and passing necessary parameters
-        require("./Router/account.js")(server, users, userModel);
       });
     });
   })
