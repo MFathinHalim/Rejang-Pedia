@@ -191,12 +191,12 @@
         <% dataPilihan.forEach(function(entry) { %> 
           <% if (entry.Title.toLowerCase().includes("rejang") || entry.Title.toLowerCase().includes("bengkulu") || entry.Content[0].babTitle.toLowerCase().includes("rejang") || entry.Content[0].babTitle.toLowerCase().includes("bengkulu") || entry.Content[0].babContent.toLowerCase().includes("rejang") || entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
             <div class="col col-md-4">
-              <a class="card m-1" id="card-pilihan" href="/details/<%= entry.id %>" style="height:300px;width: 330px; border-radius: 24px; border: none; background-repeat: no-repeat; background-size: cover;">
+              <a class="card m-1" id="card-pilihan" href="/details/<%= entry.id %>" style="height:max-content;width: 330px; border-radius: 24px; border: none; background-repeat: no-repeat; background-size: cover;">
                 <img class="card-img-top" style="height: 130px; width: 100%; border-radius: 24px 24px 0 0 !important; border: none;" src="<%= entry.Image %>"/>
                   <div class="card-body">
-                    <h6 class="card-title" style="color: white !important;"><%= entry.Title %></h6>
+                    <h4 class="card-title" style="color: white !important;"><%= entry.Title %></h4>
                     <p class="card-text" style="color: white !important;"><%- entry.Content[0].babContent.replace(/<[^>]+>/g,
-                      '').substring(0, 30) %>...</p>
+                      '').substring(0, 50) %>...</p>
                   </div>
               </a>
             </div>
@@ -212,12 +212,12 @@
 
         <% dataAcak.forEach(function(entry) { %> 
             <div class="col col-md-4">
-              <a class="card m-1" id="card-pilihan" href="/details/<%= entry.id %>" style="height:300px; width:330px; border-radius: 24px; border: none; background-repeat: no-repeat; background-size: cover;">
+              <a class="card m-1" id="card-pilihan" href="/details/<%= entry.id %>" style="height:max-content; width:330px; border-radius: 24px; border: none; background-repeat: no-repeat; background-size: cover;">
                 <img class="card-img-top" style="height: 130px; width: 100%; border-radius: 24px 24px 0 0 !important; border: none;" src="<%= entry.Image %>"/>
                   <div class="card-body">
-                    <h6 class="card-title" style="color: white !important;"><%= entry.Title %></h6>
+                    <h4 class="card-title" style="color: white !important;"><%= entry.Title %></h4>
                     <p class="card-text" style="color: white !important;"><%- entry.Content[0].babContent.replace(/<[^>]+>/g,
-                      '').substring(0, 30) %>...</p>
+                      '').substring(0, 50) %>...</p>
                   </div>
               </a>
             </div>

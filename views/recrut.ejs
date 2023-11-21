@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <%- include('import.ejs') -%>
-    <title>Rekrut Atmin</title>
+    <title>Rekrut Admin</title>
 </head>
 <body>
     <%- include('navbar.ejs') -%>
@@ -18,7 +18,7 @@
 }
 </style>
     <div class="container mt-5">
-        <h1>Rekrut Atmin</h1>
+        <h1>Rekrut Admin</h1>
 
         <!-- Input Pencarian -->
         <div class="mb-3 input-group">
@@ -51,7 +51,7 @@
                                 <% if (!atmin.atmin) { %>
                                     <button class="btn btn-success" onclick="rekrutAtmin('<%= atmin.id %>')">Rekrut</button>
                                 <% } else { %>
-                                    <span class="badge bg-secondary">Sudah Atmin</span>
+                                    <span class="badge bg-secondary">Sudah Admin</span>
                                 <% } %>
                             </td>
                         </tr>
