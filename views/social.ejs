@@ -98,7 +98,9 @@
             >
               <div class="card-body text-white">
                 <!-- Form untuk Posting -->
-                <h2 id="greeting">Halo</h2>
+                <a id="dynamicLink" class="text-white" href="#"><h2 id="greeting">Halo</h2></a>
+
+                
                 <form
                   action="/chat"
                   method="post"
@@ -313,6 +315,19 @@ background: #FF9B9B; border: none;                      "
               comments.style.display = "none";
             }
           }
+           const userId = localStorage.getItem("userId");
+
+            // Check if userId is available
+            if (userId) {
+                // Get the link element by its id
+                const dynamicLink = document.getElementById('dynamicLink');
+
+                // Set the href attribute to the desired value
+                dynamicLink.href = `/edit-profile/${userId}`;
+            }else{
+              localStorage.removeItem("loggedInUser");
+                window.location.href = "/login"
+            }
         </script>
         <script src="/socket.io/socket.io.js"></script>
       </div>

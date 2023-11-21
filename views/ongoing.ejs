@@ -6,41 +6,11 @@
 
     <title>Admin Dashboard</title>
     <script>
-      function checkPasswordAndRedirect(password, url, save) {
-        const enteredPassword = prompt("Please enter the password:");
-        if (enteredPassword === password) {
-          if (save === true) {
-            localStorage.setItem("password", enteredPassword);
-          }
-
-          // Jika password benar, simpan di local storage
-          window.location.href = url;
-        } else {
-          alert("Incorrect password. You will be redirected to the main page.");
-          window.location.href = "/";
-        }
+      if(!localStorage.getItem("atmin")){
+        window.location.href = "/"
       }
-      function encrypt(text) {
-        // Contoh sederhana, mengganti karakter
-        return text
-          .split("")
-          .map((char) => String.fromCharCode(char.charCodeAt(0) + 1))
-          .join("");
-      }
-
-      function decrypt(encryptedText) {
-        // Mendekripsi teks (mengganti karakter kembali)
-        return encryptedText
-          .split("")
-          .map((char) => String.fromCharCode(char.charCodeAt(0) - 1))
-          .join("");
-      }
-
-      const initialPassword = decrypt("bunjoNbvMphjo");
-      const savedPassword = localStorage.getItem("password");
-
-      if (!savedPassword && initialPassword) {
-        checkPasswordAndRedirect(initialPassword, window.location.href, true);
+      function checkPasswordAndRedirect(pw, link){
+        window.location.href=link
       }
     </script>
   </head>
@@ -49,109 +19,85 @@
 
     <div class="container">
       <ul
-        class="list-group p-3"
+        class="list-group mt-5 pl-2 pr-2 pt-3 text-black"
         style="
           border-radius: 24px !important;
-          background: #0aa2c4ff !important;
+          background: #739072!important;
           list-style-type: none;
+
         ">
-        <h1 class="mt-3">
+        <h3 class="mt-3">
           <i class="fa fa-spinner" aria-hidden="true"></i> Data OnGoing
-        </h1>
+        </h3>
         <% data.forEach(function(entry) { %>
         <li class="m-2" style="border-radius: 24px !important">
-          <div class="listing-background">
-            <img
-              class="listing-image"
-              style="
-                width: 300px;
-                height: 200px;
-                border: 2px solid #ccc;
-                object-fit: cover;
-                border-radius: 24px;
-              "
-              src="<%= entry.Image %>"
-              alt="<%= entry.Title %>" />
-          </div>
-          <div>
-            <div class="listing-info">
-              <h3 class="listing-info-title"><%= entry.Title %></h3>
-              <p>
-                <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
-                '').substring(0, 200) %>...
-              </p>
+          <div class="mb-4">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="<%= entry.Image %>" style="width: 100%; height: 300px; object-fit: cover;" alt="<%= entry.Title %>" class="img-fluid rounded-start">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><%= entry.Title %></h5>
+                <p class="card-text">
+                    <%- entry.Content[0].babContent.replace(/<[^>]+>/g, '').substring(0, 200) %>...
+                </p>
+                <div>
+                    <a href="/details/ongoing/<%= entry.id %>" class="btn btn-primary rounded-pill mr-2">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i> Baca
+                    </a>
+                    <div class="btn-group mt-2">
+                        <button class="btn btn-danger rounded-pill mr-2" onclick="checkPasswordAndRedirect('bunjoTvebiEbuboh', '/accept/delete/<%= entry.id %>')">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                        </button>
+                        <a href="/accept/<%= entry.id %>" class="btn btn-info rounded-pill mr-2">
+                            <i class="fa fa-check" aria-hidden="true"></i> Terima
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="listing-price-wrapper">
-              <div class="listing-price">
-                <a
-                  class="btn btn-primary rounded-pill delete-button border-0 m-1"
-                  href="/details/ongoing/<%= entry.id %>">
-                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                  Baca
-                </a>
-                <button
-                  class="btn btn-success"
-                  onclick="checkPasswordAndRedirect('atminSudahDatang', '/accept/<%= entry.id %>', false)">
-                  <i class="fa fa-check" aria-hidden="true"></i>
-                </button>
-                <button
-                  class="btn btn-danger"
-                  onclick="checkPasswordAndRedirect('atminSudahDatang', '/accept/delete/<%= entry.id %>', false)">
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-          </div>
+        </div>
+    </div>
+</div>
+        <hr class="hr" style="border: 1px solid #ECE3CE; width:100%" />
+
         </li>
 
         <% }); %>
-        <hr class="hr" />
-        <h1><i class="fa fa-list" aria-hidden="true"></i> Data Utama</h1>
+        <hr class="hr" style="border: 1px solid #ECE3CE; width:100%" />
+        <h3><i class="fa fa-list" aria-hidden="true"></i> Data Utama</h3>
         <% dataUtama.forEach(function(entry) { %>
         <li class="m-2" style="border-radius: 24px !important">
-          <div class="listing-background">
-            <img
-              class="listing-image"
-              style="
-                width: 300px;
-                height: 200px;
-                border: 2px solid #ccc;
-                object-fit: cover;
-                border-radius: 24px;
-              "
-              src="<%= entry.Image %>"
-              alt="<%= entry.Title %>" />
-          </div>
-          <div class="listing-content">
-            <div class="listing-info">
-              <h3 class="listing-info-title"><%= entry.Title %></h3>
-              <p>
-                <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
-                '').substring(0, 200) %>...
-              </p>
+          <div class="mb-4">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="<%= entry.Image %>" style="width: 100%; height: 300px; object-fit: cover;" alt="<%= entry.Title %>" class="img-fluid rounded-start">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><%= entry.Title %></h5>
+                <p class="card-text">
+                    <%- entry.Content[0].babContent.replace(/<[^>]+>/g, '').substring(0, 200) %>...
+                </p>
+                <div>
+                    <a href="/details/<%= entry.id %>" class="btn btn-primary rounded-pill mr-2">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i> Baca
+                    </a>
+                    <div class="btn-group mt-2">
+                        <button class="btn btn-danger rounded-pill mr-2" onclick="checkPasswordAndRedirect('bunjoTvebiEbuboh', '/delete/<%= entry.id %>')">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                        </button>
+                        <a href="/edit/<%= entry.id %>" class="btn btn-info rounded-pill mr-2">
+                            <i class="fa fa-pencil" aria-hidden="true"></i> Edit Artikel
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="listing-price-wrapper">
-              <div class="listing-price">
-                <a
-                  class="btn btn-primary rounded-pill delete-button border-0 m-1"
-                  href="/details/<%= entry.id %>">
-                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                  Baca
-                </a>
-                <button
-                  class="btn btn-danger rounded-pill delete-button border-0 m-1"
-                  onclick="checkPasswordAndRedirect('bunjoTvebiEbuboh', '/delete/<%= entry.id %>', false)">
-                  <i class="fa fa-trash" aria-hidden="true"></i> Delete
-                </button>
-                <a
-                  class="btn btn-info rounded-pill"
-                  href="/edit/<%= data.id %>">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                  Edit Artikel
-                </a>
-              </div>
-            </div>
-          </div>
+        </div>
+    </div>
+</div>
+        <hr class="hr" style="border: 1px solid #ECE3CE; width:100%" />
+
         </li>
 
         <% }); %>
