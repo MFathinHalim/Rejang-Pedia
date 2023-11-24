@@ -34,6 +34,7 @@
     "multer": "^1.4.5-lts.1",
     "passport": "^0.6.0",
     "passport-google-oauth2": "^0.2.0",
+    "ts": "^0.2.2",
     "uuid": "^9.0.1"
   }
 }
