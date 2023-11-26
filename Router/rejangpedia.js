@@ -2,49 +2,6 @@ const multer = require("multer"); // Multer is used for handling file uploads, s
 const axios = require("axios");
 const { v1: uuidv1 } = require("uuid");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/images/uploads");
-  },
-  filename: async function (req, file, cb) {
-    const uniqueFileName = uuidv1(); // Initialize a unique filename using uuidv1
-    const user = req.body; // Get the request body
-
-    // Unshift the data to the 'dataOnGoing' array
-    dataOnGoing.unshift({
-      id: uniqueFileName,
-      Title: user.title,
-      Pembuat: user.pembuat,
-      Image:
-        "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
-        uniqueFileName +
-        ".jpg",
-      Diedit: "",
-      Link: user.link.replace("/watch?v=", "/embed/"),
-      Content: JSON.parse(user.content),
-    });
-
-    // Upload the data to MongoDB using the 'goingModel'
-    await goingModel.create({
-      id: uniqueFileName,
-      Title: user.title,
-      Image:
-        "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
-        uniqueFileName +
-        ".jpg",
-      Pembuat: user.pembuat,
-      Link: user.link.replace("/watch?v=", "/embed/"),
-      Content: JSON.parse(user.content),
-    });
-
-    // Use uuidv1 to create a unique file name for the image
-    cb(null, `image-${uniqueFileName}.jpg`);
-  },
-});
-
-// After the storage is configured, initialize the upload function
-const upload = multer({ storage: storage }); // Middleware for handling article uploads
-
 module.exports = function (
   server,
   data,
@@ -55,6 +12,48 @@ module.exports = function (
   imagekit,
   users,
 ) {
+    const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "public/images/uploads");
+    },
+    filename: async function (req, file, cb) {
+      const uniqueFileName = uuidv1(); // Initialize a unique filename using uuidv1
+      const user = req.body; // Get the request body
+  
+      // Unshift the data to the 'dataOnGoing' array
+      dataOnGoing.unshift({
+        id: uniqueFileName,
+        Title: user.title,
+        Pembuat: user.pembuat,
+        Image:
+          "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
+          uniqueFileName +
+          ".jpg",
+        Diedit: "",
+        Link: user.link.replace("/watch?v=", "/embed/"),
+        Content: JSON.parse(user.content),
+      });
+  
+      // Upload the data to MongoDB using the 'goingModel'
+      await goingModel.create({
+        id: uniqueFileName,
+        Title: user.title,
+        Image:
+          "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
+          uniqueFileName +
+          ".jpg",
+        Pembuat: user.pembuat,
+        Link: user.link.replace("/watch?v=", "/embed/"),
+        Content: JSON.parse(user.content),
+      });
+  
+      // Use uuidv1 to create a unique file name for the image
+      cb(null, `image-${uniqueFileName}.jpg`);
+    },
+  });
+  
+  // After the storage is configured, initialize the upload function
+  const upload = multer({ storage: storage }); // Middleware for handling article uploads
   // Route to get the main page of Rejangpedia
   server.get("/", function (req, res) {
     // Filter data for recommended articles
@@ -426,7 +425,33 @@ module.exports = function (
     );
     if (!response.data.success)
       return res.json({ msg: "reCAPTCHA tidak valid" });
-
+    if(!req.file){
+      const uniqueFileName = uuidv1(); // Initialize a unique filename using uuidv1
+      const user = req.body; // Get the request body
+  
+      // Unshift the data to the 'dataOnGoing' array
+      dataOnGoing.unshift({
+        id: uniqueFileName,
+        Title: user.title,
+        Pembuat: user.pembuat,
+        Image:
+          "https://wallpapercave.com/wp/wp9637250.jpg",
+        Diedit: "",
+        Link: user.link.replace("/watch?v=", "/embed/"),
+        Content: JSON.parse(user.content),
+      });
+  
+      // Upload the data to MongoDB using the 'goingModel'
+      await goingModel.create({
+        id: uniqueFileName,
+        Title: user.title,
+        Image:
+          "https://wallpapercave.com/wp/wp9637250.jpg",
+        Pembuat: user.pembuat,
+        Link: user.link.replace("/watch?v=", "/embed/"),
+        Content: JSON.parse(user.content),
+      });
+    }
     res.redirect("/");
   });
 };
