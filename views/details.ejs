@@ -25,6 +25,7 @@
     }
   </style>
   <body>
+    <% if (data && data.Title){ %>
     <div class="container p-3">
       <h1><%= data.Title %></h1>
       <% if (data.Image) { %>
@@ -85,6 +86,9 @@
         Edit Artikel
       </a>
     </div>
+<% } else { %>
+  <p>Data not available.</p>
+<% } %>
   </body>
   <script>
     function search() {

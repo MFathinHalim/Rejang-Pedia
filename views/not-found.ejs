@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Homepage - Rejang Pedia</title>
+    <%- include('import.ejs') -%>
+    <!-- Tambahkan link ke Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rmok6z1LlBfUTvNTzqFMrjsG5lkZz0AIqrKEj3frjq9p0F65Nebzczr6ew8zI26q"
+      crossorigin="anonymous" />
+    <meta property="og:title" content="RejangPedia" />
+    <meta property="og:description" content="Punyo Kito Galo" />
+    <meta property="og:image" content="/logo.png" />
+    <meta
+      property="og:url"
+      content="https://rejang-pedia.mfathinhalim.repl.co/" />
+  </head>
+  <style>
+    .custom-input {
+      padding: 10px; /* Sesuaikan padding sesuai preferensi Anda */
+      font-size: 16px; /* Sesuaikan ukuran font sesuai preferensi Anda */
+    }
+    #logo {
+      background-color: rgba(63, 159, 142, 0) !important;
+      height: 10rem;
+      width: 18rem; /* Ensure it's responsive */
+    }
+
+    @media only screen and (max-width: 600px) {
+      #logo {
+        background-color: rgba(63, 159, 142, 0) !important;
+        height: 28vw;
+        width: 60vw; /* Ensure it's responsive */
+      }
+
+    }
+    .card {
+      width: 230px;
+      height: 230px;
+      border-radius: 24px;
+    }
+    ::-webkit-scrollbar { 
+      display: none;  /* Safari and Chrome */
+  }
+
+  </style>
+  <body>
+    <%- include('navbar.ejs') -%>
+
+    <div class="container" id="insert-here">
+      <div
+        class="header text-dark text-center mt-2 rounded-bottom"
+        style="font-family: 'Montserrat' !important">
+        <img id="logo" class="border-0" src="/logo.png" />
+        <p>Punyo Kito Galo</p>
+        <h1 class="display-1">404</h1>
+      <p>Page Tidak Ditemukan! Apakah anda salah ketik?</p>
+      </div>
+
+      </div>
+    <!-- Tambahkan script Bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      integrity="sha384-jOo0BtDHf6my/BsFjEZmc0RivzubPP6Ie4pDMS9/wf1W4lTHj4/f5G5L5z0"
+      crossorigin="anonymous"></script>
+    <script>
+      function search() {
+        const searchTerm = searchInput.value;
+        console.log("Search term:", searchTerm);
+        window.location.href = `/search?term=${searchTerm}`;
+      }
+
+      document
+        .getElementById("searchButton")
+        .addEventListener("click", function () {
+          search();
+        });
+
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          search();
+        }
+      });
+      function myFunc()
+      {
+        var cell4 = document.getElementById('insert-here');
+      var element3 = document.createElement("a");
+      element3.href="/accept"
+      element3.innerHTML="Admin Dashboard";
+      element3.className="btn btn-danger btn-xs mb-4";
+      cell4.appendChild(element3);
+      }
+      if(localStorage.getItem("atmin")){
+        myFunc();
+        var cell4 = document.getElementById('insert-here');
+      var element3 = document.createElement("a");
+      element3.href="/rekrutatmin"
+      element3.innerHTML="Recrut Admin";
+      element3.className="btn btn-info ml-2 btn-xs mb-4";
+      cell4.appendChild(element3);
+      }
+    </script>
+  </body>
+</html>

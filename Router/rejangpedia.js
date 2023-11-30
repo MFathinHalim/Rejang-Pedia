@@ -118,16 +118,23 @@ module.exports = function (
   });
 
   // Route to render the article details page
-  server.get("/details/:id", function (req, res) {
+server.get("/details/:id", async function (req, res) {
+  try {
     const theData = data.find((obj) => obj.id === req.params.id);
-    // Check if the data is null
-    if (theData === null) {
-      res.send("Data tidak ditemukan");
+
+    // Check if the data is undefined
+    if (!theData) {
+      return res.send("Data tidak ditemukan");
     }
+
     res.render("details", {
       data: theData,
     });
-  });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
   // Route to render the ongoing article details page
   server.get("/details/ongoing/:id", function (req, res) {
@@ -454,4 +461,5 @@ module.exports = function (
     }
     res.redirect("/");
   });
+  
 };

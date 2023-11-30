@@ -28,27 +28,10 @@ var imagekit = new ImageKit({
 const server = express();
 server.set("view engine", "ejs");
 server.use(express.static(path.join(__dirname, "/public")));
-server.set("view options", { compileDebug: false });
-server.engine("ejs", (filePath, options, callback) => {
-  try {
-    const rendered = ejs.renderFile(filePath, options, callback);
-    return rendered;
-  } catch (error) {
-    if (error.message.includes("is not defined")) {
-      console.error("Suppressed EJS error:", error.message);
-      return "";
-    } else {
-      throw error;
-    }
-  }
-});
 
 // Using body-parser for JSON and form data
 server.use(bodyParser.json());
-server.use(
-  bodyParser.urlencoded({
-    extended: true,
-}));
+server.use(bodyParser.urlencoded({ extended: true }));
 
 // Arrays to store data from MongoDB
 var dataSocial = []; // Social media data posts
@@ -67,52 +50,54 @@ mongoose
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 5000,
   })
-  .then(() => {
-    // Once connected to MongoDB, start the server
+  .then(async () => {
+    // Fetching data from MongoDB collections
+    const [docs1, docs, docs2] = await Promise.all([
+      mainModel.find({}, null),
+      userModel.find({}, null),
+      goingModel.find({}, null),
+    ]);
+
+    data = docs1;
+    users = docs;
+    dataOnGoing = docs2;
+
+    // Fetching social media data from MongoDB
+    const socialDocs = await socialModel.find({}, null);
+    dataSocial = socialDocs;
+
+    // Importing routers and passing necessary parameters
+    require("./Router/account.js")(server, users, userModel);
+    require("./Router/rejangpedia.js")(
+      server,
+      data,
+      mainModel,
+      dataOnGoing,
+      userModel,
+      goingModel,
+      imagekit,
+      users
+    );
+    require("./Router/mediaSocial.js")(
+      server,
+      dataSocial,
+      users,
+      socialModel,
+      imagekit
+    );
+
+    // Middleware for handling 404
+    server.use((req, res) => {
+      res.status(404).render("not-found");
+    });
+
+    // Start the server
     server.listen(port, () => {
-      Host: process.env.NODE_ENV !== "production" ? "localhost" : "0.0.0.0";
-      console.log(`server is running on port ${port}`);
-
-      // Fetching data from MongoDB collections
-      mainModel.find({}, null).then((docs1) => {
-        userModel.find({}, null).then((docs) => {
-        goingModel.find({}, null).then((docs2) => {
-          data = docs1;
-          users = docs;
-          dataOnGoing = docs2;
-          // Importing account router and passing necessary parameters      
-          require("./Router/account.js")(server, users, userModel);
-          // Importing main router and passing necessary parameters1
-          require("./Router/rejangpedia.js")(
-            server,
-            data,
-            mainModel,
-            dataOnGoing,
-            userModel,
-            goingModel,
-            imagekit,
-            users,
-          );
-        });
-        });
-      });
-
-      // Fetching social media data from MongoDB
-      socialModel.find({}, null).then((docs) => {
-        dataSocial = docs;
-        // Importing social media router and passing necessary parameters
-        require("./Router/mediaSocial.js")(
-          server,
-          dataSocial,
-          users,
-          socialModel,
-          imagekit,
-        );
-      });
+      const host =
+        process.env.NODE_ENV !== "production" ? "localhost" : "0.0.0.0";
+      console.log(`Server is running on ${host}:${port}`);
     });
   })
   .catch((error) => {
     console.error("Database connection error:", error);
   });
-
-// Code Made By M.Fathin Halim
