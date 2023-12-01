@@ -4,7 +4,7 @@
   "description": "Sebuah Tempat dimana anda dapat menulis artikel dan menguploadnya",
   "main": "index.js",
   "scripts": {
-    "start": "tsc index.ts Router/account.ts Router/mediaSocial.ts Router/rejangpedia.ts models/post.ts models/user.ts public/index.ts"
+    "start": "tsc index.ts Router/account.ts Router/mediaSocial.ts Router/rejangpedia.ts models/post.ts models/user.ts public/index.ts node index.js"
   },
   "repository": {
     "type": "git",
