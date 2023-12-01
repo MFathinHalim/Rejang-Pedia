@@ -1,5 +1,7 @@
 # rejangpedia
 
+![Rejangpedia Logo](https://rejang-pedia.mfathinhalim.repl.co/logo.png)
+
 rejangpedia adalah aplikasi yang dibuat dan dikembangkan oleh M. FATHIN HALIM, siswa kelas VIII SMPN 1 rejang lebong.
 Konsep dr rejangpedia adalah aplikasi all in dengan semangat gotong royong dalam melestarikan budaya bengkulu pada umumnya dan rejang lebong pada khususnya dalam bentuk digital literasi dimana setiap orang bisa ikut berpartisipasi. 
 Kedepan Insyaallah akan terus dikembang dengan menambah fitur media sosial dan kamus-kamus bahasa daerah lain yang ada diwilayah Bengkulu.
@@ -34,5 +36,5 @@ Untuk menjalankan Rejangpedia secara lokal, ikuti langkah-langkah berikut:
 4. 
 ---
 
-Dibuat oleh [Nama Anda]
+Dibuat oleh M.FATHIN HALIM
 
