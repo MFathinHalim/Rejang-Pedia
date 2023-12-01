@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Homepage - Rejang Pedia</title>
+    <title>Homepage - rejangpedia</title>
     <%- include('import.ejs') -%>
     <meta property="og:title" content="RejangPedia" />
     <meta property="og:description" content="Punyo Kito Galo" />
@@ -28,17 +28,15 @@
         height: 28vw;
         width: 60vw; /* Ensure it's responsive */
       }
-
     }
     .card {
       width: 230px;
       height: 230px;
       border-radius: 24px;
     }
-    ::-webkit-scrollbar { 
-      display: none;  /* Safari and Chrome */
-  }
-
+    ::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
   </style>
   <body>
     <%- include('navbar.ejs') -%>
@@ -79,7 +77,9 @@
         ">
         <!-- Loop through your data to display articles that contain "rejang" -->
       </ul>
-      <div class="row flex-nowrap overflow-auto" style="max-width: 100%; overflow-x: auto">
+      <div
+        class="row flex-nowrap overflow-auto"
+        style="max-width: 100%; overflow-x: auto">
         <div class="col col-md-4">
           <% var op = Math.floor(Math.random()*data.length) %>
           <a
@@ -112,7 +112,7 @@
             class="btn btn-primary m-1 rounded-pill border-0"
             style="background-color: #0d7502ff !important"
             ><i class="fa fa-chevron-right" aria-hidden="true"></i> Baco <%=
-            data[op].Title.substring(0, 15)  %>...
+            data[op].Title.substring(0, 15) %>...
           </a>
         </div>
         <div class="col col-md-4">
@@ -144,8 +144,13 @@
           >
         </div>
         <div class="col col-md-4">
-          <a class="card m-1" href="/chat"
- style="background: url('https://img.freepik.com/free-vector/person-addicted-social-media-illustration-concept_52683-32210.jpg');  color: white">
+          <a
+            class="card m-1"
+            href="/chat"
+            style="
+              background: url('https://img.freepik.com/free-vector/person-addicted-social-media-illustration-concept_52683-32210.jpg');
+              color: white;
+            ">
             <div
               class="dark-overlay"
               style="
@@ -158,12 +163,9 @@
                 background: rgba(0, 0, 0, 0.2);
               ">
               <div class="card-body">
-              <h5 class="card-title">
-                Media Sosial!
-              </h5>
+                <h5 class="card-title">Media Sosial!</h5>
+              </div>
             </div>
-            </div>
-            
           </a>
         </div>
       </div>
@@ -177,51 +179,107 @@
         ">
         <!-- Loop through your data to display articles that contain "rejang" -->
       </ul>
-      <div class="p-1 mb-2 " id="pilihan" style="max-width: 100%; border-radius: 24px; color: white !important;">
+      <div
+        class="p-1 mb-2"
+        id="pilihan"
+        style="max-width: 100%; border-radius: 24px; color: white !important">
+        <h3 class="ml-4 mt-3 mb-3" style="color: white !important">
+          Artikel Pilihan
+        </h3>
+        <div class="row flex-nowrap overflow-auto m-1" style="overflow-x: auto">
+          <% dataPilihan.forEach(function(entry) { %> <% if
+          (entry.Title.toLowerCase().includes("rejang") ||
+          entry.Title.toLowerCase().includes("bengkulu") ||
+          entry.Content[0].babTitle.toLowerCase().includes("rejang") ||
+          entry.Content[0].babTitle.toLowerCase().includes("bengkulu") ||
+          entry.Content[0].babContent.toLowerCase().includes("rejang") ||
+          entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
+          <div class="col col-md-4">
+            <a
+              class="card m-1"
+              id="card-pilihan"
+              href="/details/<%= entry.id %>"
+              style="
+                height: max-content;
+                width: 330px;
+                border-radius: 24px;
+                border: none;
+                background-repeat: no-repeat;
+                background-size: cover;
+              ">
+              <img
+                class="card-img-top"
+                style="
+                  height: 130px;
+                  width: 100%;
+                  border-radius: 24px 24px 0 0 !important;
+                  border: none;
+                "
+                src="<%= entry.Image %>"
+                onerror="this.remove();" />
+              <div class="card-body">
+                <h4 class="card-title" style="color: white !important">
+                  <%= entry.Title %>
+                </h4>
+                <p class="card-text" style="color: white !important">
+                  <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
+                  '').substring(0, 50) %>...
+                </p>
+              </div>
+            </a>
+          </div>
+          <% } %> <% }); %>
+        </div>
+        <hr class="hr" style="border: 1px solid #f7f7f7" />
 
-        <h3 class="ml-4 mt-3 mb-3" style="color: white !important;">Artikel Pilihan</h3>
-      <div class="row flex-nowrap overflow-auto m-1" style="overflow-x: auto">
-
-        <% dataPilihan.forEach(function(entry) { %> 
-          <% if (entry.Title.toLowerCase().includes("rejang") || entry.Title.toLowerCase().includes("bengkulu") || entry.Content[0].babTitle.toLowerCase().includes("rejang") || entry.Content[0].babTitle.toLowerCase().includes("bengkulu") || entry.Content[0].babContent.toLowerCase().includes("rejang") || entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
+        <div
+          class="p-1 mb-2"
+          id="pilihan"
+          style="max-width: 100%; border-radius: 24px; color: white !important">
+          <h3 class="ml-4 mt-3 mb-3" style="color: white !important">
+            Artikel Acak
+          </h3>
+          <div
+            class="row flex-nowrap overflow-auto m-1"
+            style="overflow-x: auto">
+            <% dataAcak.forEach(function(entry) { %>
             <div class="col col-md-4">
-              <a class="card m-1" id="card-pilihan" href="/details/<%= entry.id %>" style="height:max-content;width: 330px; border-radius: 24px; border: none; background-repeat: no-repeat; background-size: cover;">
-                <img class="card-img-top" style="height: 130px; width: 100%; border-radius: 24px 24px 0 0 !important; border: none;" src="<%= entry.Image %>"           onerror="this.remove();" 
-/>
-                  <div class="card-body">
-                    <h4 class="card-title" style="color: white !important;"><%= entry.Title %></h4>
-                    <p class="card-text" style="color: white !important;"><%- entry.Content[0].babContent.replace(/<[^>]+>/g,
-                      '').substring(0, 50) %>...</p>
-                  </div>
+              <a
+                class="card m-1"
+                id="card-pilihan"
+                href="/details/<%= entry.id %>"
+                style="
+                  height: max-content;
+                  width: 330px;
+                  border-radius: 24px;
+                  border: none;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                ">
+                <img
+                  class="card-img-top"
+                  style="
+                    height: 130px;
+                    width: 100%;
+                    border-radius: 24px 24px 0 0 !important;
+                    border: none;
+                  "
+                  src="<%= entry.Image %>"
+                  onerror="this.remove();" />
+                <div class="card-body">
+                  <h4 class="card-title" style="color: white !important">
+                    <%= entry.Title %>
+                  </h4>
+                  <p class="card-text" style="color: white !important">
+                    <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
+                    '').substring(0, 50) %>...
+                  </p>
+                </div>
               </a>
             </div>
-          <% } %> 
-        <% }); %>
-      </div>
-      <hr class="hr" style="border: 1px solid #F7F7F7;" />
-
-      <div class="p-1 mb-2 " id="pilihan" style="max-width: 100%; border-radius: 24px; color: white !important;">
-
-        <h3 class="ml-4 mt-3 mb-3" style="color: white !important;">Artikel Acak</h3>
-      <div class="row flex-nowrap overflow-auto m-1" style="overflow-x: auto">
-
-        <% dataAcak.forEach(function(entry) { %> 
-            <div class="col col-md-4">
-              <a class="card m-1" id="card-pilihan" href="/details/<%= entry.id %>" style="height:max-content; width:330px; border-radius: 24px; border: none; background-repeat: no-repeat; background-size: cover;">
-                <img class="card-img-top" style="height: 130px; width: 100%; border-radius: 24px 24px 0 0 !important; border: none;" src="<%= entry.Image %>"           onerror="this.remove();" 
-/>
-                  <div class="card-body">
-                    <h4 class="card-title" style="color: white !important;"><%= entry.Title %></h4>
-                    <p class="card-text" style="color: white !important;"><%- entry.Content[0].babContent.replace(/<[^>]+>/g,
-                      '').substring(0, 50) %>...</p>
-                  </div>
-              </a>
-            </div>
-        <% }); %>
-      </div>
-    </div>
-
-
+            <% }); %>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -244,23 +302,22 @@
           search();
         }
       });
-      function myFunc()
-      {
-        var cell4 = document.getElementById('insert-here');
-      var element3 = document.createElement("a");
-      element3.href="/accept"
-      element3.innerHTML="Admin Dashboard";
-      element3.className="btn btn-danger btn-xs mb-4";
-      cell4.appendChild(element3);
+      function myFunc() {
+        var cell4 = document.getElementById("insert-here");
+        var element3 = document.createElement("a");
+        element3.href = "/accept";
+        element3.innerHTML = "Admin Dashboard";
+        element3.className = "btn btn-danger btn-xs mb-4";
+        cell4.appendChild(element3);
       }
-      if(localStorage.getItem("atmin")){
+      if (localStorage.getItem("atmin")) {
         myFunc();
-        var cell4 = document.getElementById('insert-here');
-      var element3 = document.createElement("a");
-      element3.href="/rekrutatmin"
-      element3.innerHTML="Recrut Admin";
-      element3.className="btn btn-info ml-2 btn-xs mb-4";
-      cell4.appendChild(element3);
+        var cell4 = document.getElementById("insert-here");
+        var element3 = document.createElement("a");
+        element3.href = "/rekrutatmin";
+        element3.innerHTML = "Recrut Admin";
+        element3.className = "btn btn-info ml-2 btn-xs mb-4";
+        cell4.appendChild(element3);
       }
     </script>
   </body>

@@ -135,12 +135,26 @@ module.exports = function (
   // Route to render the article details page
   server.get("/details/:id", async function (req, res) {
     try {
-      const theData = data.find((obj) => obj.id === req.params.id);
+      var theData = data.find((obj) => obj.id === req.params.id);
 
       // Check if the data is undefined
       if (!theData) {
-        return res.send("Data tidak ditemukan");
+        const apiUrl = `https://id.wikipedia.org/w/api.php?action=query&format=json&prop=extracts|pageimages&titles=${encodeURIComponent(
+          req.params.id
+        )}&exintro=true&formatversion=2`;
+
+        // Lakukan permintaan ke API Wikipedia
+        const response = await axios.get(apiUrl);
+
+        // Ambil data artikel dan gambar dari respons API
+        const page = response.data.query.pages[0];
+        theData = {
+          Title: page.title,
+          Content: [{ babContent: page.extract }],
+          Image: page.thumbnail?.source.replace("50px", "3000px") || null,
+        };
       }
+      //https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Art_%26_Culture_-_Rejang_Renteng.jpg/50px-Art_%26_Culture_-_Rejang_Renteng.jpg
 
       res.render("details", {
         data: theData,
@@ -211,15 +225,117 @@ module.exports = function (
   });
 
   // Route to handle searching for articles
-  server.get("/search", function (req, res) {
+  server.get("/search", async function (req, res) {
     const searchTerm = req.query.term; // Get the user input
-    const searchResults = data.filter(
-      (item) => item.Title.toLowerCase().includes(searchTerm.toLowerCase()) // Search the data
+    const searchResultsLocal = data.filter(
+      (item) => item.Title.toLowerCase().includes(searchTerm.toLowerCase()) // Search the local data
     );
-    res.render("search-results", {
-      results: searchResults,
-      searchTerm: searchTerm,
-    });
+
+    const apiUrl = `https://id.wikipedia.org/w/api.php?action=query&format=json&prop=extracts|pageimages&titles=${encodeURIComponent(
+      searchTerm
+    )}&exintro=true&formatversion=2`;
+
+    try {
+      const response = await axios.get(apiUrl);
+      const pages = response.data.query.pages;
+      if (pages[0].extract != "") {
+        // Jika terdapat data yang menyatakan "{data} dapat mengacu pada beberapa hal berikut:"
+        if (pages[0].extract.includes("mengacu pada beberapa hal berikut:")) {
+          // Ambil daftar judul dari teks yang diberikan
+          const titlesText = pages[0].extract;
+          const titlesList = titlesText.match(/<li>(.*?)<\/li>/g);
+
+          // Buat permintaan untuk masing-masing judul dan tambahkan ke hasil pencarian
+          const additionalResults = [];
+          if (titlesList) {
+            for (const title of titlesList) {
+              const titleText = title.replace(/<\/?[^>]+(>|$)/g, ""); // Hapus tag HTML
+              const titleApiUrl = `https://id.wikipedia.org/w/api.php?action=query&format=json&prop=extracts|pageimages&titles=${encodeURIComponent(
+                titleText
+              )}&exintro=true&formatversion=2`;
+
+              const titleResponse = await axios.get(titleApiUrl);
+              const titlePages = titleResponse.data.query.pages;
+
+              // Ambil data artikel dan gambar dari respons API
+              const titleData = {
+                Title: titlePages[0].title,
+                Content: [{ babContent: titlePages[0].extract }],
+                Image:
+                  titlePages[0].thumbnail?.source.replace("50px", "3000px") ||
+                  null,
+                Wikipedia: true,
+              };
+              // Periksa apakah titleData sudah ada di data
+              const isTitleDataExists = data.some(
+                (item) => item.Title === titleData.Title
+              );
+
+              // Jika titleData belum ada di data, tambahkan ke additionalResults
+              if (!isTitleDataExists) {
+                data.push(titleData);
+
+                // Create a new document in the 'mainModel' collection
+                await mainModel.create({
+                  id: titleData.Title,
+                  Title: titleData.Title,
+                  Pembuat: "rejangpedia",
+                  Image: titleData.Image,
+                  Diedit: "",
+                  Link: "",
+                  Content: titleData.Content,
+                });
+                additionalResults.push(titleData);
+              }
+            }
+          }
+
+          // Gabungkan hasil pencarian lokal dan dari Wikipedia
+          const searchResults = searchResultsLocal.concat(additionalResults);
+          res.render("search-results", {
+            results: searchResults,
+            searchTerm: searchTerm,
+          });
+        } else {
+          // Jika tidak ada "{data} dapat mengacu pada beberapa hal berikut:", tampilkan hasil biasa
+          const articleData = {
+            Title: pages[0].title,
+            Content: [{ babContent: pages[0].extract }],
+            Image: pages[0].thumbnail?.source.replace("50px", "3000px") || null,
+            Wikipedia: true,
+          };
+          const isTitleDataExists = data.some(
+            (item) => item.Title === articleData.Title
+          );
+
+          // Jika titleData belum ada di data, tambahkan ke additionalResults
+          if (!isTitleDataExists) {
+            data.push(articleData);
+
+            // Create a new document in the 'mainModel' collection
+            await mainModel.create({
+              id: articleData.Title,
+              Title: articleData.Title,
+              Pembuat: "rejangpedia",
+              Image: articleData.Image,
+              Diedit: "",
+              Link: "",
+              Content: articleData.Content,
+            });
+          }
+          // Gabungkan hasil pencarian lokal dan dari Wikipedia
+          const searchResults = [...searchResultsLocal, articleData];
+
+          res.render("search-results", {
+            results: searchResults,
+            searchTerm: searchTerm,
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching data from Wikipedia API:", error);
+      res.status(500).send("Internal Server Error");
+    }
   });
 
   // Route to handle editing an article

@@ -28,7 +28,7 @@
     <% if (data && data.Title){ %>
     <div class="container p-3">
       <h1><%= data.Title %></h1>
-      <% if (data.Image) { %>
+      <% if (data.Image && data.Image != null) { %>
       <img
         src="<%= data.Image %>"
         style="
@@ -68,7 +68,7 @@
         id="pilihan"
         style="
           border-radius: 24px !important;
-         
+
           color: white !important;
         ">
         <% data.Content.forEach(function(bab) { %>
@@ -86,9 +86,9 @@
         Edit Artikel
       </a>
     </div>
-<% } else { %>
-  <p>Data not available.</p>
-<% } %>
+    <% } else { %>
+    <p>Data not available.</p>
+    <% } %>
   </body>
   <script>
     function search() {

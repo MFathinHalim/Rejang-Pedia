@@ -67,18 +67,17 @@
         </button>
       </div>
 
-      <a href="/" class="btn btn-primary rounded-pill"
-      style="background: #7a7a7a !important; border: none;" 
+      <a
+        href="/"
+        class="btn btn-primary rounded-pill"
+        style="background: #7a7a7a !important; border: none"
         ><i class="fa fa-chevron-left" aria-hidden="true"></i> Kembali Ke
         Halaman Utama</a
       >
       <ul
         class="list-group mt-2"
         id="pilihan"
-        style="
-
-          border-radius: 24px 24px 0 0;
-        ">
+        style="border-radius: 24px 24px 0 0">
         <!-- Loop through your data to display articles that contain "rejang" -->
         <% data.forEach(function(entry) { %> <% if
         (entry.Title.toLowerCase().includes("rejang") ||
@@ -90,8 +89,10 @@
         <li
           class="list-group-item listing border-0 text-white"
           id="pilihan"
-          style="border-radius: 24px !important;">
+          style="border-radius: 24px !important">
           <div class="listing-background">
+            <% if (entry.Image != null) { %>
+
             <img
               class="listing-image mr-2"
               style="
@@ -103,6 +104,7 @@
               "
               src="<%= entry.Image %>"
               alt="<%= entry.Title %>" />
+            <% }%>
           </div>
           <div class="listing-content m-1">
             <div class="listing-info">
@@ -128,7 +130,7 @@
             </div>
           </div>
         </li>
-        <hr style="border: 1px solid #F7f7f7; width: 100% !important" />
+        <hr style="border: 1px solid #f7f7f7; width: 100% !important" />
         <% } %> <% }); %>
       </ul>
     </div>
