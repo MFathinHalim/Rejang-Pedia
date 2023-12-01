@@ -1,10 +1,8 @@
 // Importing required modules
 const express = require("express");
 const bodyParser = require("body-parser");
-const passport = require("passport");
-const session = require("express-session");
 const mongoose = require("mongoose");
-const path = require("path");
+import * as path from "path";
 const ejs = require("ejs");
 var ImageKit = require("imagekit");
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Add event listener to the "Add Bab" button
 const addBabButton = document.getElementById("addBab");
 // Initialize Quill editor for this "Bab Content"

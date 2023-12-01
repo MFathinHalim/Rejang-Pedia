@@ -1,7 +1,6 @@
 const multer = require("multer"); // Multer is used for handling file uploads, specifically for images
 const axios = require("axios");
 const { v1: uuidv1 } = require("uuid");
-const path = require("path");
 const fs = require("fs");
 
 module.exports = function (

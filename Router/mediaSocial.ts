@@ -1,7 +1,7 @@
 const multer = require("multer");
 const axios = require("axios");
 const { v1: uuidv1 } = require("uuid");
-const path = require("path");
+import * as path from "path";
 const fs = require("fs");
 
 module.exports = function (
@@ -101,9 +101,6 @@ module.exports = function (
       }
 
       if (file) {
-        const ext =
-          file.filename.split(".")[file.filename.split(".").length - 1];
-
         fs.readFile(
           path.join(
             __dirname,
