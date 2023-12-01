@@ -1,12 +1,10 @@
 // Importing required modules
 const express = require("express");
 const bodyParser = require("body-parser");
-const path = require("path");
-const multer = require("multer");
-const fs = require("fs");
 const passport = require("passport");
 const session = require("express-session");
 const mongoose = require("mongoose");
+const path = require("path");
 const ejs = require("ejs");
 var ImageKit = require("imagekit");
 
@@ -18,7 +16,7 @@ const { userModel } = require("./models/user");
 require("dotenv").config();
 
 // Setting up ImageKit
-var imagekit = new ImageKit({
+const imagekit = new ImageKit({
   publicKey: process.env.publicImg,
   privateKey: process.env.privateImg,
   urlEndpoint: process.env.urlEndpoint,
@@ -34,14 +32,14 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
 // Arrays to store data from MongoDB
-var dataSocial = []; // Social media data posts
-var data = []; // Main data
-var dataOnGoing = []; // Ongoing data
-var users = []; // Array for users
+let dataSocial: Document[] = []; // Social media data posts
+let data: Document[] = []; // Main data
+let dataOnGoing: Document[] = []; // Ongoing data
+let users: Document[] = []; // Array for users
 
 // Setting up the server to listen on a specific port
-const port = 3000;
-const uri = process.env.MONGODBURI;
+const port: number = 3000;
+const uri: string = process.env.MONGODBURI || "";
 
 // Connecting to MongoDB
 mongoose
@@ -83,7 +81,8 @@ mongoose
       dataSocial,
       users,
       socialModel,
-      imagekit
+      imagekit,
+      userModel
     );
 
     // Middleware for handling 404

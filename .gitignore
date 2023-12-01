@@ -132,3 +132,10 @@ dist
 .yarn/install-state.gz
 .pnp.*
 public/images/uploads/
+public/index.js
+index.js
+Router/account.js
+Router/mediaSocial.js
+Router/rejangpedia.js
+models/post.js
+models/user.js

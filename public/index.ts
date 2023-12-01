@@ -2,9 +2,10 @@
 const addBabButton = document.getElementById("addBab");
 // Initialize Quill editor for this "Bab Content"
 const babSections = document.getElementById("babSections");
-var quill;
+let quill: Quill;
+
 // Add event listener for "Add Bab" button
-addBabButton.addEventListener("click", function () {
+addBabButton?.addEventListener("click", function () {
   const babSections = document.getElementById("babSections");
 
   // Create a new div element for the "Bab" section
@@ -34,34 +35,36 @@ addBabButton.addEventListener("click", function () {
   imageDiv.classList.add("form-group"); // Add the Bootstrap class
   imageDiv.innerHTML = `
     <button type="button" class="btn btn-danger removeBab">
-    <i class="fa fa-trash" aria-hidden="true"></i>
-
+      <i class="fa fa-trash" aria-hidden="true"></i>
     </button>
   `;
   babSection.appendChild(imageDiv);
 
   // Append the "Bab" section to the "babSections" container
-  babSections.appendChild(babSection);
+  babSections?.appendChild(babSection);
 
-  quill = new Quill(babSection.querySelector(".quill-editor"), {
+  quill = new Quill(babSection.querySelector(".quill-editor")!, {
     theme: "snow",
   });
 });
 
 // Add event listener for "Remove Bab" buttons
-babSections.addEventListener("click", function (event) {
+babSections?.addEventListener("click", function (event) {
   if (event.target.classList.contains("removeBab")) {
-    event.target.closest(".babSection").remove();
+    event.target.closest(".babSection")?.remove();
   }
 });
-const babForm = document.getElementById("babForm");
-function onSubmit(token) {
+
+const babForm = document.getElementById("babForm") as HTMLFormElement;
+function onSubmit(token: string) {
   // Collect "Bab" sections' data
-  const babSectionElements = babSections.querySelectorAll(".babSection");
-  babData = Array.from(babSectionElements).map((section) => {
-    const babTitle = section.querySelector('input[name="babTitle"]').value;
-    const babContent =
-      section.querySelector(".quill-editor").children[0].innerHTML;
+  const babSectionElements = babSections?.querySelectorAll(".babSection");
+  const babData = Array.from(babSectionElements!).map((section) => {
+    const babTitle = (
+      section.querySelector('input[name="babTitle"]') as HTMLInputElement
+    )?.value;
+    const babContent = (section.querySelector(".quill-editor") as HTMLElement)
+      .children[0].innerHTML;
     return { babTitle, babContent };
   });
 
@@ -69,7 +72,8 @@ function onSubmit(token) {
   console.log(babData);
 
   // Store the collected "Bab" data in the hidden input field
-  document.getElementById("content").value = JSON.stringify(babData);
+  (document.getElementById("content") as HTMLInputElement).value =
+    JSON.stringify(babData);
 
-  babForm.submit();
+  babForm?.submit();
 }
