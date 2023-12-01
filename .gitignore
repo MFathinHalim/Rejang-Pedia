@@ -139,3 +139,5 @@ Router/mediaSocial.js
 Router/rejangpedia.js
 models/post.js
 models/user.js
+server.js
+views/index.ejs
