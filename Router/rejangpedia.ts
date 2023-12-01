@@ -13,6 +13,20 @@ module.exports = function (
   imagekit: any,
   users: any[]
 ) {
+  const discordWebhookURL =
+    "https://discord.com/api/webhooks/1180052293928886302/lf7CdjxqlIChndm0e1REE4ZsD_RkAoE7KYolLVrXHg8RpAl2kaMCEuWmw3BBWmJBJddt";
+  async function sendDiscordNotification(articleTitle, articleLink) {
+    try {
+      const response = await axios.post(discordWebhookURL, {
+        content: `<@&1177554932786798662>
+**Article Baru!**
+**Judul:** ${articleTitle}
+**Link:** ${articleLink}`,
+      });
+    } catch (error) {
+      console.error("Gagal mengirim notifikasi ke Discord:", error.message);
+    }
+  }
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, "public/images/uploads");
@@ -433,8 +447,8 @@ module.exports = function (
     );
     if (!response.data.success)
       return res.json({ msg: "reCAPTCHA tidak valid" });
+    const uniqueFileName = uuidv1(); // Initialize a unique filename using uuidv1
     if (!req.file) {
-      const uniqueFileName = uuidv1(); // Initialize a unique filename using uuidv1
       const user = req.body; // Get the request body
 
       // Unshift the data to the 'dataOnGoing' array
@@ -458,6 +472,10 @@ module.exports = function (
         Content: JSON.parse(user.content),
       });
     }
+    sendDiscordNotification(
+      req.body.title,
+      `https://rejang-pedia.mfathinhalim.repl.co/accept/details/ongoing/${uniqueFileName}`
+    );
     res.redirect("/");
   });
 };
