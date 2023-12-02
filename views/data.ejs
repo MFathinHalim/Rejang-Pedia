@@ -33,6 +33,11 @@
         height: 28vw;
         width: 60vw; /* Ensure it's responsive */
       }
+      .container {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        max-width: 100% !important;
+      }
     }
     .card {
       width: 18rem;
@@ -82,8 +87,6 @@
         <% data.forEach(function(entry) { %> <% if
         (entry.Title.toLowerCase().includes("rejang") ||
         entry.Title.toLowerCase().includes("bengkulu") ||
-        entry.Content[0].babTitle.toLowerCase().includes("rejang") ||
-        entry.Content[0].babTitle.toLowerCase().includes("bengkulu") ||
         entry.Content[0].babContent.toLowerCase().includes("rejang") ||
         entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
         <li

@@ -79,31 +79,25 @@ module.exports = function (
     );
 
     const existingData = new Set();
-    const dataPilihan = [];
-    const dataAcak = [];
+    const combinedData = [];
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       const random = Math.floor(Math.random() * filteredData.length);
       const randomData = filteredData[random];
 
-      if (!existingData.has(randomData)) {
-        dataPilihan.push(randomData);
-        existingData.add(randomData);
-      }
-    } // Loop for recommended data
+      combinedData.push(randomData);
+      existingData.add(randomData);
 
-    const existingDataPilihan = new Set(dataPilihan);
-    for (let i = 0; i < 3; i++) {
       const random2 = Math.floor(Math.random() * data.length);
       const randomData2 = data[random2];
 
-      if (
-        !existingData.has(randomData2) &&
-        !existingDataPilihan.has(randomData2)
-      ) {
-        dataAcak.push(randomData2);
-      }
-    } // Loop for very random data
+      combinedData.push(randomData2);
+      existingData.add(randomData2);
+    } // Loop for combined data
+
+    // Split the combined data into dataPilihan and dataAcak
+    const dataPilihan = combinedData.slice(0, 3);
+    const dataAcak = combinedData.slice(3);
 
     res.render("home", {
       data: filteredData,
