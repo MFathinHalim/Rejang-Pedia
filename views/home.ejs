@@ -176,9 +176,9 @@
           entry.Title.toLowerCase().includes("bengkulu") ||
           entry.Content[0].babContent.toLowerCase().includes("rejang") ||
           entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
-          <div>
+          <div class="col">
             <a
-              class="card m-1"
+              class="card"
               id="card-pilihan"
               href="/details/<%= entry.id %>"
               style="
@@ -238,10 +238,9 @@
         style="
           max-width: 100%;
           border-radius: 24px;
-          color: white !important;
           background: rgba(0, 0, 0, 0) !important;
         ">
-        <h3 class="ml-3 "style="color: white !important">? Tahukah Kamu ...</h3>
+        <h3 class="ml-3">? Tahukah Kamu ...</h3>
         <div class="row flex-nowrap overflow-auto m-1" style="overflow-x: auto">
           <% dataAcak.forEach(function(entry) { %>
           <div>
@@ -254,8 +253,7 @@
                 border: none;
                 height: 100px;
                 margin: 20px;
-                background: rgba(169, 169, 169, 0.2) !important;
-
+                color: white !important;
                 width: 400px !important;
                 display: flex;
                 flex-direction: row;
@@ -297,7 +295,6 @@
                 <p
                   class="card-text"
                   style="
-                    color: white !important;
                     margin: 0;
                     max-height: 3em;
                     overflow: hidden;
@@ -311,71 +308,6 @@
             </a>
           </div>
 
-          <% }); %>
-        </div>
-      </div>
-      <div
-        class="p-1 mb-2"
-        id="pilihan"
-        style="max-width: 100%; border-radius: 24px; color: white !important">
-        <h3 class="ml-3 mt-3 mb-3" style="color: white !important">
-          Kamu Harus Tahu
-        </h3>
-        <div class="row flex-nowrap overflow-auto m-1" style="overflow-x: auto">
-          <% dataAcak.forEach(function(entry) { %>
-          <div>
-            <a
-              class="card m-1"
-              id="card-pilihan"
-              href="/details/<%= entry.id %>"
-              style="
-                height: 265px;
-                border-radius: 24px;
-                border: none;
-                background-repeat: no-repeat;
-                background-size: cover;
-              ">
-              <% if (entry.Image != null) { %>
-              <img
-                class="card-img-top"
-                style="
-                  height: 130px;
-                  width: 100%;
-                  border-radius: 24px 24px 0 0 !important;
-                  border: none;
-                "
-                src="<%= entry.Image %>"
-                onerror="this.remove();" />
-              <% } else { %>
-              <img
-                class="card-img-top"
-                style="
-                  height: 130px;
-                  width: 100%;
-                  border-radius: 24px 24px 0 0 !important;
-                  border: none;
-                "
-                src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                onerror="this.remove();" />
-              <% } %>
-
-              <div class="card-body">
-                <h6 class="card-title" style="color: white !important">
-                  <%= entry.Title %>
-                </h6>
-                <p
-                  class="card-text"
-                  style="
-                    color: white !important;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
-                  ">
-                  <%- entry.Content[0].babContent.replace(/<[^>]+>/g, '') %>...
-                </p>
-              </div>
-            </a>
-          </div>
           <% }); %>
         </div>
       </div>
