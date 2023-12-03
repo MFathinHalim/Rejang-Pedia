@@ -53,7 +53,7 @@
         class="header text-dark text-center mt-2 rounded-bottom"
         style="font-family: 'Montserrat' !important">
         <img id="logo" class="border-0" src="/logo.png" />
-        <p>Punyo Kito Galo</p>
+        <p><i class="fa fa-globe"></i> Punyo Kito Galo</p>
       </div>
       <div class="search-box d-flex justify-content-center">
         <input
@@ -110,10 +110,10 @@
           </a>
           <a
             href="/details/<%= data[op].id %>"
-            class="btn btn-primary m-1 rounded-pill border-0"
-            style="background-color: #0d7502ff !important"
+            class="btn btn-primary m-1 border-0"
+            style="background-color: #0d7502ff !important; border-radius: 12px"
             ><i class="fa fa-chevron-right" aria-hidden="true"></i> Baco <%=
-            data[op].Title.substring(0, 15) %>...
+            data[op].Title.substring(0, 7) %>...
           </a>
         </div>
         <div class="col">
@@ -139,8 +139,8 @@
           </a>
           <a
             href="https://kamusrejang.rejanglebongkab.go.id/database"
-            class="btn btn-primary m-1 rounded-pill border-0"
-            style="background-color: #dac26aff !important"
+            class="btn btn-primary m-1 border-0"
+            style="background-color: #dac26aff !important; border-radius: 12px"
             ><i class="fa fa-plus" aria-hidden="true"></i> Tambahkan Kata</a
           >
         </div>
@@ -198,6 +198,19 @@
                 background-repeat: no-repeat;
                 background-size: cover;
               ">
+              <h5
+                class="card-title mb-2"
+                style="
+                  color: white !important;
+                  margin: 0;
+                  max-height: 1.2em;
+                  overflow: hidden;
+                  font-family: Arial, Helvetica, sans-serif;
+                  text-overflow: ellipsis;
+                  white-space: no-wrap;
+                ">
+                <%= entry.Title %>
+              </h5>
               <% if (entry.Image != null) { %>
               <img
                 class="card-img-top"
@@ -211,46 +224,32 @@
                 src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                 onerror="this.remove();" />
               <% } %>
-
-              <h5
-                class="card-title mt-2"
-                style="
-                  color: white !important;
-                  margin: 0;
-                  max-height: 1.2em;
-                  overflow: hidden;
-                  font-family: Arial, Helvetica, sans-serif;
-                  text-overflow: ellipsis;
-                  white-space: no-wrap;
-                ">
-                <%= entry.Title %>
-              </h5>
             </a>
           </div>
           <% } %> <% }); %>
         </div>
       </div>
+      <h3>? Tahukah Kamu ...</h3>
+
       <div
-        class="mb-2"
+        class="mr-2 pl-2 pr-2 mb-2"
         id="pilihan"
         style="
           max-width: 100%;
-          border-radius: 24px;
+          border-radius: 12px;
           background: rgba(0, 0, 0, 0) !important;
         ">
-        <h3 class="ml-1">? Tahukah Kamu ...</h3>
         <div class="row flex-nowrap overflow-auto" style="overflow-x: auto">
           <% dataAcak.forEach(function(entry) { %>
           <div>
             <a
-              class="card"
+              class="card mr-1 p-1"
               id="card-pilihan"
               href="/details/<%= entry.id %>"
               style="
-                border-radius: 12px;
+                border-radius: 24px;
                 border: none;
                 height: 100px;
-                margin: 20px;
                 color: white !important;
                 width: 400px !important;
                 display: flex;
@@ -261,8 +260,8 @@
               <img
                 class="card-img m-1"
                 style="
-                  width: 80px;
-                  height: 80px;
+                  width: 50px;
+                  height: 50px;
                   border: none;
                   border-radius: 12px;
                   object-fit: cover;
@@ -273,8 +272,8 @@
               <img
                 class="card-img m-1"
                 style="
-                  width: 80px;
-                  height: 80px;
+                  width: 50px;
+                  height: 50px;
                   border: none;
                   border-radius: 12px;
                 "
@@ -298,7 +297,7 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: no-wrap;
-                    max-width: 400px;
+                    max-width: 350px;
                   ">
                   <%- entry.Content[0].babContent.replace(/<[^>]+>/g, '') %>
                 </p>
