@@ -38,7 +38,7 @@
     height: auto;
   }
   a {
-    color: rgb(59, 128, 153);
+    color: black;
   }
 
   img {
@@ -63,22 +63,26 @@
   }
 
   .bg-light {
-    background-color: #0aa2c4ff !important;
+    background-color: rgba(245, 254, 255, 0.6) !important;
+    box-shadow: 0 4px 30px rgba(245, 254, 255, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
   }
 
-  h1 {
+  h1,
+  a,
+  span,
+  i,
+  button {
     color: black !important;
   }
   #pilihan {
     background: #3f9f8dff !important;
   }
   #card-pilihan {
-    background: rgb(56, 151, 134);
+    background: #0aa2c4ff;
   }
   @media (prefers-color-scheme: dark) {
-    a {
-      color: #b3d9e7;
-    }
     #light {
       color: lightgray;
     }
@@ -90,13 +94,20 @@
       color: #cccccc !important;
     }
     .bg-light {
-      background-color: rgb(68, 69, 70) !important;
+      background: rgba(0, 0, 0, 0.6) !important;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
     p,
     h1,
     h3,
+    i,
+    a,
+    button,
+    span,
     li {
-      color: #cccccc !important;
+      color: white !important;
     }
     img {
       background-color: #f7fcfe !important;
