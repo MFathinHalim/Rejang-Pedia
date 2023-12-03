@@ -97,7 +97,7 @@ module.exports = function (
 
     // Split the combined data into dataPilihan and dataAcak
     const dataPilihan = combinedData.slice(0, 3);
-    const dataAcak = combinedData.slice(3);
+    const dataAcak = combinedData.slice(4);
 
     res.render("home", {
       data: filteredData,
