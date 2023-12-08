@@ -24,7 +24,35 @@
     .card-img-top {
       height: 230px;
       width: 100%;
+      border-radius: 24px !important;
     }
+    ::-webkit-scrollbar {
+      margin-top: 10px !important; /* Set the margin at the top of the scrollbar */
+      width: 12px; /* Set the width of the scrollbar */
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #888; /* Set the color of the thumb */
+      border: 2px solid #555; /* Set the border color of the thumb */
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #ddd; /* Set the background color of the track */
+    }
+    ::-webkit-scrollbar-track:hover {
+      background-color: #ddd; /* Set the background color of the track */
+      height: 20px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #555; /* Set the color of the thumb on hover */
+    }
+
+    ::-webkit-scrollbar-corner {
+      background-color: #ddd; /* Set the background color of the scrollbar corner */
+    }
+
     @media only screen and (max-width: 600px) {
       #logo {
         background-color: rgba(63, 159, 142, 0) !important;
@@ -35,20 +63,15 @@
         height: 130px;
         width: 230px;
       }
-    }
-
-    .card {
-      width: 230px;
-      border-radius: 24px;
-    }
-    ::-webkit-scrollbar {
-      display: none; /* Safari and Chrome */
+      ::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
+      }
     }
   </style>
   <body>
     <%- include('navbar.ejs') -%>
 
-    <div class="container" id="insert-here">
+    <div class="container">
       <div
         class="header text-dark text-center mt-2 rounded-bottom"
         style="font-family: 'Montserrat' !important">
@@ -80,17 +103,17 @@
         style="max-width: 100%; overflow-x: auto">
         <div class="col">
           <% var op = Math.floor(Math.random()*data.length) %>
-          <h6 class="card-title ml-2">Tengok Artikel</h6>
+          <h6 class="card-title ml-2">Tengok Galo Artikel</h6>
 
           <a
-            class="card m-1"
+            class="card m-1 card-img-top"
             style="
-              height: 230px;
-
               color: white;
               background: url('<%= data[op].Image != null ? data[op].Image : `https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500` %>');
               background-repeat: no-repeat;
               background-size: cover;
+              background-position: center;
+              height: 220px;
             "
             href="/data">
             <div
@@ -111,18 +134,28 @@
             style="
               background-color: #0d7502ff !important;
               color: white !important;
+              width: fit-content;
               border-radius: 12px;
+              text-align: left !important;
             "
-            ><i class="fa fa-chevron-right" aria-hidden="true"></i> Baco <%=
-            data[op].Title.substring(0, 7) %>...
+            ><i
+              class="fa fa-chevron-right"
+              aria-hidden="true"
+              style="color: white !important"></i>
+            Baco <%= data[op].Title.substring(0, 10) %>...
           </a>
         </div>
         <div class="col">
           <h6 class="card-title ml-2">Kamus Bahasa Rejang</h6>
           <a
-            class="card m-1"
+            class="card m-1 card-img-top"
             href="https://kamusrejang.rejanglebongkab.go.id"
-            style="background: url('/kamus.jpg'); color: white; height: 230px">
+            style="
+              background: url('/kamus.jpg');
+              color: white;
+              background-position: center;
+              height: 220px;
+            ">
             <div
               class="dark-overlay"
               style="
@@ -141,21 +174,28 @@
             style="
               background-color: #dac26aff !important;
               border-radius: 12px;
+              width: fit-content;
               color: white !important;
+              text-align: left !important;
             "
-            ><i class="fa fa-plus" aria-hidden="true"></i> Tambahkan Kata</a
+            ><i
+              class="fa fa-plus"
+              aria-hidden="true"
+              style="color: white !important"></i>
+            Tambahkan Kata</a
           >
         </div>
         <div class="col">
           <h6 class="card-title ml-2">Media Sosial!</h6>
 
           <a
-            class="card m-1"
+            class="card m-1 card-img-top"
             href="/chat"
             style="
               background: url('https://img.freepik.com/free-vector/person-addicted-social-media-illustration-concept_52683-32210.jpg');
               color: white;
-              height: 230px;
+              background-position: center;
+              height: 220px;
             ">
             <div
               class="dark-overlay"
@@ -188,7 +228,7 @@
               class="card"
               href="/details/<%= entry.id %>"
               style="
-                border-radius: 24px;
+                border-radius: 12px;
                 background: rgba(0, 0, 0, 0) !important;
                 border: none;
                 width: 100%;
@@ -210,13 +250,13 @@
               <% if (entry.Image != null) { %>
               <img
                 class="card-img-top"
-                style="border-radius: 24px !important; border: none"
+                style="border-radius: 12px !important; border: none"
                 src="<%= entry.Image %>"
                 onerror="this.remove();" />
               <% } else { %>
               <img
                 class="card-img-top"
-                style="border-radius: 24px !important; border: none"
+                style="border-radius: 12px !important; border: none"
                 src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                 onerror="this.remove();" />
               <% } %>
@@ -245,9 +285,9 @@
               id="card-pilihan"
               href="/details/<%= entry.id %>"
               style="
-                border-radius: 24px;
+                border-radius: 12px;
                 border: none;
-                height: 100px;
+
                 color: white !important;
                 width: 400px !important;
                 display: flex;
