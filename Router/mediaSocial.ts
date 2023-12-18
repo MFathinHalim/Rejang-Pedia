@@ -13,14 +13,7 @@ module.exports = function (
   userModel
 ) {
   var model = socialModel;
-  const storageSocial = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, `public/images/uploads`);
-    },
-    filename: function (req, file, cb) {
-      cb(null, `image-${dataSocial.length + 100}.jpg`);
-    },
-  });
+  const storageSocial = multer.memoryStorage();
 
   const uploadSocial = multer({ storage: storageSocial });
   server.get("/page/:pageNumber", function (req, res) {
@@ -79,7 +72,7 @@ module.exports = function (
     const noteContent = req.body.noteContent;
     const noteName = req.body.noteName;
     const noteId = uuidv1();
-    const file = req.file;
+    const file = req.file.buffer;
 
     try {
       if (noteContent.trim() !== "" && noteName.trim() !== "") {
@@ -100,40 +93,19 @@ module.exports = function (
         });
       }
 
-      if (file) {
-        fs.readFile(
-          path.join(
-            __dirname,
-            "/public/images/uploads",
-            "image-" + (dataSocial.length + 99) + ".jpg"
-          ),
-          async function (err, data) {
-            if (err) throw err;
-            await imagekit.upload(
-              {
-                file: data,
-                fileName: "image-" + noteId + ".jpg",
-                folder: "/RejangConnection",
-                useUniqueFileName: false,
-              },
-              function (error, result) {
-                if (error) console.log(error);
-                else console.log(result);
-              }
-            );
+      if (req.file) {
+        await imagekit.upload(
+          {
+            file: file,
+            fileName: "image-" + noteId + ".jpg",
+            folder: "/RejangConnection",
+            useUniqueFileName: false,
+          },
+          function (error, result) {
+            if (error) console.log(error);
+            else console.log(result);
           }
         );
-
-        const imageFileName = `image-${dataSocial.length + 99}.jpg`;
-        const imageFilePath = path.join(
-          __dirname,
-          "/public/images/uploads",
-          imageFileName
-        );
-
-        if (fs.existsSync(imageFilePath)) {
-          fs.unlinkSync(imageFilePath);
-        }
       }
 
       res.redirect("/chat/share/" + noteId);

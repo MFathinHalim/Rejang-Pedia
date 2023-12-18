@@ -13,45 +13,7 @@ module.exports = function (
   imagekit: any,
   users: any[]
 ) {
-  const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "public/images/uploads");
-    },
-    filename: async function (req, file, cb) {
-      const uniqueFileName = uuidv1(); // Initialize a unique filename using uuidv1
-      const user = req.body; // Get the request body
-
-      // Unshift the data to the 'dataOnGoing' array
-      dataOnGoing.unshift({
-        id: uniqueFileName,
-        Title: user.title,
-        Pembuat: user.pembuat,
-        Image:
-          "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
-          uniqueFileName +
-          ".jpg",
-        Diedit: "",
-        Link: user.link.replace("/watch?v=", "/embed/"),
-        Content: JSON.parse(user.content),
-      });
-
-      // Upload the data to MongoDB using the 'goingModel'
-      await goingModel.create({
-        id: uniqueFileName,
-        Title: user.title,
-        Image:
-          "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
-          uniqueFileName +
-          ".jpg",
-        Pembuat: user.pembuat,
-        Link: user.link.replace("/watch?v=", "/embed/"),
-        Content: JSON.parse(user.content),
-      });
-
-      // Use uuidv1 to create a unique file name for the image
-      cb(null, `image-${uniqueFileName}.jpg`);
-    },
-  });
+  const storage = multer.memoryStorage();
 
   // After the storage is configured, initialize the upload function
   const upload = multer({ storage: storage }); // Middleware for handling article uploads
@@ -359,28 +321,6 @@ module.exports = function (
     }
 
     try {
-      // Upload the image to ImageKit if it exists
-      if (acceptedData.Image) {
-        const uploadResponse = await imagekit.upload({
-          file: fs.readFileSync(
-            `public/images/uploads/image-${acceptedData.id}.jpg`
-          ),
-          fileName: `image-${acceptedData.id}.jpg`,
-          folder: "/RejangPedia",
-          useUniqueFileName: false,
-        });
-
-        // Delete the local image file after it is uploaded to ImageKit
-        if (uploadResponse && uploadResponse.success) {
-          const filePath = `public/images/uploads/image-${acceptedData.id}.jpg`;
-          fs.unlink(filePath, (err) => {
-            if (err) {
-              console.error("Gagal menghapus gambar lokal:", err);
-            }
-          });
-        }
-      }
-
       // Find the index of the ongoing article in the 'data' array
       const existingDataIndex = data.findIndex(
         (obj) => obj.id === req.params.id
@@ -475,31 +415,44 @@ module.exports = function (
     );
     if (!response.data.success)
       return res.json({ msg: "reCAPTCHA tidak valid" });
-    if (!req.file) {
-      const uniqueFileName = uuidv1(); // Initialize a unique filename using uuidv1
-      const user = req.body; // Get the request body
 
-      // Unshift the data to the 'dataOnGoing' array
-      dataOnGoing.unshift({
-        id: uniqueFileName,
-        Title: user.title,
-        Pembuat: user.pembuat,
-        Image: "https://wallpapercave.com/wp/wp9637250.jpg",
-        Diedit: "",
-        Link: user.link.replace("/watch?v=", "/embed/"),
-        Content: JSON.parse(user.content),
+    const uniqueFileName = uuidv1(); // Initialize a unique filename using uuidv1
+    const user = req.body; // Get the request body
+    var image = image;
+    if (req.file) {
+      await imagekit.upload({
+        file: req.file.buffer,
+        fileName: `image-${uniqueFileName}.jpg`,
+        folder: "/RejangPedia",
+        useUniqueFileName: false,
       });
-
-      // Upload the data to MongoDB using the 'goingModel'
-      await goingModel.create({
-        id: uniqueFileName,
-        Title: user.title,
-        Image: "https://wallpapercave.com/wp/wp9637250.jpg",
-        Pembuat: user.pembuat,
-        Link: user.link.replace("/watch?v=", "/embed/"),
-        Content: JSON.parse(user.content),
-      });
+      image =
+        "https://ik.imagekit.io/9hpbqscxd/RejangPedia/image-" +
+        uniqueFileName +
+        ".jpg";
     }
+
+    // Unshift the data to the 'dataOnGoing' array
+    dataOnGoing.unshift({
+      id: uniqueFileName,
+      Title: user.title,
+      Pembuat: user.pembuat,
+      Image: image,
+      Diedit: "",
+      Link: user.link.replace("/watch?v=", "/embed/"),
+      Content: JSON.parse(user.content),
+    });
+
+    // Upload the data to MongoDB using the 'goingModel'
+    await goingModel.create({
+      id: uniqueFileName,
+      Title: user.title,
+      Image: image,
+      Pembuat: user.pembuat,
+      Link: user.link.replace("/watch?v=", "/embed/"),
+      Content: JSON.parse(user.content),
+    });
+
     res.redirect("/");
   });
 };

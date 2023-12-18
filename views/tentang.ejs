@@ -3,19 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <%- include('import.ejs') -%>
-    <title>Rejang Pedia - Tentang</title>
+    <title>Edit</title>
   </head>
   <body>
     <%- include('navbar.ejs') -%>
+    <style>
+      h1,
+      p,
+      h3 {
+        color: black !important;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #121212 !important; /* Warna biru tua */
+          color: #ffffff !important;
+        }
+        p,
+        h1,
+        h3,
+        button {
+          color: #ffffff !important;
+        }
+        img {
+          background-color: #f7fcfe !important;
+        }
+        #hpDp {
+          color: white !important;
+        }
+      }
+    </style>
+    <div class="container text-white">
+      <a
+        class="btn btn-outline-primary"
+        href="https://doma.mfathinhalim.repl.co"
+        id="hpDp">
+        <i class="fa fa-question-circle" aria-hidden="true"></i> Tentang Fathin
+      </a>
 
-    <div class="container mt-5">
-      <h1 class="display-4">Tentang</h1>
+      <button class="btn btn-outline-success" onclick="openApp()">
+        Buka di Aplikasi
+      </button>
+
+      <div class="dropdown-divider"></div>
+
+      <h1>Tentang</h1>
       <p>
-        Rejang Pedia adalah sumber informasi daring yang ditujukan untuk
-        membagikan pengetahuan dan informasi kepada pengguna. Kami berkomitmen
-        untuk menyediakan konten berkualitas dan mudah diakses. Aplikasi ini
-        dibuat oleh Ananda
-        <strong>M.Fathin Halim</strong>
+        rejangpedia adalah aplikasi yang dibuat dan dikembangkan oleh
+        <strong>M. FATHIN HALIM</strong>, siswa kelas VIII SMPN 1 rejang lebong.
+        Konsep dr rejangpedia adalah apalikasi all in dengan semangat gotong
+        royong dalam melestarikan budaya bengkulu pada umumnya dan rejang lebong
+        pada khususnya dalam bentuk digital literasi dimana setiap orang bisa
+        ikut berpartisipasi. Fitur yang sudah bisa dinikmati pada rejangpedia
+        saat ini yaitu artikel budaya, artikel umum, kamus kata bahasa rejang,
+        konverter kaganga. Kedepan Insyaallah akan terus dikembang dengan
+        menambah fitur media sosial dan kamus-kamus bahasa daerah lain yang ada
+        diwilayah Bengkulu. Setiap orang dapat ikut berpartisipasi dengan
+        menambahkan informasi dalam bentuk artikel dan kata-arti database kamus
+        dengan melalui filtering moderasi terlebih dahulu
       </p>
 
       <h3>Tujuan</h3>
@@ -29,8 +73,54 @@
         Bisa! Dengan Donasi ke Saweria anda dapat membantu kami dalam
         pengembangan aplikasi ini!
       </p>
-      <a href="https://saweria.co/domaTomoharu">Saweria!</a>
-      <iframe src="https://scribehow.com/embed/Membuat_artikel_pada_rejangpedia__xHPXpnG8TByHWoClRaf7gA" width="100%" height="640" allowfullscreen frameborder="0" style="border-radius: 24px;"></iframe>
+      <a
+        href="https://saweria.co/domaTomoharu"
+        class="btn btn-outline-warning mb-2"
+        >Saweria!</a
+      >
+      <div class="dropdown-divider"></div>
+
+      <h1>Peraturan dan Privasi rejangpedia</h1>
+      <h3>1. Pedoman Konten</h3>
+      <p>
+        Kami menghargai kontribusi pengguna, namun konten yang tidak sesuai
+        seperti konten berbahaya, spam, atau pelanggaran hak cipta akan dihapus.
+      </p>
+
+      <h3>2. Perlindungan Privasi</h3>
+      <p>
+        Kami menghormati privasi pengguna. Informasi pribadi tidak akan
+        dibagikan tanpa izin pengguna.
+      </p>
+
+      <h3>3. Hak Cipta</h3>
+      <p>
+        Seluruh konten yang diunggah ke Rejang Pedia harus mematuhi hak cipta.
+      </p>
+
+      <h3>4. Referensi</h3>
+      <p>Harap cantumkan Referensi yang anda gunakan.</p>
+      <iframe
+        src="https://scribehow.com/embed/Membuat_artikel_pada_rejangpedia__xHPXpnG8TByHWoClRaf7gA"
+        width="100%"
+        height="640"
+        allowfullscreen
+        frameborder="0"
+        style="border-radius: 12px"></iframe>
     </div>
   </body>
+  <script src="../index.js"></script>
+
+  <script>
+    function initializeQuillEditors() {
+      document.querySelectorAll(".quill-editor").forEach(function (element) {
+        const quill = new Quill(element, {
+          theme: "snow",
+        });
+      });
+    }
+
+    // Call the initialization function after adding dynamic content
+    initializeQuillEditors();
+  </script>
 </html>

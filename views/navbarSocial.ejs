@@ -36,17 +36,16 @@
   src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2998592050723815"
   crossorigin="anonymous"></script>
 
-
-
 <style>
-::placeholder {
-  color: lightgray !important;
-  opacity: 1; /* Firefox */
-}
+  ::placeholder {
+    color: lightgray !important;
+    opacity: 1; /* Firefox */
+  }
 
-::-ms-input-placeholder { /* Edge 12 -18 */
-  color: lightgray !important;
-}
+  ::-ms-input-placeholder {
+    /* Edge 12 -18 */
+    color: lightgray !important;
+  }
   #khususHp {
     display: none;
   }
@@ -85,12 +84,14 @@
 </style>
 <nav
   class="navbar navbar-expand-lg navbar-dark sticky-top text-white"
-  style="background: rgba(88, 88, 88, 0.6);
+  style="
+    background: rgba(88, 88, 88, 0.6);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);"
+    -webkit-backdrop-filter: blur(5px);
+  "
   id="khususDekstop">
-  <a class="navbar-brand" href="https://rejang-pedia.mfathinhalim.repl.co/" style="font-family: 'Montserrat' !important">
+  <a class="navbar-brand" href="/" style="font-family: 'Montserrat' !important">
     <img
       src="/logo.png"
       width="30"
@@ -124,7 +125,7 @@
           <i class="fa fa-plus"></i> Bicarakan Sesuatu!
         </a>
       </li>
-      
+
       <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
@@ -138,10 +139,10 @@
           Daftar
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="https://rejang-pedia.mfathinhalim.repl.co/tentang">
+          <a class="dropdown-item" href="/tentang">
             <i class="fa fa-question" aria-hidden="true"></i> Tentang
           </a>
-          <a class="dropdown-item" href="https://rejang-pedia.mfathinhalim.repl.co/peraturan">
+          <a class="dropdown-item" href="/peraturan">
             <i class="fa fa-ban" aria-hidden="true"></i> Peraturan
           </a>
           <div class="dropdown-divider"></div>
@@ -152,9 +153,7 @@
           <button class="dropdown-item" onclick="openApp()">
             Buka di Aplikasi
           </button>
-            <button class="dropdown-item" onclick="logOut()">
-              LOG OUT
-            </button>
+          <button class="dropdown-item" onclick="logOut()">LOG OUT</button>
         </div>
       </li>
     </ul>
@@ -181,19 +180,20 @@
   </div>
 </nav>
 <nav
-  class="navbar navbar-expand-lg navbar-dark 
-  sticky-top"
-  style="background: rgba(0, 0, 0, 0.4);
+  class="navbar navbar-expand-lg navbar-dark sticky-top"
+  style="
+    background: rgba(0, 0, 0, 0.4);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);"
+    -webkit-backdrop-filter: blur(5px);
+  "
   id="khususHp">
   <div class="container">
     <div class="row w-100">
       <div class="col-9 text-center">
         <a
           class="navbar-brand"
-          href="https://rejang-pedia.mfathinhalim.repl.co/"
+          href="/"
           style="font-family: 'Montserrat' !important">
           <strong style="color: white !important; text-align: center !important"
             >rejangpedia</strong
@@ -202,48 +202,49 @@
       </div>
       <div class="col-3 text-right">
         <button
-    class=" navbar-brand border-0"
-    style="border-radius: 0; background: rgba(0,0,0,0) !important;"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation">
+          class="navbar-brand border-0"
+          style="border-radius: 0; background: rgba(0, 0, 0, 0) !important"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
           <i class="fa fa-search" style="color: white !important"></i>
-  </button>
+        </button>
       </div>
 
-
-  <div class="collapse navbar-collapse p-3" id="navbarSupportedContent">
-    <!-- Centered navigation items -->
-    <li class="nav-item">
-        <button class="nav-link text-white" onclick="logOut()">
-          LOG OUT
-        </button>
-      </li>
-    <div class="form-inline my-2 my-lg-0">
-      <div class="input-group">
-        <input
-          type="text"
-          autocomplete="false"
-          class="form-control search-input mr-1 text-white"
-          style="border-radius: 12px 8px 8px 12px; padding: 15px; width: 120px"
-          id="searchInputNavv"
-          placeholder="Mau Cari Apa Sanak..."
-        />
-        <div class="input-group-append">
-          <button
-            class="btn btn-primary border-0 mr-1"
-            id="searchButtonNavv"
-            style="border-radius: 8px 12px 12px 8px !important"
-          >
-            <i class="fa fa-search" aria-hidden="true"></i>
+      <div class="collapse navbar-collapse p-3" id="navbarSupportedContent">
+        <!-- Centered navigation items -->
+        <li class="nav-item">
+          <button class="nav-link text-white" onclick="logOut()">
+            LOG OUT
           </button>
+        </li>
+        <div class="form-inline my-2 my-lg-0">
+          <div class="input-group">
+            <input
+              type="text"
+              autocomplete="false"
+              class="form-control search-input mr-1 text-white"
+              style="
+                border-radius: 12px 8px 8px 12px;
+                padding: 15px;
+                width: 120px;
+              "
+              id="searchInputNavv"
+              placeholder="Mau Cari Apa Sanak..." />
+            <div class="input-group-append">
+              <button
+                class="btn btn-primary border-0 mr-1"
+                id="searchButtonNavv"
+                style="border-radius: 8px 12px 12px 8px !important">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
     </div>
   </div>
 </nav>
@@ -251,21 +252,23 @@
 <nav
   class="navbar fixed-bottom bawah navbar-expand navbar-light"
   id="khususHpBawah"
-  style="background: rgba(0, 0, 0, 0.6);
+  style="
+    background: rgba(0, 0, 0, 0.6);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);">
+    -webkit-backdrop-filter: blur(5px);
+  ">
   <ul class="navbar-nav nav-justified w-100">
     <li class="nav-item">
-      <a class="nav-link text-white" href="https://rejang-pedia.mfathinhalim.repl.co/">
+      <a class="nav-link text-white" href="/">
         <i class="fa fa-home"></i>
         <span class="d-block">Home</span>
       </a>
     </li>
-    
+
     <li class="nav-item">
-      <a class="nav-link text-white" href="https://rejang-pedia.mfathinhalim.repl.co/chat">
-<i class="fa fa-comments-o" aria-hidden="true"></i>
+      <a class="nav-link text-white" href="/chat">
+        <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="d-block">Diskusi</span>
       </a>
     </li>
@@ -284,7 +287,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-white" href="https://rejang-pedia.mfathinhalim.repl.co/dropdown">
+      <a class="nav-link text-white" href="/dropdown">
         <i class="fa fa-bars"></i>
         <span class="d-block">Hal lain</span>
       </a>
@@ -293,12 +296,12 @@
 </nav>
 
 <script>
-function logOut(){
-      localStorage.removeItem("loggedInUser");
-      localStorage.removeItem("atmin");
-      localStorage.removeItem("userId");
-      window.location.href = "/"
-    }
+  function logOut() {
+    localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("atmin");
+    localStorage.removeItem("userId");
+    window.location.href = "/";
+  }
   document
     .getElementById("searchButtonNav")
     .addEventListener("click", function () {
@@ -306,7 +309,7 @@ function logOut(){
       const searchTerm = document.getElementById("searchInputNav").value;
 
       // Redirect ke halaman hasil pencarian
-      window.location.href = `https://rejang-pedia.mfathinhalim.repl.co/search?term=${searchTerm}`;
+      window.location.href = `/search?term=${searchTerm}`;
     });
   const searchInputNav = document.getElementById("searchInputNav");
   searchInputNav.addEventListener("keypress", function (event) {
@@ -326,7 +329,7 @@ function logOut(){
       const searchTerm = document.getElementById("searchInputNavv").value;
 
       // Redirect ke halaman hasil pencarian
-      window.location.href = `https://rejang-pedia.mfathinhalim.repl.co/search?term=${searchTerm}`;
+      window.location.href = `/search?term=${searchTerm}`;
     });
   const searchInputNavv = document.getElementById("searchInputNavv");
   searchInputNavv.addEventListener("keypress", function (event) {
@@ -335,7 +338,7 @@ function logOut(){
       const searchTerm = searchInputNavv.value;
 
       // Redirect ke halaman hasil pencarian
-      window.location.href = `https://rejang-pedia.mfathinhalim.repl.co/search?term=${searchTerm}`;
+      window.location.href = `/search?term=${searchTerm}`;
     }
   });
 
@@ -358,10 +361,7 @@ function logOut(){
     // Coba membuka tautan
     if (navigator.supportedURLScheme) {
       navigator.supportedURLScheme.open(
-        "rejang://pedia" +
-          window.location.href.replace(
-            "https://rejang-pedia.mfathinhalim.repl.co"
-          ),
+        "rejang://pedia" + window.location.href.replace(""),
         function () {
           // Tautan berhasil dibuka, tidak ada tindakan lanjutan diperlukan
         },
@@ -373,11 +373,7 @@ function logOut(){
     } else {
       // Tautan kustom akan digunakan jika navigator.supportedURLScheme tidak tersedia
       window.location.href =
-        "rejang://pedia" +
-        window.location.href.replace(
-          "https://rejang-pedia.mfathinhalim.repl.co",
-          ""
-        );
+        "rejang://pedia" + window.location.href.replace("", "");
     }
   }
 </script>
