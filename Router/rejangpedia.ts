@@ -3,6 +3,17 @@ const axios = require("axios");
 const { v1: uuidv1 } = require("uuid");
 const fs = require("fs");
 
+class TreeNode {
+  data: any;
+  left: any;
+  right: any;
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+}
+
 class rejangpedia {
   data: any[];
   mainModel: any;
@@ -11,6 +22,7 @@ class rejangpedia {
   goingModel: any;
   imagekit: any;
   users: any[];
+  root: any;
   constructor(
     data,
     mainModel,
@@ -27,6 +39,7 @@ class rejangpedia {
     this.goingModel = goingModel;
     this.imagekit = imagekit;
     this.users = users;
+    this.root = null;
   }
 
   getData() {
@@ -106,10 +119,55 @@ class rejangpedia {
     }
   }
 
+  insert(data) {
+    const newNode = new TreeNode(data);
+
+    if (this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
+  }
+
+  insertNode(node, newNode) {
+    if (newNode.data < node.data) {
+      if (node.left === null) {
+        node.left = newNode;
+      } else {
+        this.insertNode(node.left, newNode);
+      }
+    } else {
+      if (node.right === null) {
+        node.right = newNode;
+      } else {
+        this.insertNode(node.right, newNode);
+      }
+    }
+  }
+
   search(searchTerm) {
-    return this.data.filter(
-      (item) => item.Title.toLowerCase().includes(searchTerm.toLowerCase()) // Search the data
-    );
+    console.log(this.searchNode(this.root, searchTerm.toLowerCase()));
+    return this.searchNode(this.root, searchTerm.toLowerCase());
+  }
+
+  searchNode(node, searchTerm) {
+    if (node === null) {
+      return [];
+    }
+
+    const results = [];
+
+    if (node.data.Title.toLowerCase().includes(searchTerm)) {
+      results.push(node.data);
+    }
+
+    if (searchTerm < node.data.Title.toLowerCase()) {
+      results.push(...this.searchNode(node.left, searchTerm));
+    } else if (searchTerm > node.data.Title.toLowerCase()) {
+      results.push(...this.searchNode(node.right, searchTerm));
+    }
+
+    return results;
   }
 
   delete(id, ongoing) {
@@ -342,6 +400,7 @@ module.exports = function (
     imagekit,
     users
   );
+  data.forEach((item) => app.insert(item));
 
   // Route to get the main page of Rejangpedia
   server.get("/", function (req, res) {
