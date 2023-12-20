@@ -34,17 +34,15 @@
         height: 28vw;
         width: 60vw; /* Ensure it's responsive */
       }
-
     }
     .card {
       width: 230px;
       height: 230px;
       border-radius: 24px;
     }
-    ::-webkit-scrollbar { 
-      display: none;  /* Safari and Chrome */
-  }
-
+    ::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
   </style>
   <body>
     <%- include('navbar.ejs') -%>
@@ -53,13 +51,15 @@
       <div
         class="header text-dark text-center mt-2 rounded-bottom"
         style="font-family: 'Montserrat' !important">
-        <img id="logo" class="border-0" src="/logo.png" />
+        <img
+          id="logo"
+          class="border-0"
+          src="https://cdn.glitch.global/2f9a2460-083a-49a5-a55f-2abb8ce71e54/logo.png?v=1699767799122" />
         <p>Punyo Kito Galo</p>
         <h1 class="display-1">404</h1>
-      <p>Page Tidak Ditemukan! Apakah anda salah ketik?</p>
+        <p>Page Tidak Ditemukan! Apakah anda salah ketik?</p>
       </div>
-
-      </div>
+    </div>
     <!-- Tambahkan script Bootstrap -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
@@ -84,23 +84,22 @@
           search();
         }
       });
-      function myFunc()
-      {
-        var cell4 = document.getElementById('insert-here');
-      var element3 = document.createElement("a");
-      element3.href="/accept"
-      element3.innerHTML="Admin Dashboard";
-      element3.className="btn btn-danger btn-xs mb-4";
-      cell4.appendChild(element3);
+      function myFunc() {
+        var cell4 = document.getElementById("insert-here");
+        var element3 = document.createElement("a");
+        element3.href = "/accept";
+        element3.innerHTML = "Admin Dashboard";
+        element3.className = "btn btn-danger btn-xs mb-4";
+        cell4.appendChild(element3);
       }
-      if(localStorage.getItem("atmin")){
+      if (localStorage.getItem("atmin")) {
         myFunc();
-        var cell4 = document.getElementById('insert-here');
-      var element3 = document.createElement("a");
-      element3.href="/rekrutatmin"
-      element3.innerHTML="Recrut Admin";
-      element3.className="btn btn-info ml-2 btn-xs mb-4";
-      cell4.appendChild(element3);
+        var cell4 = document.getElementById("insert-here");
+        var element3 = document.createElement("a");
+        element3.href = "/rekrutatmin";
+        element3.innerHTML = "Recrut Admin";
+        element3.className = "btn btn-info ml-2 btn-xs mb-4";
+        cell4.appendChild(element3);
       }
     </script>
   </body>
