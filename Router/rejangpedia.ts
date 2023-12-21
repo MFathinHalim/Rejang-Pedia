@@ -2,7 +2,10 @@ const multer = require("multer"); // Multer is used for handling file uploads, s
 const axios = require("axios");
 const { v1: uuidv1 } = require("uuid");
 const fs = require("fs");
-const wtf = require("wtf_wikipedia");
+const OpenAI = require("openai");
+const openai = new OpenAI({
+  apiKey: "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",
+});
 
 class TreeNode {
   data: any;
@@ -484,9 +487,14 @@ module.exports = function (
   // Route to handle searching for articles
   server.get("/search", async function (req, res) {
     const searchTerm = req.query.term; // Get the user input
+
+    /* const response = await openai.chat.completions.create({
+      messages: [{ role: "user", content: "Say this is a test" }],
+      model: "text-davinci-003",
+    });*/
     res.render("search-results", {
-      results: await app.search(searchTerm),
-      searchTerm: searchTerm,
+      results: app.search(searchTerm),
+      //ai: response,
     });
   });
 
