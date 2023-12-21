@@ -2,10 +2,10 @@ const multer = require("multer"); // Multer is used for handling file uploads, s
 const axios = require("axios");
 const { v1: uuidv1 } = require("uuid");
 const fs = require("fs");
-const OpenAI = require("openai");
-const openai = new OpenAI({
-  apiKey: "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",
-});
+//const OpenAI = require("openai");
+//const openai = new OpenAI({
+//  apiKey: "",
+//});
 
 class TreeNode {
   data: any;
