@@ -37,7 +37,8 @@
     "passport": "^0.6.0",
     "passport-google-oauth2": "^0.2.0",
     "typescript": "^5.3.2",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "wtf_wikipedia": "^10.2.1"
   },
   "devDependencies": {
     "@types/multer": "^1.4.11",

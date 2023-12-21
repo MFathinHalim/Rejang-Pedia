@@ -2,6 +2,7 @@ const multer = require("multer"); // Multer is used for handling file uploads, s
 const axios = require("axios");
 const { v1: uuidv1 } = require("uuid");
 const fs = require("fs");
+const wtf = require("wtf_wikipedia");
 
 class TreeNode {
   data: any;
@@ -119,55 +120,76 @@ class rejangpedia {
     }
   }
 
-  insert(data) {
-    const newNode = new TreeNode(data);
+  async search(searchTerm) {
+    try {
+      // 1. Mencari di data lokal
+      const localDataResults = this.data.filter((item) =>
+        item.Title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
 
-    if (this.root === null) {
-      this.root = newNode;
-    } else {
-      this.insertNode(this.root, newNode);
-    }
-  }
+      // 2. Mencari di Wikipedia
+      const wikipediaResults = await this.searchWikipedia(searchTerm);
 
-  insertNode(node, newNode) {
-    if (newNode.data < node.data) {
-      if (node.left === null) {
-        node.left = newNode;
-      } else {
-        this.insertNode(node.left, newNode);
-      }
-    } else {
-      if (node.right === null) {
-        node.right = newNode;
-      } else {
-        this.insertNode(node.right, newNode);
-      }
-    }
-  }
+      // 3. Menggabungkan hasil dari kedua sumber tanpa duplikasi
+      const combinedResults = [...localDataResults];
 
-  search(searchTerm) {
-    console.log(this.searchNode(this.root, searchTerm.toLowerCase()));
-    return this.searchNode(this.root, searchTerm.toLowerCase());
-  }
+      wikipediaResults.forEach((wikipediaItem) => {
+        const isDuplicate = localDataResults.some(
+          (localItem) => localItem.id === wikipediaItem.id
+        );
 
-  searchNode(node, searchTerm) {
-    if (node === null) {
+        if (!isDuplicate) {
+          combinedResults.push(wikipediaItem);
+        }
+      });
+
+      return combinedResults;
+    } catch (error) {
+      console.error("Error searching:", error.message);
       return [];
     }
+  }
 
-    const results = [];
+  async searchWikipedia(searchTerm) {
+    try {
+      // Mengecek apakah data sudah ada berdasarkan judul
+      const existingData = this.data.find((item) => item.Title === searchTerm);
+      if (existingData) {
+        return [existingData]; // Mengembalikan data yang sudah ada dalam bentuk array jika ditemukan
+      }
 
-    if (node.data.Title.toLowerCase().includes(searchTerm)) {
-      results.push(node.data);
+      const apiUrl = `https://id.wikipedia.org/w/api.php?action=query&format=json&titles=${searchTerm}&prop=extracts|pageimages&exintro=true&pithumbsize=300`;
+
+      const response = await axios.get(apiUrl);
+      const pageId = Object.keys(response.data.query.pages)[0];
+      const title = response.data.query.pages[pageId].title;
+      const content = response.data.query.pages[pageId].extract;
+
+      // Ambil informasi gambar jika tersedia
+      let imageUrl = "";
+      if (response.data.query.pages[pageId].original) {
+        imageUrl = response.data.query.pages[pageId].original.source;
+      } else if (response.data.query.pages[pageId].thumbnail) {
+        imageUrl = response.data.query.pages[pageId].thumbnail.source;
+      }
+
+      // Menambahkan data baru ke this.data
+      const newData = {
+        id: title,
+        Title: title,
+        Image: imageUrl,
+        Content: {
+          babContent: content,
+        },
+      };
+
+      this.data.push(newData);
+
+      return [newData]; // Mengembalikan data baru dalam bentuk array
+    } catch (error) {
+      console.error("Error fetching data from Wikipedia:", error.message);
+      return [];
     }
-
-    if (searchTerm < node.data.Title.toLowerCase()) {
-      results.push(...this.searchNode(node.left, searchTerm));
-    } else if (searchTerm > node.data.Title.toLowerCase()) {
-      results.push(...this.searchNode(node.right, searchTerm));
-    }
-
-    return results;
   }
 
   delete(id, ongoing) {
@@ -400,7 +422,6 @@ module.exports = function (
     imagekit,
     users
   );
-  data.forEach((item) => app.insert(item));
 
   // Route to get the main page of Rejangpedia
   server.get("/", function (req, res) {
@@ -461,10 +482,10 @@ module.exports = function (
   });
 
   // Route to handle searching for articles
-  server.get("/search", function (req, res) {
+  server.get("/search", async function (req, res) {
     const searchTerm = req.query.term; // Get the user input
     res.render("search-results", {
-      results: app.search(searchTerm),
+      results: await app.search(searchTerm),
       searchTerm: searchTerm,
     });
   });
