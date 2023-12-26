@@ -18,15 +18,36 @@ class TreeNode {
   }
 }
 
+type Data = {
+  id: string;
+  Title: string;
+  Image: string;
+  Pembuat: string;
+  Diedit: string;
+  Link: string;
+  Content: {
+    babTitle: string;
+    babContent: string;
+  }[];
+};
+
+type Users = {
+  id: string;
+  username: string;
+  password: string;
+  desc: string;
+  atmin: boolean;
+};
+
 class rejangpedia {
-  data: any[];
+  data: Data[];
+  dataOnGoing: Data[];
+  users: Users[];
+  //===================== this is from other modules...
   mainModel: any;
-  dataOnGoing: any[];
   userModel: any;
   goingModel: any;
   imagekit: any;
-  users: any[];
-  root: any;
   constructor(
     data,
     mainModel,
@@ -43,7 +64,6 @@ class rejangpedia {
     this.goingModel = goingModel;
     this.imagekit = imagekit;
     this.users = users;
-    this.root = null;
   }
 
   getData() {
@@ -177,13 +197,19 @@ class rejangpedia {
       }
 
       // Menambahkan data baru ke this.data
-      const newData = {
+      const newData: Data = {
         id: title,
         Title: title,
         Image: imageUrl,
-        Content: {
-          babContent: content,
-        },
+        Pembuat: "",
+        Diedit: "",
+        Link: "",
+        Content: [
+          {
+            babTitle: "", // You might want to set babTitle appropriately or fetch it from the API
+            babContent: content,
+          },
+        ],
       };
 
       this.data.push(newData);
@@ -409,7 +435,7 @@ module.exports = function (
   userModel: any,
   goingModel: any,
   imagekit: any,
-  users: any[]
+  users: any
 ) {
   const storage = multer.memoryStorage();
 
