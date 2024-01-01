@@ -457,10 +457,6 @@ module.exports = function (
     res.render("home", app.getData());
   });
 
-  server.get("/api/home", function (req, res) {
-    res.json(app.getData());
-  });
-
   // Route to render the 'new' page for creating a new article
   server.get("/new", function (req, res) {
     res.render("new");
@@ -569,5 +565,29 @@ module.exports = function (
     app.captcha(req, res);
     app.newArticle(req);
     res.redirect("/");
+  });
+
+  server.get("/api/getData", async function (req, res) {
+    res.json(app.getData());
+  });
+
+  server.get("/api/details/:id", async function (req, res) {
+    res.json(app.getDetails(req.params.id, false));
+  });
+  server.get("/api/ongoing/:id", async function (req, res) {
+    res.json(app.getDetails(req.params.id, true));
+  });
+  server.get("/api/recrut", async function (req, res) {
+    res.json({
+      data: users,
+    });
+  });
+  server.get("/api/admin-new/:id", async function (req, res) {
+    app.recrutAdmin(req.params.id);
+  });
+  server.get("/search", async function (req, res) {
+    res.json({
+      results: app.search(req.query.searchTerm),
+    });
   });
 };
