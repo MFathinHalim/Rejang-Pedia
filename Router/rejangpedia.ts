@@ -514,8 +514,9 @@ module.exports = function (
       messages: [{ role: "user", content: "Say this is a test" }],
       model: "text-davinci-003",
     });*/
+    const search = await app.search(searchTerm);
     res.render("search-results", {
-      results: app.search(searchTerm),
+      results: search,
       //ai: response,
     });
   });
@@ -585,7 +586,7 @@ module.exports = function (
   server.get("/api/admin-new/:id", async function (req, res) {
     app.recrutAdmin(req.params.id);
   });
-  server.get("/search", async function (req, res) {
+  server.get("/api/search", async function (req, res) {
     res.json({
       results: app.search(req.query.searchTerm),
     });
