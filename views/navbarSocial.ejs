@@ -1,51 +1,4 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-  crossorigin="anonymous" />
-<link rel="stylesheet" href="style.css" />
-<script
-  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-  crossorigin="anonymous"></script>
-<script
-  src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-  crossorigin="anonymous"></script>
-<script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-  crossorigin="anonymous"></script>
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-<link
-  href="https://fonts.googleapis.com/css?family=Montserrat"
-  rel="stylesheet" />
-<link
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-  rel="stylesheet" />
-<link rel="icon" href="/logo.png" type="image/x-icon" />
-
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script
-  async
-  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2998592050723815"
-  crossorigin="anonymous"></script>
-
 <style>
-  ::placeholder {
-    color: lightgray !important;
-    opacity: 1; /* Firefox */
-  }
-
-  ::-ms-input-placeholder {
-    /* Edge 12 -18 */
-    color: lightgray !important;
-  }
   #khususHp {
     display: none;
   }
@@ -53,7 +6,6 @@
     display: none;
     transition: all 0.3s ease-in-out; /* Animasi smooth */
   }
-
   @media only screen and (max-width: 600px) {
     #khususDekstop {
       display: none;
@@ -83,21 +35,9 @@
   }
 </style>
 <nav
-  class="navbar navbar-expand-lg navbar-dark sticky-top text-white"
-  style="
-    background: rgba(88, 88, 88, 0.6);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-  "
+  class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
   id="khususDekstop">
   <a class="navbar-brand" href="/" style="font-family: 'Montserrat' !important">
-    <img
-      src="https://cdn.glitch.global/2f9a2460-083a-49a5-a55f-2abb8ce71e54/logo.png?v=1699767799122"
-      width="30"
-      height="30"
-      alt=""
-      style="width: 30px !important; height: 30px !important" />
     rejangpedia
   </a>
 
@@ -114,18 +54,22 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <!-- Centered navigation items -->
-    <ul class="navbar-nav mx-auto">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="https://kamusrejang.rejanglebongkab.go.id">
           <i class="fa fa-book"></i> Kamus Rejang
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#add">
-          <i class="fa fa-plus"></i> Bicarakan Sesuatu!
+        <a class="nav-link" href="/new">
+          <i class="fa fa-plus"></i> Tambah Artikel
         </a>
       </li>
-
+      <li class="nav-item">
+        <a class="nav-link" href="/chat">
+          <i class="fa fa-comments-o" aria-hidden="true"></i> Diskusi
+        </a>
+      </li>
       <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
@@ -138,12 +82,9 @@
           <i class="fa fa-bars"></i>
           Daftar
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu bg-light" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/tentang">
             <i class="fa fa-question" aria-hidden="true"></i> Tentang
-          </a>
-          <a class="dropdown-item" href="/peraturan">
-            <i class="fa fa-ban" aria-hidden="true"></i> Peraturan
           </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="https://doma.mfathinhalim.repl.co">
@@ -153,7 +94,6 @@
           <button class="dropdown-item" onclick="openApp()">
             Buka di Aplikasi
           </button>
-          <button class="dropdown-item" onclick="logOut()">LOG OUT</button>
         </div>
       </li>
     </ul>
@@ -162,9 +102,9 @@
       <div class="input-group">
         <input
           type="text"
-          autocomplete="false"
+          autocomplete="off"
           class="form-control search-input mr-1"
-          style="border-radius: 12px 8px 8px 12px; padding: 15px; width: 120px"
+          style="border-radius: 12px 8px 8px 12px; padding: 15px"
           id="searchInputNav"
           placeholder="Mau Cari Apa Sanak..." />
         <div class="input-group-append">
@@ -179,14 +119,9 @@
     </div>
   </div>
 </nav>
+
 <nav
-  class="navbar navbar-expand-lg navbar-dark sticky-top"
-  style="
-    background: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-  "
+  class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
   id="khususHp">
   <div class="container">
     <div class="row w-100">
@@ -195,9 +130,7 @@
           class="navbar-brand"
           href="/"
           style="font-family: 'Montserrat' !important">
-          <strong style="color: white !important; text-align: center !important"
-            >rejangpedia</strong
-          >
+          rejangpedia
         </a>
       </div>
       <div class="col-3 text-right">
@@ -210,23 +143,18 @@
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation">
-          <i class="fa fa-search" style="color: white !important"></i>
+          <i class="fa fa-search" style=""></i>
         </button>
       </div>
 
       <div class="collapse navbar-collapse p-3" id="navbarSupportedContent">
         <!-- Centered navigation items -->
-        <li class="nav-item">
-          <button class="nav-link text-white" onclick="logOut()">
-            LOG OUT
-          </button>
-        </li>
         <div class="form-inline my-2 my-lg-0">
           <div class="input-group">
             <input
               type="text"
               autocomplete="false"
-              class="form-control search-input mr-1 text-white"
+              class="form-control search-input mr-1"
               style="
                 border-radius: 12px 8px 8px 12px;
                 padding: 15px;
@@ -250,58 +178,44 @@
 </nav>
 
 <nav
-  class="navbar fixed-bottom bawah navbar-expand navbar-light"
-  id="khususHpBawah"
-  style="
-    background: rgba(0, 0, 0, 0.6);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-  ">
+  class="navbar fixed-bottom bawah navbar-expand navbar-light bg-light"
+  id="khususHpBawah">
   <ul class="navbar-nav nav-justified w-100">
     <li class="nav-item">
-      <a class="nav-link text-white" href="/">
+      <a class="nav-link" href="https://rejang-pedia.mfathinhalim.repl.co/">
         <i class="fa fa-home"></i>
         <span class="d-block">Home</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link text-white" href="/chat">
+      <a class="nav-link" href="/chat">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="d-block">Diskusi</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-white" href="#add">
+      <a class="nav-link" href="/new">
         <i class="fa fa-plus"></i>
-        <span class="d-block">Posting</span>
+        <span class="d-block">Tambah</span>
       </a>
     </li>
     <li class="nav-item">
-      <a
-        class="nav-link text-white"
-        href="https://kamusrejang.rejanglebongkab.go.id">
+      <a class="nav-link" href="https://kamusrejang.rejanglebongkab.go.id">
         <i class="fa fa-book"></i>
         <span class="d-block">Kamus</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-white" href="/dropdown">
+      <a class="nav-link" href="/dropdown">
         <i class="fa fa-bars"></i>
-        <span class="d-block">Hal lain</span>
+        <span class="d-block">Menu</span>
       </a>
     </li>
   </ul>
 </nav>
 
 <script>
-  function logOut() {
-    localStorage.removeItem("loggedInUser");
-    localStorage.removeItem("atmin");
-    localStorage.removeItem("userId");
-    window.location.href = "/";
-  }
   document
     .getElementById("searchButtonNav")
     .addEventListener("click", function () {
@@ -353,7 +267,7 @@
       bawahNavbar.style.bottom = "0";
     } else {
       // Scroll ke bawah, sembunyikan navbar khusus HP
-      bawahNavbar.style.bottom = "0"; // Ubah sesuai dengan tinggi navbar
+      bawahNavbar.style.bottom = "-100px"; // Ubah sesuai dengan tinggi navbar
     }
     prevScrollpos = currentScrollPos;
   };
@@ -361,7 +275,10 @@
     // Coba membuka tautan
     if (navigator.supportedURLScheme) {
       navigator.supportedURLScheme.open(
-        "rejang://pedia" + window.location.href.replace(""),
+        "rejang://pedia" +
+          window.location.href.replace(
+            "https://rejang-pedia.mfathinhalim.repl.co"
+          ),
         function () {
           // Tautan berhasil dibuka, tidak ada tindakan lanjutan diperlukan
         },
@@ -373,7 +290,11 @@
     } else {
       // Tautan kustom akan digunakan jika navigator.supportedURLScheme tidak tersedia
       window.location.href =
-        "rejang://pedia" + window.location.href.replace("", "");
+        "rejang://pedia" +
+        window.location.href.replace(
+          "https://rejang-pedia.mfathinhalim.repl.co",
+          ""
+        );
     }
   }
 </script>

@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <!-- Header -->
   <head>
@@ -8,31 +8,30 @@
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2998592050723815"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-      crossorigin="anonymous"
-    />
+      crossorigin="anonymous" />
     <script
       type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script
       nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-EH2KLaN0StGPTkBD1a9/9gNJiMcKj1S1rqAMH6w7P6iQ12rsyz4cUpnD4et4leGv"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
   </head>
-  <%- include('top.html') -%>
+  <%- include('top.html') -%> <%- include('import') -%>
 
   <!-- Script -->
   <!--JS-->
@@ -75,48 +74,36 @@
       <div id="main-wrapper" class="fancy-scrollbar">
         <!-- Tampilan Pada Aplikasi agar tidak mengganggu Sidebar -->
         <div
-          class="container-fluid mt-4"
-          style="
-            border-radius: 32px 32px 0px 0px;
-            background: linear-gradient(
-              180deg,
-              #79AC78 100%,
-              rgba(78, 79, 235, 0) 100%
-            );
-            padding-bottom: 50px;
-          "
-        >
+          class="container-fluid"
+          style="border-radius: 32px 32px 0px 0px; padding-bottom: 50px">
           <div class="text-center mb-4" id="tentang">
             <div
               class="card"
               style="
-                margin-top: 20px;
                 border-radius: 7px;
                 background: rgba(217, 217, 217, 0);
                 border: 0;
-              "
-            >
+              ">
               <div class="card-body text-white">
                 <!-- Form untuk Posting -->
-                <a id="dynamicLink" class="text-white" href="#"><h2 id="greeting">Halo</h2></a>
+                <a id="dynamicLink" class="text-white" href="#"
+                  ><h2 id="greeting">Halo</h2></a
+                >
 
-                
                 <form
                   action="/chat"
                   method="post"
                   id="add"
-                  enctype="multipart/form-data"
-                >
+                  enctype="multipart/form-data">
                   <input type="number" name="noteId" hidden />
-                          <div class="form-group">
+                  <div class="form-group">
                     <input
                       type="text"
                       class="form-control input"
                       placeholder="Judul Diskusi"
                       id="noteName"
                       name="noteName"
-                      style="display: none"
-                    />
+                      style="display: none" />
                   </div>
                   <!-- noteId (Seperti Biasa) -->
                   <input
@@ -124,30 +111,24 @@
                     name="noteColor"
                     id="noteColor"
                     value="0"
-                    hidden
-                  />
+                    hidden />
                   <label for="noteContent">Tulis Apa Yang Terjadi!</label>
                   <textarea
                     class="form-control text-white p-3"
                     rows="6"
                     placeholder="Tulis Apa Yang Terjadi!"
                     name="noteContent"
-                    style="border-radius: 24px;"
-                  ></textarea>
+                    style="border-radius: 24px"></textarea>
                   <img
                     id="imagePreview"
-                    src="https://www.preview.ph/preview-2.jpg"
+                    src="data:image/png;base64,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"
                     alt="Preview"
                     class="mt-3 mb-3"
-                    style="
-                      width: 100%;
-                      border-radius: 33px;
-                    "
-                  />
+                    style="width: 100%; border-radius: 33px" />
                   <!-- Mengenai apa yang ingin diposting -->
-          
+
                   <!-- Nama -->
-                  
+
                   <div class="form-group">
                     <input
                       type="file"
@@ -156,14 +137,15 @@
                       id="choose"
                       style="display: none"
                       accept="image/*"
-                      onchange="previewImage(event)"
-                    />
+                      onchange="previewImage(event)" />
                     <label
                       for="choose"
                       class="btn btn-primary"
                       style="
                         border-radius: 33px;
-background: #FF9B9B; border: none;                      "
+                        background: #ff9b9b;
+                        border: none;
+                      "
                       >Pilih Gambar!</label
                     >
                     <button
@@ -175,8 +157,9 @@ background: #FF9B9B; border: none;                      "
                       type="submit"
                       style="
                         border-radius: 33px;
-background: #FF9B9B; border: none;                      "
-                    >
+                        background: #ff9b9b;
+                        border: none;
+                      ">
                       Posting!
                     </button>
                   </div>
@@ -190,23 +173,20 @@ background: #FF9B9B; border: none;                      "
 
           <div
             id="cardp<%= element.noteId %>"
-            class="card mb-3 text-white"
+            class="card mb-3"
             style="
               border-radius: 38px;
               background: rgba(255, 255, 255, 0);
               border: none;
-            "
-          >
+            ">
             <div class="card-body rounded">
-              <article class="card-title">
                 <a href="/chat/<%= element.noteName %>">
                   <strong>
-                    <h3 class="card-title text-white">
+                    <h5 class="text-white">
                       <strong><%= element.noteName %></strong>
                     </h3>
                   </strong>
                 </a>
-              </article>
 
               <p class="card-text"><%= element.noteContent %></p>
 
@@ -216,70 +196,24 @@ background: #FF9B9B; border: none;                      "
                 src="https://ik.imagekit.io/9hpbqscxd/RejangConnection/image-<%= element.noteId %>.jpg"
                 onerror="this.remove();"
                 alt="Gambar"
-                style="object-fit: cover; border-radius: 24px; width: 100%"
-              />
+                style="object-fit: cover; border-radius: 20px; width: 100%" />
 
               <div
-                class="d-flex justify-content-between align-items-center m-4"
-              >
-                <!--form
-                  action="/chat/like/<%= element.noteId %>"
-                  method="post"
-                  enctype="multipart/form-data"
-                >
-                  <button
-                    type="submit"
-                    class="btn btn-primary p-3 rounded-pill"
-                    style="background: #4d4ee7"
-                  >
-                    <ion-icon name="thumbs-up-sharp"></ion-icon>
-                  </button>
-                </form-->
-
-                <script>
-                  function share(text) {
-                    var copyText = window.location.href + "/share/" + text;
-
-                    if (navigator.share) {
-                      navigator.clipboard.writeText(copyText);
-                      navigator
-                        .share({
-                          title: "rejangpedia",
-                          text: "postingan dari sanak",
-                          url: copyText,
-                        })
-                        .then(() => console.log("Successful share"))
-                        .catch((error) => console.log("Error sharing", error));
-                    } else {
-                      try {
-                        window.AndroidShareHandler.share(copyText);
-                      } catch {
-                        navigator.clipboard.writeText(copyText);
-                        alert(
-                          "Sudah Di Salin Ya, silahkan Beri ke Temanmu ya ^_^",
-                        );
-                      }
-                    }
-                  }
-                </script>
-
+                class="d-flex justify-content-between align-items-center mt-3">
                 <a
                   href="/chat/share/<%= element.noteId %>"
-                  class="btn btn-primary text-black p-2 rounded-pill"
-                  style="background: #FFD6A5 ; border: none;"
-                >
-                  <ion-icon name="chatbubble-outline"></ion-icon> Komentar
+                  class="btn btn-primary p-2 rounded-pill m-1">
+                  <i class="fa fa-comment" aria-hidden="true"></i> Komentar
                 </a>
                 <button
                   onclick="share('<%= element.noteId %>')"
-                  class="btn btn-primary text-black p-2 rounded-pill"
+                  class="btn btn-secondary text-black p-2 rounded-pill m-1"
                   style="
                     color: rgb(255, 255, 255);
                     border-radius: 24px;
-                    background: #FFD6A5;
+                    background: #ffd6a5;
                     border: none;
-                  "
-                >
+                  ">
                   <ion-icon name="share-social-outline"></ion-icon> Bagikan
                 </button>
               </div>
@@ -288,6 +222,30 @@ background: #FF9B9B; border: none;                      "
 
           <% }) %>
         </div>
+        <script>
+          function share(text) {
+            var copyText = window.location.href + "/share/" + text;
+
+            if (navigator.share) {
+              navigator.clipboard.writeText(copyText);
+              navigator
+                .share({
+                  title: "rejangpedia",
+                  text: "postingan dari sanak",
+                  url: copyText,
+                })
+                .then(() => console.log("Successful share"))
+                .catch((error) => console.log("Error sharing", error));
+            } else {
+              try {
+                window.AndroidShareHandler.share(copyText);
+              } catch {
+                navigator.clipboard.writeText(copyText);
+                alert("Sudah Di Salin Ya, silahkan Beri ke Temanmu ya ^_^");
+              }
+            }
+          }
+        </script>
 
         <script>
           function onSubmit() {
@@ -315,19 +273,19 @@ background: #FF9B9B; border: none;                      "
               comments.style.display = "none";
             }
           }
-           const userId = localStorage.getItem("userId");
+          const userId = localStorage.getItem("userId");
 
-            // Check if userId is available
-            if (userId) {
-                // Get the link element by its id
-                const dynamicLink = document.getElementById('dynamicLink');
+          // Check if userId is available
+          if (userId) {
+            // Get the link element by its id
+            const dynamicLink = document.getElementById("dynamicLink");
 
-                // Set the href attribute to the desired value
-                dynamicLink.href = `/edit-profile/${userId}`;
-            }else{
-              localStorage.removeItem("loggedInUser");
-                window.location.href = "/login"
-            }
+            // Set the href attribute to the desired value
+            dynamicLink.href = `/edit-profile/${userId}`;
+          } else {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "/login";
+          }
         </script>
         <script src="/socket.io/socket.io.js"></script>
       </div>
