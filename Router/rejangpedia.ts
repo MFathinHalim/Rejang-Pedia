@@ -67,32 +67,26 @@ class rejangpedia {
   }
 
   getData() {
-    // Filter data for recommended articles
     var filteredData = this.data.filter(
       (item) =>
         item.Title.toLowerCase().includes("rejang") ||
         item.Title.toLowerCase().includes("bengkulu")
     );
-
     const existingData = new Set();
     const dataPilihan = [];
     const dataAcak = [];
-
     for (let i = 0; i < 3; i++) {
       const random = Math.floor(Math.random() * filteredData.length);
       const randomData = filteredData[random];
-
       if (!existingData.has(randomData)) {
         dataPilihan.push(randomData);
         existingData.add(randomData);
       }
     } // Loop for recommended data
-
     const existingDataPilihan = new Set(dataPilihan);
     for (let i = 0; i < 3; i++) {
       const random2 = Math.floor(Math.random() * this.data.length);
       const randomData2 = this.data[random2];
-
       if (
         !existingData.has(randomData2) &&
         !existingDataPilihan.has(randomData2)
@@ -155,16 +149,17 @@ class rejangpedia {
 
       // 3. Menggabungkan hasil dari kedua sumber tanpa duplikasi
       const combinedResults = [...localDataResults];
+      if (wikipediaResults) {
+        wikipediaResults.forEach((wikipediaItem) => {
+          const isDuplicate = localDataResults.some(
+            (localItem) => localItem.id === wikipediaItem.id
+          );
 
-      wikipediaResults.forEach((wikipediaItem) => {
-        const isDuplicate = localDataResults.some(
-          (localItem) => localItem.id === wikipediaItem.id
-        );
-
-        if (!isDuplicate) {
-          combinedResults.push(wikipediaItem);
-        }
-      });
+          if (!isDuplicate) {
+            combinedResults.push(wikipediaItem);
+          }
+        });
+      }
 
       return combinedResults;
     } catch (error) {
@@ -211,10 +206,12 @@ class rejangpedia {
           },
         ],
       };
+      if (newData && newData.Content[0].babContent) {
+        this.data.push(newData);
 
-      this.data.push(newData);
-
-      return [newData]; // Mengembalikan data baru dalam bentuk array
+        return [newData]; // Mengembalikan data baru dalam bentuk array
+      }
+      return;
     } catch (error) {
       console.error("Error fetching data from Wikipedia:", error.message);
       return [];

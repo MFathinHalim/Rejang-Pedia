@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <%- include('import.ejs') -%>
-    <title>RejangPedia</title>
+    <title><%= data.Title %> - rejangpedia</title>
     <meta
       property="og:title"
-      content="RejangPedia untuk Sanak: <%= data.Title %>" />
+      content="rejangpedia untuk Sanak: <%= data.Title %>" />
     <meta
       property="og:description"
       content="<%- data.Content[0].babContent.replace(/<[^>]+>/g,
