@@ -9,40 +9,55 @@
     <%- include('navbar.ejs') -%>
 
     <div class="container mt-5 mb-5">
+      <h3>Iko Kan Sanak?</h3>
+
+      <div class="mb-3 d-flex justify-content-center">
+        <input
+          autocomplete="off"
+          type="text"
+          style="border-radius: 12px 8px 8px 12px; padding: 25px"
+          class="form-control search-input custom-input mr-1"
+          id="searchInput"
+          value="<%= query %>"
+          placeholder="Mau Cari Apa Sanak..." />
+        <button
+          type="submit"
+          class="btn btn-primary border-0 rounded-0"
+          style="border-radius: 8px 12px 12px 8px !important"
+          onclick="search()"
+          id="searchButton">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+      </div>
       <!--h3>AI berkata</h3>
       <p>< ai </p-->
-      <h1 class="display-4">Iko Kan Sanak?</h1>
       <ul
         class="list-group"
-        id="pilihan"
         style="border-radius: 24px !important; list-style-type: none">
         <% results.forEach(function (result, index) { %>
         <li>
-          <div class="d-flex align-items-center m-3">
-            <% if (result.Image != null) { %>
+          <% if (result.Image != null) { %>
 
-            <img
-              class="listing-image"
-              style="
-                width: 60px;
-                height: 60px;
-                object-fit: cover;
-                border: 2px solid #ccc; /* Tambahkan border abu-abu */
-                border-radius: 24px;
-              "
-              src="<%= result.Image %>"
-              alt="<%= result.Title %>" />
-            <% }%> <% if (result.Wikipedia) { %>
+          <img
+            class="listing-image"
+            style="width: 300px; max-height: 250px; object-fit: cover"
+            src="<%= result.Image %>"
+            alt="<%= result.Title %>"
+            onerror="this.remove()" />
+
+          <% }%>
+          <div class="d-flex align-items-center">
+            <% if (result.Wikipedia) { %>
             <a
               class="mt-2"
               href="/details/<%= result.Title %>"
-              style="color: #f7ffff !important; margin-left: 20px">
-              <h4><%= result.Title %></h4>
+              style="margin-left: 5px">
+              <h6><%= result.Title %></h6>
               <% if (result.Content && result.Content[0] &&
               result.Content[0].babContent) { %>
-              <p style="color: white !important">
+              <p style="color: rgb(223, 222, 222) !important">
                 <%- result.Content[0].babContent.replace(/<[^>]+>/g,
-                '').substring(0, 20) %>...
+                '').substring(0, 200) %>...
               </p>
               <% }%>
             </a>
@@ -50,30 +65,50 @@
             <a
               class="mt-2"
               href="/details/<%= result.id %>"
-              style="color: #f7ffff !important; margin-left: 20px">
-              <h4><%= result.Title %></h4>
+              style="margin-left: 5px">
+              <h5><%= result.Title %></h5>
               <% if (result.Content && result.Content[0] &&
               result.Content[0].babContent) { %>
-              <p style="color: white !important">
+              <p style="color: rgb(223, 222, 222) !important">
                 <%- result.Content[0].babContent.replace(/<[^>]+>/g,
-                '').substring(0, 20) %>...
+                '').substring(0, 100) %>...
               </p>
               <% }%>
             </a>
             <% } %>
           </div>
           <% if (index !== results.length - 1) { %>
-          <hr class="hr" style="border-top: 1px solid white" />
+          <hr class="hr" style="border: 0.1px !important" />
           <% } %>
         </li>
 
         <% }); %>
-        <div class="d-flex align-items-center m-3">
-          <a class="mt-2" style="color: #f7ffff !important; margin-left: 20px">
-            <h4>Dak Do Lagi lah..</h4>
+        <div class="d-flex align-items-center">
+          <a class="mt-2">
+            <h6>Dak Do Lagi lah..</h6>
           </a>
         </div>
       </ul>
     </div>
+    <script>
+      function search() {
+        const searchTerm = searchInput.value;
+        console.log("Search term:", searchTerm);
+        window.location.href = `/search?term=${searchTerm}`;
+      }
+
+      document
+        .getElementById("searchButton")
+        .addEventListener("click", function () {
+          search();
+        });
+
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          search();
+        }
+      });
+    </script>
   </body>
 </html>

@@ -136,9 +136,9 @@ class rejangpedia {
       }
     }
   }
-
   async search(searchTerm) {
     try {
+      let combinedResults = []; // Inisialisasi atau reset nilai ke array kosong setiap kali metode dipanggil
       // 1. Mencari di data lokal
       const localDataResults = this.data.filter((item) =>
         item.Title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -148,7 +148,7 @@ class rejangpedia {
       const wikipediaResults = await this.searchWikipedia(searchTerm);
 
       // 3. Menggabungkan hasil dari kedua sumber tanpa duplikasi
-      const combinedResults = [...localDataResults];
+      combinedResults = [...localDataResults];
       if (wikipediaResults) {
         wikipediaResults.forEach((wikipediaItem) => {
           const isDuplicate = localDataResults.some(
@@ -171,9 +171,10 @@ class rejangpedia {
   async searchWikipedia(searchTerm) {
     try {
       // Mengecek apakah data sudah ada berdasarkan judul
-      const existingData = this.data.find((item) => item.Title === searchTerm);
+      let existingData: any = [];
+      existingData = this.data.find((item) => item.Title === searchTerm);
       if (existingData) {
-        return [existingData]; // Mengembalikan data yang sudah ada dalam bentuk array jika ditemukan
+        return; // Mengembalikan data yang sudah ada dalam bentuk array jika ditemukan
       }
 
       const apiUrl = `https://id.wikipedia.org/w/api.php?action=query&format=json&titles=${searchTerm}&prop=extracts|pageimages&exintro=true&pithumbsize=300`;
@@ -207,11 +208,13 @@ class rejangpedia {
         ],
       };
       if (newData && newData.Content[0].babContent) {
-        this.data.push(newData);
+        const isDataExists = this.data.some((item) => item.id === newData.id);
 
-        return [newData]; // Mengembalikan data baru dalam bentuk array
+        if (!isDataExists) {
+          this.data.push(newData);
+          return [newData]; // Mengembalikan data baru dalam bentuk array
+        }
       }
-      return;
     } catch (error) {
       console.error("Error fetching data from Wikipedia:", error.message);
       return [];
@@ -514,6 +517,7 @@ module.exports = function (
     const search = await app.search(searchTerm);
     res.render("search-results", {
       results: search,
+      query: searchTerm,
       //ai: response,
     });
   });
