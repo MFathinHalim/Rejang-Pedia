@@ -27,7 +27,7 @@
   <body>
     <% if (data && data.Title){ %>
     <div class="container p-3">
-      <h1><%= data.Title %></h1>
+      <h3><%= data.Title %></h3>
       <% if (data.Image && data.Image != null) { %>
       <img
         class="listing-image mr-2"
@@ -57,9 +57,8 @@
         class="img-fluid"
         src="<%= data.Link %>">
       </iframe>
-      <% } %>
-
       <br />
+      <% } %>
       <button class="btn btn-info rounded-pill mt-3" onclick="search()">
         <i class="fa fa-share" aria-hidden="true"></i>
         Bagikan

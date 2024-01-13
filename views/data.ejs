@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Homepage - rejangpedia</title>
+    <title>Jelajah - rejangpedia</title>
     <%- include('import.ejs') -%>
     <!-- Tambahkan link ke Bootstrap CSS -->
     <link
@@ -10,7 +10,7 @@
       rel="stylesheet"
       integrity="sha384-rmok6z1LlBfUTvNTzqFMrjsG5lkZz0AIqrKEj3frjq9p0F65Nebzczr6ew8zI26q"
       crossorigin="anonymous" />
-    <meta property="og:title" content="RejangPedia" />
+    <meta property="og:title" content="rejangpedia" />
     <meta property="og:description" content="Punyo Kito Galo" />
     <meta property="og:image" content="/logo.png" />
     <meta
@@ -56,87 +56,52 @@
           id="logo"
           class="border-0"
           src="https://cdn.glitch.global/2f9a2460-083a-49a5-a55f-2abb8ce71e54/logo.png?v=1699767799122" />
-        <p>Punyo Kito Galo</p>
+        <p><i class="fa fa-globe"></i> Punyo Kito Galo</p>
       </div>
-      <div class="search-box d-flex justify-content-center">
-        <input
-          type="text"
-          style="border-radius: 12px 8px 8px 12px; padding: 25px"
-          class="form-control search-input custom-input mr-1"
-          id="searchInput"
-          placeholder="Mau Cari Apa Sanak..." />
-        <button
-          type="submit"
-          class="btn btn-primary border-0 rounded-0"
-          style="border-radius: 8px 12px 12px 8px !important"
-          onclick="search()"
-          id="searchButton">
-          <i class="fa fa-search" aria-hidden="true"></i>
-        </button>
-      </div>
-
-      <a
-        href="/"
-        class="btn btn-primary rounded-pill"
-        style="background: #7a7a7a !important; border: none"
-        ><i class="fa fa-chevron-left" aria-hidden="true"></i> Kembali Ke
-        Halaman Utama</a
+      <a href="/" class="btn btn-secondary rounded-pill ml-4"
+        ><i class="fa fa-chevron-left" aria-hidden="true"></i> Beranda</a
       >
       <ul
         class="list-group mt-2"
-        id="pilihan"
-        style="border-radius: 24px 24px 0 0">
+        style="border-radius: 24px !important; list-style-type: none">
         <!-- Loop through your data to display articles that contain "rejang" -->
+
         <% data.forEach(function(entry) { %> <% if
         (entry.Title.toLowerCase().includes("rejang") ||
         entry.Title.toLowerCase().includes("bengkulu") ||
         entry.Content[0].babContent.toLowerCase().includes("rejang") ||
         entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
-        <li
-          class="list-group-item listing border-0 text-white"
-          id="pilihan"
-          style="border-radius: 24px !important">
-          <div class="listing-background">
-            <% if (entry.Image != null) { %>
-
-            <img
-              class="listing-image mr-2"
-              style="
-                width: 460px;
-                max-width: 100%;
-                border: 2px solid #ccc;
-                object-fit: cover;
-                border-radius: 24px;
-              "
-              src="<%= entry.Image %>"
-              alt="<%= entry.Title %>" />
-            <% }%>
-          </div>
-          <div class="listing-content m-1">
-            <div class="listing-info">
-              <h3 class="listing-info-title"><%= entry.Title %></h3>
-              <p style="color: #fffffff1">
-                <%- entry.Content[0].babContent.replace(/<[^>]+>/g,
-                '').substring(0, 200) %>...
-              </p>
-            </div>
-            <div class="listing-price-wrapper">
-              <div class="listing-price">
-                <a
-                  class="btn btn-primary rounded-pill border-0 m-1"
-                  style="
-                    background-color: rgb(243, 216, 120) !important;
-                    color: black !important;
-                  "
-                  href="/details/<%= entry.id %>">
-                  <i class="fa fa-chevron-right" aria-hidden="true"></i> Baca
-                  Lebih Banyak
-                </a>
+        <li class="list-group-item bg-transparent border-0">
+          <a class="mt-2" href="/details/<%= entry.id %>">
+            <div class="d-flex flex-column flex-md-row align-items-md-center">
+              <% if (entry.Image != null) { %>
+              <img
+                class="listing-image mb-2"
+                style="
+                  min-width: 160px !important;
+                  max-width: 160px !important;
+                  height: 110px;
+                  object-fit: cover;
+                  border-radius: 12px !important;
+                "
+                src="<%= entry.Image %>"
+                alt="<%= entry.Title %>"
+                onerror="this.remove()" />
+              <% } %>
+              <div class="<%= entry.Image ? 'ml-md-3' : '' %>">
+                <h5 class="mb-1"><%= entry.Title %></h5>
+                <% if (entry.Content && entry.Content[0] &&
+                entry.Content[0].babContent) { %>
+                <p class="text-muted">
+                  <%= entry.Content[0].babContent.replace(/<[^>]+>/g,
+                  '').substring(0, 100) %>...
+                </p>
+                <% } %>
               </div>
             </div>
-          </div>
+          </a>
         </li>
-        <hr style="border: 1px solid #f7f7f7; width: 100% !important" />
+
         <% } %> <% }); %>
       </ul>
     </div>

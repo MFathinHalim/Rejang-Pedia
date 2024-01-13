@@ -6,8 +6,221 @@
     <title>rejangpedia</title>
   </head>
   <body>
-    <%- include('navbar.ejs') -%>
+    <div id="nav">
+      <style>
+        #khususHp {
+          display: none;
+        }
+        #khususHpBawah {
+          display: none;
+          transition: all 0.3s ease-in-out; /* Animasi smooth */
+        }
+        @media only screen and (max-width: 600px) {
+          #khususDekstop {
+            display: none;
+          }
+          #khususHp {
+            display: block;
+          }
+          #khususHpBawah {
+            display: block;
+          }
 
+          #khususHp .nav-link i {
+            font-size: 1.3rem;
+          }
+          #khususHp .nav-link .d-block {
+            font-size: 0.8rem;
+            color: rgb(199, 199, 199);
+          }
+
+          #khususHpBawah .nav-link i {
+            font-size: 1.3rem;
+          }
+          #khususHpBawah .nav-link .d-block {
+            font-size: 0.8rem;
+            color: rgb(199, 199, 199);
+          }
+        }
+      </style>
+      <nav
+        class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
+        id="khususDekstop">
+        <a
+          class="navbar-brand"
+          href="/"
+          style="font-family: 'Montserrat' !important">
+          rejangpedia
+        </a>
+
+        <button
+          class="navbar-toggler border-0"
+          style="border-radius: 0"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Centered navigation items -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://kamusrejang.rejanglebongkab.go.id">
+                <i class="fa fa-book"></i> Kamus Rejang
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/new">
+                <i class="fa fa-plus"></i> Tambah Artikel
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/chat">
+                <i class="fa fa-comments-o" aria-hidden="true"></i> Diskusi
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fa fa-bars"></i>
+                Daftar
+              </a>
+              <div
+                class="dropdown-menu bg-light"
+                aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/tentang">
+                  <i class="fa fa-question" aria-hidden="true"></i> Tentang
+                </a>
+                <div class="dropdown-divider"></div>
+                <a
+                  class="dropdown-item"
+                  href="https://doma.mfathinhalim.repl.co">
+                  <i class="fa fa-question-circle" aria-hidden="true"></i>
+                  Tentang Fathin
+                </a>
+                <button class="dropdown-item" onclick="openApp()">
+                  Buka di Aplikasi
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <nav
+        class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
+        id="khususHp">
+        <div class="container">
+          <div class="row w-100">
+            <div class="col-9 text-center">
+              <a
+                class="navbar-brand"
+                href="/"
+                style="font-family: 'Montserrat' !important">
+                rejangpedia
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <nav
+        class="navbar fixed-bottom bawah navbar-expand navbar-light bg-light"
+        id="khususHpBawah">
+        <ul class="navbar-nav nav-justified w-100">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="https://rejang-pedia.mfathinhalim.repl.co/">
+              <i class="fa fa-home"></i>
+              <span class="d-block">Home</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/chat">
+              <i class="fa fa-comments-o" aria-hidden="true"></i>
+              <span class="d-block">Diskusi</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/new">
+              <i class="fa fa-plus"></i>
+              <span class="d-block">Tambah</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="https://kamusrejang.rejanglebongkab.go.id">
+              <i class="fa fa-book"></i>
+              <span class="d-block">Kamus</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dropdown">
+              <i class="fa fa-bars"></i>
+              <span class="d-block">Menu</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <script>
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = function () {
+          var currentScrollPos = window.pageYOffset;
+          var bawahNavbar = document.getElementById("khususHpBawah");
+          var atasNavbar = document.getElementById("khususHp");
+
+          if (prevScrollpos > currentScrollPos) {
+            // Scroll ke atas, tampilkan navbar khusus HP
+            bawahNavbar.style.bottom = "0";
+          } else {
+            // Scroll ke bawah, sembunyikan navbar khusus HP
+            bawahNavbar.style.bottom = "-100px"; // Ubah sesuai dengan tinggi navbar
+          }
+          prevScrollpos = currentScrollPos;
+        };
+        function openApp() {
+          // Coba membuka tautan
+          if (navigator.supportedURLScheme) {
+            navigator.supportedURLScheme.open(
+              "rejang://pedia" +
+                window.location.href.replace(
+                  "https://rejang-pedia.mfathinhalim.repl.co"
+                ),
+              function () {
+                // Tautan berhasil dibuka, tidak ada tindakan lanjutan diperlukan
+              },
+              function () {
+                // Tautan tidak dapat dibuka, tetap di halaman web saat ini
+                // Anda dapat menambahkan logika lain di sini jika diperlukan
+              }
+            );
+          } else {
+            // Tautan kustom akan digunakan jika navigator.supportedURLScheme tidak tersedia
+            window.location.href =
+              "rejang://pedia" +
+              window.location.href.replace(
+                "https://rejang-pedia.mfathinhalim.repl.co",
+                ""
+              );
+          }
+        }
+      </script>
+    </div>
     <div class="container mt-5 mb-5">
       <h3>Iko Kan Sanak?</h3>
 
@@ -29,60 +242,52 @@
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
       </div>
+      <a href="/" class="btn btn-secondary rounded-pill mb-3"
+        ><i class="fa fa-chevron-left" aria-hidden="true"></i> Beranda</a
+      >
       <!--h3>AI berkata</h3>
       <p>< ai </p-->
       <ul
         class="list-group"
         style="border-radius: 24px !important; list-style-type: none">
-        <% results.forEach(function (result, index) { %>
-        <li>
-          <% if (result.Image != null) { %>
-
-          <img
-            class="listing-image"
-            style="width: 300px; max-height: 250px; object-fit: cover"
-            src="<%= result.Image %>"
-            alt="<%= result.Title %>"
-            onerror="this.remove()" />
-
-          <% }%>
-          <div class="d-flex align-items-center">
-            <% if (result.Wikipedia) { %>
-            <a
-              class="mt-2"
-              href="/details/<%= result.Title %>"
-              style="margin-left: 5px">
-              <h6><%= result.Title %></h6>
-              <% if (result.Content && result.Content[0] &&
-              result.Content[0].babContent) { %>
-              <p style="color: rgb(223, 222, 222) !important">
-                <%- result.Content[0].babContent.replace(/<[^>]+>/g,
-                '').substring(0, 200) %>...
-              </p>
-              <% }%>
-            </a>
-            <% }else { %>
-            <a
-              class="mt-2"
-              href="/details/<%= result.id %>"
-              style="margin-left: 5px">
-              <h5><%= result.Title %></h5>
-              <% if (result.Content && result.Content[0] &&
-              result.Content[0].babContent) { %>
-              <p style="color: rgb(223, 222, 222) !important">
-                <%- result.Content[0].babContent.replace(/<[^>]+>/g,
-                '').substring(0, 100) %>...
-              </p>
-              <% }%>
-            </a>
+        <% results.forEach(function(result, index) { %>
+        <li class="mb-4">
+          <div class="d-flex flex-column flex-md-row align-items-md-center">
+            <% if (result.Image != null) { %>
+            <img
+              class="listing-image mb-3 mb-md-0 mr-md-3"
+              style="
+                width: 160px;
+                height: 110px;
+                object-fit: cover;
+                border-radius: 12px;
+              "
+              src="<%= result.Image %>"
+              alt="<%= result.Title %>"
+              onerror="this.remove()" />
             <% } %>
+
+            <div class="<%= result.Image ? 'ml-md-3' : '' %>">
+              <a class="text-decoration-none" href="/details/<%= result.id %>">
+                <h5 class="mb-2"><%= result.Title %></h5>
+
+                <% if (result.Content && result.Content[0] &&
+                result.Content[0].babContent) { %>
+                <p class="text-muted">
+                  <%= result.Content[0].babContent.replace(/<[^>]+>/g,
+                  '').substring(0, 100) %>...
+                </p>
+                <% } %>
+              </a>
+            </div>
           </div>
+
           <% if (index !== results.length - 1) { %>
-          <hr class="hr" style="border: 0.1px !important" />
+          <hr class="my-3" />
           <% } %>
         </li>
-
         <% }); %>
+
         <div class="d-flex align-items-center">
           <a class="mt-2">
             <h6>Dak Do Lagi lah..</h6>

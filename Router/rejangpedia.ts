@@ -212,6 +212,7 @@ class rejangpedia {
 
         if (!isDataExists) {
           this.data.push(newData);
+          await this.mainModel.create(newData);
           return [newData]; // Mengembalikan data baru dalam bentuk array
         }
       }
