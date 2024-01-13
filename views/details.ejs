@@ -23,46 +23,72 @@
       width: 460px; /* Default width for desktop */
       max-width: 100%; /* Ensure it's responsive */
     }
+    @media only screen and (max-width: 600px) {
+      .listing-image {
+        min-width: 100% !important;
+        min-height: fit-content !important;
+        object-fit: cover !important;
+      }
+    }
   </style>
   <body>
     <% if (data && data.Title){ %>
     <div class="container p-3">
       <h3><%= data.Title %></h3>
-      <% if (data.Image && data.Image != null) { %>
-      <img
-        class="listing-image mr-2"
-        style="
-          width: 460px;
-          max-width: 100%;
-          border: 2px solid #ccc;
-          object-fit: cover;
-          border-radius: 24px;
-        "
-        src="<%= data.Image %>"
-        alt="<%= data.Title %>" />
-      <br />
-      <% } %> <% if (data.Link) { %>
-      <h4 class="mt-2">
-        <i class="fa fa-youtube-play" aria-hidden="true"></i> Video
-      </h4>
-      <iframe
-        style="
-          width: 460px;
-          max-width: 100%;
-          height: 266px;
-          border: 2px solid #ccc;
-          object-fit: cover;
-          border-radius: 24px;
-        "
-        class="img-fluid"
-        src="<%= data.Link %>">
-      </iframe>
-      <br />
-      <% } %>
-      <button class="btn btn-info rounded-pill mt-3" onclick="search()">
-        <i class="fa fa-share" aria-hidden="true"></i>
-        Bagikan
-      </button>
+      <div
+        class="card bg-transparent border mb-3 mt-3"
+        style="width: fit-content; border-radius: 12px">
+        <div class="card-body">
+          <h5 class="card-title">Dimulai Oleh: <%= data.Pembuat %></h5>
+          <p class="card-text">Diedit Terakhir: <%= data.Diedit %></p>
+        </div>
+      </div>
+      <div class="d-flex flex-column flex-md-row">
+        <% if (data.Image && data.Image != null) { %>
+        <img
+          class="listing-image mr-2"
+          style="
+            height: 250px;
+            width: fit-content;
+            border: 1px solid #ccc;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0) !important;
+            border-radius: 12px;
+          "
+          src="<%= data.Image %>"
+          alt="<%= data.Title %>" />
+        <br />
+        <% } %> <% if (data.Link) { %>
+        <article>
+          <iframe
+            style="
+              width: 460px;
+              max-width: 100%;
+              height: 250px;
+              object-fit: cover;
+              border-radius: 12px;
+              border: 1px solid #ccc;
+            "
+            class="img-fluid"
+            src="<%= data.Link %>">
+          </iframe>
+        </article>
+        <% } %>
+      </div>
+
+      <div class="d-flex mt-3">
+        <button
+          class="btn btn-info rounded-pill mr-1 text-white"
+          onclick="search()">
+          <i class="fa fa-share text-white" aria-hidden="true"></i>
+          Bagikan
+        </button>
+        <a class="btn btn-secondary rounded-pill" href="/edit/<%= data.id %>">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+          Edit Artikel
+        </a>
+      </div>
+
       <div style="border-radius: 24px !important">
         <% data.Content.forEach(function(bab) { %>
         <div class="my-4">
@@ -71,13 +97,6 @@
         </div>
         <% }); %>
       </div>
-      <p>Dimulai Oleh: <%= data.Pembuat %></p>
-      <p>Diedit Terakhir: <%= data.Diedit %></p>
-
-      <a class="btn btn-info rounded-pill" href="/edit/<%= data.id %>">
-        <i class="fa fa-pencil" aria-hidden="true"></i>
-        Edit Artikel
-      </a>
     </div>
     <% } else { %>
     <p>Data not available.</p>
