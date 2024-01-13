@@ -227,22 +227,22 @@ class rejangpedia {
       // Delete the article from the 'mainModel'
       this.goingModel
         .deleteOne({ id: id })
-        .then(function () {
+        .then(() => {
           console.log("deleted"); // Success
-          this.dataOnGoing = this.dataOnGoing.filter((obj) => obj.id !== id); // Filter the data
+          this.dataOnGoing = this.dataOnGoing.filter((obj) => obj.id != id); // Filter the data
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error); // Failure
         });
     } else {
       // Delete the article from the 'mainModel'
       this.mainModel
         .deleteOne({ id: id })
-        .then(function () {
+        .then(() => {
           console.log("deleted"); // Success
-          this.data = this.data.filter((obj) => obj.id !== id); // Filter the data
+          this.data = this.data.filter((obj) => obj.id != id); // Filter the data
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error); // Failure
         });
     }
@@ -350,7 +350,7 @@ class rejangpedia {
       }
 
       // Remove the ongoing article from the 'dataOnGoing' array
-      this.dataOnGoing = this.dataOnGoing.filter((obj) => obj.id !== id);
+      this.dataOnGoing = this.dataOnGoing.filter((obj) => obj.id != id);
 
       // Render the 'ongoing' page with the updated data
       res.render("ongoing", {
@@ -384,7 +384,7 @@ class rejangpedia {
       }
 
       // Remove the ongoing article from the 'dataOnGoing' array
-      this.dataOnGoing = this.dataOnGoing.filter((obj) => obj.id !== id);
+      this.dataOnGoing = this.dataOnGoing.filter((obj) => obj.id != id);
       res.redirect("/accept");
     }
   }
