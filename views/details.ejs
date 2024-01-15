@@ -22,34 +22,45 @@
     img {
       width: 460px; /* Default width for desktop */
       max-width: 100%; /* Ensure it's responsive */
+      object-fit: contain;
     }
+
+    .container {
+      padding-left: 150px;
+      padding-right: 150px;
+    }
+    #title {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 64px;
+      width: 100%;
+    }
+
     @media only screen and (max-width: 600px) {
-      .listing-image {
-        min-width: 100% !important;
-        min-height: fit-content !important;
-        object-fit: cover !important;
+      #title {
+        font-size: 46px;
+      }
+      .container {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+      p {
+        white-space: normal !important;
+        word-break: break-all;
       }
     }
   </style>
   <body>
     <% if (data && data.Title){ %>
-    <div class="container p-3">
-      <h3><%= data.Title %></h3>
-      <div
-        class="card bg-transparent border mb-3 mt-3"
-        style="width: fit-content; border-radius: 12px">
-        <div class="card-body">
-          <h5 class="card-title">Dimulai Oleh: <%= data.Pembuat %></h5>
-          <p class="card-text">Diedit Terakhir: <%= data.Diedit %></p>
-        </div>
-      </div>
+    <div class="container">
+      <h1 id="title"><%= data.Title %></h1>
+
+      <p class="dibuat">By: <%= data.Pembuat %>, Edit: <%= data.Diedit %></p>
       <div class="d-flex flex-column flex-md-row">
         <% if (data.Image && data.Image != null) { %>
         <img
           class="listing-image mr-2"
           style="
             height: 250px;
-            width: fit-content;
             border: 1px solid #ccc;
             object-fit: contain;
             background: rgba(0, 0, 0, 0) !important;
