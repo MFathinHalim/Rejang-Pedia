@@ -6,13 +6,13 @@
     display: none;
     transition: all 0.3s ease-in-out; /* Animasi smooth */
   }
-  input {
+  .input {
     border-radius: 12px 8px 8px 12px;
     padding: 15px;
     width: 120px !important;
     transition: width 2s;
   }
-  input:focus {
+  .input:focus {
     width: 50% !important;
   }
   @media only screen and (max-width: 600px) {
@@ -47,12 +47,6 @@
   class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
   id="khususDekstop">
   <a class="navbar-brand" href="/" style="font-family: 'Montserrat' !important">
-    <img
-      src="/logo.png"
-      width="30"
-      height="30"
-      alt=""
-      style="width: 30px !important; height: 30px !important" />
     rejangpedia
   </a>
 
@@ -76,8 +70,8 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#add">
-          <i class="fa fa-plus"></i> Bicarakan Sesuatu!
+        <a class="nav-link" href="/new">
+          <i class="fa fa-plus"></i> Tambah Artikel
         </a>
       </li>
 
@@ -93,23 +87,44 @@
           <i class="fa fa-bars"></i>
           Daftar
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/tentang">
-            <i class="fa fa-question" aria-hidden="true"></i> Tentang
+        <ul
+          class="dropdown-menu dropdown-menu-dark"
+          aria-labelledby="dropdownMenuButton2">
+          <a
+            class="dropdown-item"
+            style="color: black !important"
+            href="/tentang">
+            <i
+              style="color: black !important"
+              class="fa fa-question"
+              aria-hidden="true"></i>
+            Tentang
           </a>
-          <a class="dropdown-item" href="/peraturan">
-            <i class="fa fa-ban" aria-hidden="true"></i> Peraturan
-          </a>
+
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="https://doma.mfathinhalim.repl.co">
-            <i class="fa fa-question-circle" aria-hidden="true"></i> Tentang
-            Fathin
+          <a
+            class="dropdown-item"
+            style="color: black !important"
+            href="https://doma.mfathinhalim.repl.co">
+            <i
+              style="color: black !important"
+              class="fa fa-question-circle"
+              aria-hidden="true"></i>
+            Tentang Fathin
           </a>
-          <button class="dropdown-item" onclick="openApp()">
+          <button
+            class="dropdown-item"
+            style="color: black !important"
+            onclick="openApp()">
             Buka di Aplikasi
           </button>
-          <button class="dropdown-item" onclick="logOut()">LOG OUT</button>
-        </div>
+          <button
+            class="dropdown-item"
+            style="color: black !important"
+            onclick="logOut()">
+            LOG OUT
+          </button>
+        </ul>
       </li>
     </ul>
 
@@ -118,7 +133,7 @@
         <input
           type="text"
           autocomplete="false"
-          class="form-control search-input mr-1"
+          class="input form-control search-input mr-1"
           id="searchInputNav"
           placeholder="Mau Cari Apa Sanak..." />
         <div class="input-group-append">
@@ -180,7 +195,7 @@
             <input
               type="text"
               autocomplete="false"
-              class="form-control search-input mr-1 text-white"
+              class="input form-control search-input mr-1 text-white"
               style="
                 border-radius: 12px 8px 8px 12px;
                 padding: 15px;
@@ -204,58 +219,38 @@
 </nav>
 
 <nav
-  class="navbar fixed-bottom bawah navbar-expand navbar-light"
-  id="khususHpBawah"
-  style="
-    background: rgba(0, 0, 0, 0.6);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-  ">
-  <ul class="navbar-nav nav-justified w-100">
+  class="navbar fixed-bottom bawah navbar-expand p-1 navbar-light bg-light"
+  id="khususHpBawah">
+  <ul class="navbar-nav nav-justified">
     <li class="nav-item">
-      <a class="nav-link text-white" href="/">
+      <a class="nav-link" href="//">
         <i class="fa fa-home"></i>
         <span class="d-block">Home</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link text-white" href="/chat">
-        <i class="fa fa-comments-o" aria-hidden="true"></i>
-        <span class="d-block">Diskusi</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-white" href="#add">
+      <a class="nav-link" href="/new">
         <i class="fa fa-plus"></i>
-        <span class="d-block">Posting</span>
+        <span class="d-block">Tambah</span>
       </a>
     </li>
     <li class="nav-item">
-      <a
-        class="nav-link text-white"
-        href="https://kamusrejang.rejanglebongkab.go.id">
+      <a class="nav-link" href="https://kamusrejang.rejanglebongkab.go.id">
         <i class="fa fa-book"></i>
         <span class="d-block">Kamus</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-white" href="/dropdown">
+      <a class="nav-link" href="/dropdown">
         <i class="fa fa-bars"></i>
-        <span class="d-block">Hal lain</span>
+        <span class="d-block">Menu</span>
       </a>
     </li>
   </ul>
 </nav>
 
 <script>
-  function logOut() {
-    localStorage.removeItem("loggedInUser");
-    localStorage.removeItem("atmin");
-    localStorage.removeItem("userId");
-    window.location.href = "/";
-  }
   document
     .getElementById("searchButtonNav")
     .addEventListener("click", function () {
@@ -307,7 +302,7 @@
       bawahNavbar.style.bottom = "0";
     } else {
       // Scroll ke bawah, sembunyikan navbar khusus HP
-      bawahNavbar.style.bottom = "0"; // Ubah sesuai dengan tinggi navbar
+      bawahNavbar.style.bottom = "-100px"; // Ubah sesuai dengan tinggi navbar
     }
     prevScrollpos = currentScrollPos;
   };
@@ -315,10 +310,7 @@
     // Coba membuka tautan
     if (navigator.supportedURLScheme) {
       navigator.supportedURLScheme.open(
-        "rejang://pedia" +
-          window.location.href.replace(
-            "https://rejang-pedia.mfathinhalim.repl.co"
-          ),
+        "rejang://pedia" + window.location.href.replace("/"),
         function () {
           // Tautan berhasil dibuka, tidak ada tindakan lanjutan diperlukan
         },
@@ -330,11 +322,7 @@
     } else {
       // Tautan kustom akan digunakan jika navigator.supportedURLScheme tidak tersedia
       window.location.href =
-        "rejang://pedia" +
-        window.location.href.replace(
-          "https://rejang-pedia.mfathinhalim.repl.co",
-          ""
-        );
+        "rejang://pedia" + window.location.href.replace("/", "");
     }
   }
 </script>
