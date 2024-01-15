@@ -46,10 +46,7 @@
 <nav
   class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
   id="khususDekstop">
-  <a
-    class="navbar-brand"
-    href="https://rejang-pedia.mfathinhalim.repl.co/"
-    style="font-family: 'Montserrat' !important">
+  <a class="navbar-brand" href="/" style="font-family: 'Montserrat' !important">
     <img
       src="/logo.png"
       width="30"
@@ -97,14 +94,10 @@
           Daftar
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a
-            class="dropdown-item"
-            href="https://rejang-pedia.mfathinhalim.repl.co/tentang">
+          <a class="dropdown-item" href="/tentang">
             <i class="fa fa-question" aria-hidden="true"></i> Tentang
           </a>
-          <a
-            class="dropdown-item"
-            href="https://rejang-pedia.mfathinhalim.repl.co/peraturan">
+          <a class="dropdown-item" href="/peraturan">
             <i class="fa fa-ban" aria-hidden="true"></i> Peraturan
           </a>
           <div class="dropdown-divider"></div>
@@ -154,7 +147,7 @@
       <div class="col-9 text-center">
         <a
           class="navbar-brand"
-          href="https://rejang-pedia.mfathinhalim.repl.co/"
+          href="/"
           style="font-family: 'Montserrat' !important">
           <strong style="color: white !important; text-align: center !important"
             >rejangpedia</strong
@@ -221,18 +214,14 @@
   ">
   <ul class="navbar-nav nav-justified w-100">
     <li class="nav-item">
-      <a
-        class="nav-link text-white"
-        href="https://rejang-pedia.mfathinhalim.repl.co/">
+      <a class="nav-link text-white" href="/">
         <i class="fa fa-home"></i>
         <span class="d-block">Home</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a
-        class="nav-link text-white"
-        href="https://rejang-pedia.mfathinhalim.repl.co/chat">
+      <a class="nav-link text-white" href="/chat">
         <i class="fa fa-comments-o" aria-hidden="true"></i>
         <span class="d-block">Diskusi</span>
       </a>
@@ -252,9 +241,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a
-        class="nav-link text-white"
-        href="https://rejang-pedia.mfathinhalim.repl.co/dropdown">
+      <a class="nav-link text-white" href="/dropdown">
         <i class="fa fa-bars"></i>
         <span class="d-block">Hal lain</span>
       </a>
@@ -276,7 +263,7 @@
       const searchTerm = document.getElementById("searchInputNav").value;
 
       // Redirect ke halaman hasil pencarian
-      window.location.href = `https://rejang-pedia.mfathinhalim.repl.co/search?term=${searchTerm}`;
+      window.location.href = `/search?term=${searchTerm}`;
     });
   const searchInputNav = document.getElementById("searchInputNav");
   searchInputNav.addEventListener("keypress", function (event) {
@@ -296,7 +283,7 @@
       const searchTerm = document.getElementById("searchInputNavv").value;
 
       // Redirect ke halaman hasil pencarian
-      window.location.href = `https://rejang-pedia.mfathinhalim.repl.co/search?term=${searchTerm}`;
+      window.location.href = `/search?term=${searchTerm}`;
     });
   const searchInputNavv = document.getElementById("searchInputNavv");
   searchInputNavv.addEventListener("keypress", function (event) {
@@ -305,7 +292,7 @@
       const searchTerm = searchInputNavv.value;
 
       // Redirect ke halaman hasil pencarian
-      window.location.href = `https://rejang-pedia.mfathinhalim.repl.co/search?term=${searchTerm}`;
+      window.location.href = `/search?term=${searchTerm}`;
     }
   });
 
