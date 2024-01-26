@@ -25,6 +25,8 @@ type Data = {
   Pembuat: string;
   Diedit: string;
   Link: string;
+  Waktu: string;
+  Edit: string;
   Content: {
     babTitle: string;
     babContent: string;
@@ -200,6 +202,8 @@ class rejangpedia {
         Pembuat: "",
         Diedit: "",
         Link: "",
+        Waktu: "",
+        Edit: "",
         Content: [
           {
             babTitle: "", // You might want to set babTitle appropriately or fetch it from the API
@@ -260,7 +264,16 @@ class rejangpedia {
   async edit(req) {
     const acceptedData = this.data.find((obj) => obj.id === req.params.id);
     const user = req.body;
+    const tanggalSekarang = new Date();
+    const namaBulan = [
+      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ]; 
 
+    const tanggal = tanggalSekarang.getDate();
+    const bulan = namaBulan[tanggalSekarang.getMonth()];
+    const tahun = tanggalSekarang.getFullYear();
+    const formatWaktu = `${tanggal}-${bulan}-${tahun}`;
     if (acceptedData.Pembuat !== null) {
       // If the article maker is not empty
       this.dataOnGoing.unshift({
@@ -273,6 +286,8 @@ class rejangpedia {
           ".jpg",
         Diedit: user.pembuat,
         Link: user.link.replace("/watch?v=", "/embed/"),
+        Waktu: acceptedData.Waktu,
+        Edit: formatWaktu,
         Content: JSON.parse(user.content),
       });
       await this.goingModel.create({
@@ -285,6 +300,8 @@ class rejangpedia {
           ".jpg",
         Diedit: user.pembuat,
         Link: user.link.replace("/watch?v=", "/embed/"),
+        Waktu: acceptedData.Waktu,
+        Edit: formatWaktu,
         Content: JSON.parse(user.content),
       });
     } else {
@@ -298,6 +315,8 @@ class rejangpedia {
           ".jpg",
         Diedit: user.pembuat,
         Link: user.link.replace("/watch?v=", "/embed/"),
+        Waktu: "Tidak Diketahui",
+        Edit: formatWaktu,
         Content: JSON.parse(user.content),
       });
       await this.goingModel.create({
@@ -310,6 +329,8 @@ class rejangpedia {
           ".jpg",
         Diedit: user.pembuat,
         Link: user.link.replace("/watch?v=", "/embed/"),
+        Waktu: "Tidak Diketahui",
+        Edit: formatWaktu,
         Content: JSON.parse(user.content),
       });
     }
@@ -345,6 +366,8 @@ class rejangpedia {
           Image: acceptedData.Image,
           Diedit: "",
           Link: acceptedData.Link,
+          Edit: acceptedData.Edit,
+          Waktu: acceptedData.Waktu,
           Content: acceptedData.Content,
         });
       }
@@ -376,6 +399,8 @@ class rejangpedia {
           Image: acceptedData.Image,
           Diedit: "",
           Content: acceptedData.Content,
+          Edit: acceptedData.Edit,
+          Waktu: acceptedData.Waktu,
           Link: acceptedData.Link,
         });
 
@@ -405,6 +430,12 @@ class rejangpedia {
         uniqueFileName +
         ".jpg";
     }
+    const tanggalSekarang = new Date();
+
+    const namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    const tanggal = tanggalSekarang.getDate();
+    const bulan = namaBulan[tanggalSekarang.getMonth()];
+    const tahun = tanggalSekarang.getFullYear();
 
     // Unshift the data to the 'dataOnGoing' array
     this.dataOnGoing.unshift({
@@ -414,6 +445,8 @@ class rejangpedia {
       Image: image,
       Diedit: "",
       Link: user.link.replace("/watch?v=", "/embed/"),
+      Edit: `${tanggal}-${bulan}-${tahun}`,
+      Waktu: `${tanggal}-${bulan}-${tahun}`,
       Content: JSON.parse(user.content),
     });
 
@@ -424,6 +457,8 @@ class rejangpedia {
       Image: image,
       Pembuat: user.pembuat,
       Link: user.link.replace("/watch?v=", "/embed/"),
+      Edit: `${tanggal}-${bulan}-${tahun}`,
+      Waktu: `${tanggal}-${bulan}-${tahun}`,
       Content: JSON.parse(user.content),
     });
   }

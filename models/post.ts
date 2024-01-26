@@ -12,6 +12,8 @@ interface Post extends Document {
   Pembuat: string;
   Diedit: string;
   Link: string;
+  Waktu: string;
+  Edit: string;
   Content: PostContent[];
 }
 
@@ -37,13 +39,15 @@ const postSchema = new Schema<Post>({
   Pembuat: String,
   Diedit: String,
   Link: String,
+  Waktu: String,
+  Edit: String,
   Content: [
     {
       babTitle: String,
       babContent: String,
-    },
+    }
   ],
-});
+})
 
 const postSchemaSocial = new Schema<SocialPost>({
   noteId: String,

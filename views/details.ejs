@@ -25,8 +25,8 @@
       object-fit: contain;
     }
 
-    .container {
-      padding-left: 150px;
+  .container {
+  padding-left: 150px;
       padding-right: 150px;
     }
     #title {
@@ -59,7 +59,7 @@
     <div class="container">
       <h1 id="title"><%= data.Title %></h1>
 
-      <p class="dibuat">By: <%= data.Pembuat %>, Edit: <%= data.Diedit %></p>
+      <p class="dibuat">Penulis: <%= data.Pembuat %> <% if(data.Waktu) {%> • <%= data.Waktu %><% } %> <br> Edit: <%= data.Diedit %> <% if(data.Edit) { %> • <%= data.Edit %> <% } %></p>
       <div class="d-flex flex-column flex-md-row">
         <% if (data.Image && data.Image != null) { %>
         <img
