@@ -59,7 +59,7 @@
     <div class="container">
       <h1 id="title"><%= data.Title %></h1>
 
-      <p class="dibuat">Penulis: <%= data.Pembuat %> <% if(data.Waktu) {%> • <%= data.Waktu %><% } %> <br> Edit: <%= data.Diedit %> <% if(data.Edit) { %> • <%= data.Edit %> <% } %></p>
+      <p class="dibuat">Penulis: <%= data.Pembuat %> <% if(data.Waktu) {%> • <%= data.Waktu %><% } %> <br> <% if(data.Diedit) { %> Edit: <%= data.Diedit %> <% } if(data.Edit) { %> • <%= data.Edit %> <% } %></p>
       <div class="d-flex flex-column flex-md-row">
         <% if (data.Image && data.Image != null) { %>
         <img
