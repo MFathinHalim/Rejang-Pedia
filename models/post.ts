@@ -38,7 +38,7 @@ const postSchema = new Schema<Post>({
   Image: String,
   Pembuat: String,
   Diedit: String,
-  Link: String,
+  Link: String,?
   Waktu: String,
   Edit: String,
   Content: [
