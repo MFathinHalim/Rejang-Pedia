@@ -38,16 +38,16 @@ const postSchema = new Schema<Post>({
   Image: String,
   Pembuat: String,
   Diedit: String,
-  Link: String,?
+  Link: String,
   Waktu: String,
   Edit: String,
   Content: [
     {
       babTitle: String,
       babContent: String,
-    }
+    },
   ],
-})
+});
 
 const postSchemaSocial = new Schema<SocialPost>({
   noteId: String,
