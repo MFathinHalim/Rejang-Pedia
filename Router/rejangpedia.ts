@@ -266,9 +266,19 @@ class rejangpedia {
     const user = req.body;
     const tanggalSekarang = new Date();
     const namaBulan = [
-      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-    ]; 
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ];
 
     const tanggal = tanggalSekarang.getDate();
     const bulan = namaBulan[tanggalSekarang.getMonth()];
@@ -432,7 +442,20 @@ class rejangpedia {
     }
     const tanggalSekarang = new Date();
 
-    const namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    const namaBulan = [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ];
     const tanggal = tanggalSekarang.getDate();
     const bulan = namaBulan[tanggalSekarang.getMonth()];
     const tahun = tanggalSekarang.getFullYear();

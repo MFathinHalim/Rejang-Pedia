@@ -25,8 +25,8 @@
       object-fit: contain;
     }
 
-  .container {
-  padding-left: 150px;
+    .container {
+      padding-left: 150px;
       padding-right: 150px;
     }
     #title {
@@ -58,8 +58,19 @@
     <% if (data && data.Title){ %>
     <div class="container">
       <h1 id="title"><%= data.Title %></h1>
-      <p class="dibuat mr-auto" style="padding-left: 10px; !important; border-left: 3px solid #138496 !important;"><strong style="color:#138496 !important;"> Ditulis oleh </strong> <%= data.Pembuat %> <% if(data.Waktu) {%> • <%= data.Waktu %><% } else {%> • Waktu Tidak Ada <% } %>  <br> <% if(data.Diedit) { %><strong style="color:#138496 !important;">  Diedit oleh </strong> <%= data.Diedit %> <% if(data.Edit) { %> • <%= data.Edit %> <% } else {%> • Waktu Tidak Ada <% } }%> </p>
-        <div class="d-flex flex-column flex-md-row">
+      <p
+        class="dibuat mr-auto"
+        style="padding-left: 10px; !important;
+                                 border-left: 3px solid #138496 !important;">
+        <strong style="color: #138496 !important"> Ditulis oleh </strong> <%=
+        data.Pembuat %> <% if(data.Waktu) {%> • <%= data.Waktu %><% } else {%> •
+        07-03-2023 <% } %> <br />
+        <% if(data.Diedit) { %><br />
+        <strong style="color: #138496 !important"> Diedit oleh </strong> <%=
+        data.Diedit %> <% if(data.Edit) { %> • <%= data.Edit %> <% } else {%> •
+        Waktu Tidak Ada <% } }%>
+      </p>
+      <div class="d-flex flex-column flex-md-row">
         <% if (data.Image && data.Image != null) { %>
         <img
           class="listing-image mr-2"
