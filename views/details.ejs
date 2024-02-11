@@ -6,18 +6,15 @@
     <title><%= data.Title %> - rejangpedia</title>
     <meta
       property="og:title"
-      content="rejangpedia untuk Sanak: <%= data.Title %>"
-    />
+      content="rejangpedia untuk Sanak: <%= data.Title %>" />
     <meta
       property="og:description"
       content="<%- data.Content[0].babContent.replace(/<[^>]+>/g,
-    '').substring(0, 200) %>..."
-    />
+    '').substring(0, 200) %>..." />
     <meta property="og:image" content="<%= data.Image %>" />
     <meta
       property="og:url"
-      content="https://rejang-pedia.mfathinhalim.repl.co/details/<%= data.id %>"
-    />
+      content="https://rejang-pedia.mfathinhalim.repl.co/details/<%= data.id %>" />
   </head>
   <%- include('navbar.ejs') -%>
 
@@ -37,11 +34,11 @@
       font-size: 64px;
       width: 100%;
     }
-#x{
-  display: none;
+    #x {
+      display: none;
     }
     @media only screen and (max-width: 600px) {
-      #x{
+      #x {
         display: block;
       }
       #title {
@@ -60,7 +57,7 @@
       margin: 0px 0;
       line-height: 22px;
       content: " ";
-    
+    }
   </style>
   <body>
     <% if (data && data.Title){ %>
@@ -68,12 +65,15 @@
       <h1 id="title"><%= data.Title %></h1>
       <p
         class="dibuat mr-auto"
-        style="font-size: 15px;max-width: 100%;padding-left: 10px; !important; border-left: 3px solid #138496 !important;"
-      >
+        style="
+          font-size: 15px;
+          max-width: 100%;
+          padding-left: 10px;
+          border-left: 3px solid #138496 !important;
+        ">
         <strong style="color: #138496 !important"> Ditulis oleh </strong> <%=
         data.Pembuat %> <% if(data.Waktu) {%> • <%= data.Waktu %><% } else {%> •
-        07-Maret-2023 <% } %>
-        <% if(data.Diedit) { %><br /><br id="x"/>
+        07-Maret-2023 <% } %> <% if(data.Diedit) { %><br /><br id="x" />
         <strong style="color: #138496 !important"> Diedit oleh </strong> <%=
         data.Diedit %> <% if(data.Edit) { %> • <%= data.Edit %> <% } else {%> •
         07-Maret-2023 <% } }%>
@@ -90,8 +90,7 @@
             border-radius: 12px;
           "
           src="<%= data.Image %>"
-          alt="<%= data.Title %>"
-        />
+          alt="<%= data.Title %>" />
         <br />
         <% } %> <% if (data.Link) { %>
         <article>
@@ -105,8 +104,7 @@
               border: 1px solid #ccc;
             "
             class="img-fluid"
-            src="<%= data.Link %>"
-          >
+            src="<%= data.Link %>">
           </iframe>
         </article>
         <% } %>
@@ -115,8 +113,7 @@
       <div class="d-flex mt-3">
         <button
           class="btn btn-info rounded-pill mr-1 text-white"
-          onclick="search()"
-        >
+          onclick="search()">
           <i class="fa fa-share text-white" aria-hidden="true"></i>
           Bagikan
         </button>
@@ -167,4 +164,3 @@
     }
   </script>
 </html>
-

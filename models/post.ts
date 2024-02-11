@@ -1,5 +1,5 @@
 import { Schema, model, Document } from "mongoose";
-
+//okay guys, try move to chat.txt
 interface PostContent {
   babTitle: string;
   babContent: string;

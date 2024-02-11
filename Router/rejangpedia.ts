@@ -6,7 +6,8 @@ const fs = require("fs");
 //const openai = new OpenAI({
 //  apiKey: "",
 //});
-
+//anjay rill mint
+//lah beliau kemana
 class TreeNode {
   data: any;
   left: any;
@@ -100,6 +101,7 @@ class rejangpedia {
       data: filteredData,
       dataPilihan: dataPilihan,
       dataAcak: dataAcak,
+      infinite: this.data,
     };
   }
 
