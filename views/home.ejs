@@ -355,57 +355,9 @@
       </div>
       <!-- Copyright -->
     </footer>
-    <div class="container">
-      <h3 class="text-center">Jelajahi!</h3>
-      <div id="insert-here" class="d-flex justify-content-center">
-        <ul
-          class="list-group mt-2"
-          style="border-radius: 24px !important; list-style-type: none">
-          <!-- Loop through your data to display articles that contain "rejang" -->
-
-          <% infinite.forEach(function(entry) { %> <% if (entry) { %>
-          <li class="list-group-item bg-transparent border-0">
-            <a class="mt-2" href="/details/<%= entry.id %>">
-              <div class="d-flex flex-column flex-md-row align-items-md-center">
-                <% if (entry.Image != null) { %>
-                <img
-                  class="listing-image mb-2"
-                  style="
-                    min-width: 160px !important;
-                    max-width: 160px !important;
-                    height: 110px;
-                    object-fit: cover;
-                    border-radius: 12px !important;
-                  "
-                  src="<%= entry.Image %>"
-                  alt="<%= entry.Title %>"
-                  onerror="this.remove()" />
-                <% } %>
-                <div class="<%= entry.Image ? 'ml-md-3' : '' %>">
-                  <h5 class="mb-1"><%= entry.Title %></h5>
-                  <% if (entry.Content && entry.Content[0] &&
-                  entry.Content[0].babContent) { %>
-                  <p class="text-muted">
-                    <%= entry.Content[0].babContent.replace(/<[^>]+>/g,
-                    '').substring(0, 100) %>...
-                  </p>
-                  <% } %>
-                </div>
-              </div>
-            </a>
-          </li>
-
-          <% } %> <% }); %>
-        </ul>
-      </div>
-    </div>
 
     <script>
       window.scrollTo(0, 0);
-      const str = document
-        .getElementById("datalist")
-        .innerHTML.replace(/,\s*$/, "");
-      let datalist = JSON.parse(str);
 
       function search() {
         const searchTerm = searchInput.value;

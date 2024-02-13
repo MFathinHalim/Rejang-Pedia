@@ -65,11 +65,7 @@
         style="border-radius: 24px !important; list-style-type: none">
         <!-- Loop through your data to display articles that contain "rejang" -->
 
-        <% data.forEach(function(entry) { %> <% if
-        (entry.Title.toLowerCase().includes("rejang") ||
-        entry.Title.toLowerCase().includes("bengkulu") ||
-        entry.Content[0].babContent.toLowerCase().includes("rejang") ||
-        entry.Content[0].babContent.toLowerCase().includes("bengkulu")) { %>
+        <% data.forEach(function(entry) { %> <% if (entry) { %>
         <li class="list-group-item bg-transparent border-0">
           <a class="mt-2" href="/details/<%= entry.id %>">
             <div class="d-flex flex-column flex-md-row align-items-md-center">
