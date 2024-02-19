@@ -5,6 +5,9 @@
     <%- include('import.ejs') -%>
     <title><%= data.Title %> - rejangpedia</title>
     <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta
       property="og:title"
       content="rejangpedia untuk Sanak: <%= data.Title %>" />
     <meta
@@ -20,7 +23,7 @@
 
   <style>
     body {
-      overflow-x: hidden;
+      overflow-x: hidden !important;
     }
     img {
       width: 460px; /* Default width for desktop */
@@ -69,6 +72,9 @@
       .sidebar {
         display: none;
       }
+      .row {
+        display: block;
+      }
     }
   </style>
   <body>
@@ -92,7 +98,7 @@
 
       <div class="container">
         <!-- Main Content -->
-        <div id="p">
+        <div class="col-lg-10 col-md-9">
           <div class="main-content">
             <h1 id="title"><%= data.Title %></h1>
             <p
