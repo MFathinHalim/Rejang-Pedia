@@ -19,6 +19,9 @@
   <%- include('navbar.ejs') -%>
 
   <style>
+    body {
+      overflow-x: hidden;
+    }
     img {
       width: 460px; /* Default width for desktop */
       max-width: 100%; /* Ensure it's responsive */
@@ -44,8 +47,8 @@
         font-size: 46px;
       }
       .container {
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 30px;
+        padding-right: 30px;
       }
       p {
         white-space: normal !important;
@@ -65,9 +68,6 @@
     @media (max-width: 1063px) {
       .sidebar {
         display: none;
-      }
-      .row {
-        display: block !important;
       }
     }
   </style>
@@ -92,7 +92,7 @@
 
       <div class="container">
         <!-- Main Content -->
-        <div class="col-lg-9 col-md-8">
+        <div id="p">
           <div class="main-content">
             <h1 id="title"><%= data.Title %></h1>
             <p
@@ -156,8 +156,8 @@
             <div style="border-radius: 24px !important">
               <% data.Content.forEach(function(bab) { %>
               <div class="my-4">
-                <h3 id="<%= bab.babTitle %>"><%= bab.babTitle %></h3>
-                <p><%- bab.babContent %></p>
+                <h3><%= bab.babTitle %></h3>
+                <p id="<%= bab.babTitle %>"><%- bab.babContent %></p>
               </div>
               <% }); %>
             </div>
