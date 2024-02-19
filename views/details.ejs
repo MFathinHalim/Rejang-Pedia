@@ -50,8 +50,8 @@
         font-size: 46px;
       }
       .container {
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: 15px;
+        padding-right: 15px;
       }
       p {
         white-space: normal !important;
@@ -63,17 +63,13 @@
       line-height: 22px;
       content: " ";
     }
-    @media (max-width: 967px) {
-      .sidebar {
-        display: none;
-      }
-    }
-    @media (max-width: 1063px) {
+
+    @media (max-width: 1373px) {
       .sidebar {
         display: none;
       }
       .row {
-        display: block;
+        display: contents;
       }
     }
   </style>
@@ -81,9 +77,14 @@
     <% if (data && data.Title){ %>
     <div class="row">
       <!-- Sidebar -->
-      <div class="col-lg-2 col-md-3 sticky-top">
+      <div
+        class="col-lg-2 col-md-3 sticky-top"
+        style="
+          border-right: 2px dashed #515151 !important;
+          border-top: 2px dashed #515151 !important;
+        ">
         <div class="sidebar sticky-top">
-          <h3 class="p-3">Daftar Isi</h3>
+          <h4 class="p-3"><strong>Daftar Isi</strong></h4>
           <ul
             class="list-group bg-transparent border-0"
             style="background: none !important">
