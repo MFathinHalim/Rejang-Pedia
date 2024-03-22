@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 import * as path from "path";
 const ejs = require("ejs");
 var ImageKit = require("imagekit");
+const cors = require("cors"); // Import the CORS middleware
 
 // Importing models for MongoDB
 const { mainModel, goingModel, socialModel } = require("./models/post");
@@ -26,6 +27,13 @@ server.set("view engine", "ejs");
 server.use(express.static(path.join(__dirname, "/public")));
 
 // Using body-parser for JSON and form data
+server.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  })
+);
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 

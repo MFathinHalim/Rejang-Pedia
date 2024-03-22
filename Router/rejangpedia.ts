@@ -2,6 +2,8 @@ const multer = require("multer"); // Multer is used for handling file uploads, s
 const axios = require("axios");
 const { v1: uuidv1 } = require("uuid");
 const fs = require("fs");
+const cors = require("cors"); // Import the CORS middleware
+
 //const OpenAI = require("openai");
 //const openai = new OpenAI({
 //  apiKey: "",
@@ -537,7 +539,13 @@ module.exports = function (
   server.get("/dropdown", function (req, res) {
     res.render("dropdown");
   });
-
+  server.use(
+    cors({
+      origin: "*",
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      credentials: true,
+    })
+  );
   // Route to render the article details page
   server.get("/details/:id", async function (req, res) {
     res.render("details", app.getDetails(req.params.id, false));
@@ -565,6 +573,9 @@ module.exports = function (
   // Route to render the 'edit' page for editing an article
   server.get("/edit/:id", function (req, res) {
     res.render("edit", app.getDetails(req.params.id, false));
+  });
+  server.get("/api/edit/:id", function (req, res) {
+    res.json(app.getDetails(req.params.id, false));
   });
 
   // Route to handle searching for articles
@@ -649,8 +660,17 @@ module.exports = function (
     app.recrutAdmin(req.params.id);
   });
   server.get("/api/search", async function (req, res) {
+    const searchTerm = req.query.term; // Get the user input
+
+    /* const response = await openai.chat.completions.create({
+      messages: [{ role: "user", content: "Say this is a test" }],
+      model: "text-davinci-003",
+    });*/
+    const search = await app.search(searchTerm);
     res.json({
-      results: app.search(req.query.searchTerm),
+      results: search,
+      query: searchTerm,
+      //ai: response,
     });
   });
 };

@@ -1,0 +1,48 @@
+body {
+  overflow-x: hidden !important;
+}
+img {
+  max-width: 100%; /* Ensure it's responsive */
+}
+
+.container {
+  padding-left: 0px;
+}
+#title {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 64px;
+  width: 100%;
+}
+#x {
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+  #x {
+    display: block;
+  }
+  #title {
+    font-size: 46px;
+  }
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  p {
+    white-space: normal !important;
+    word-break: break-all;
+  }
+}
+br {
+  margin: 0px 0;
+  line-height: 22px;
+  content: " ";
+}
+
+@media (max-width: 1373px) {
+  .sidebar {
+    display: none;
+  }
+  .row {
+    display: contents;
+  }
+}

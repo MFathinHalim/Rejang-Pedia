@@ -1,195 +1,196 @@
-    <div id="nav">
-      <style>
-        #khususHp {
-          display: none;
-        }
-        #khususHpBawah {
-          display: none;
-          transition: all 0.3s ease-in-out; /* Animasi smooth */
-        }
-        @media only screen and (max-width: 600px) {
-          #khususDekstop {
-            display: none;
-          }
-          #khususHp {
-            display: block;
-          }
-          #khususHpBawah {
-            display: block;
-          }
+<div id="nav">
+  <style>
+    #khususHp {
+      display: none;
+    }
+    #khususHpBawah {
+      display: none;
+      transition: all 0.3s ease-in-out; /* Animasi smooth */
+    }
+    @media only screen and (max-width: 600px) {
+      #khususDekstop {
+        display: none;
+      }
+      #khususHp {
+        display: block;
+      }
+      #khususHpBawah {
+        display: block;
+      }
 
-          #khususHp .nav-link i {
-            font-size: 1.3rem;
-          }
-          #khususHp .nav-link .d-block {
-            font-size: 0.8rem;
-            color: rgb(199, 199, 199);
-          }
+      #khususHp .nav-link i {
+        font-size: 1.3rem;
+      }
+      #khususHp .nav-link .d-block {
+        font-size: 0.8rem;
+        color: rgb(199, 199, 199);
+      }
 
-          #khususHpBawah .nav-link i {
-            font-size: 1.3rem;
-          }
-          #khususHpBawah .nav-link .d-block {
-            font-size: 0.8rem;
-            color: rgb(199, 199, 199);
-          }
-        }
-      </style>
-      <nav
-        class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
-        id="khususDekstop">
-        <a
-          class="navbar-brand"
-          href="/"
-          style="font-family: 'Montserrat' !important">
-          rejangpedia
-        </a>
+      #khususHpBawah .nav-link i {
+        font-size: 1.3rem;
+      }
+      #khususHpBawah .nav-link .d-block {
+        font-size: 0.8rem;
+        color: rgb(199, 199, 199);
+      }
+    }
+  </style>
+  <nav
+    class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
+    id="khususDekstop"
+  >
+    <a
+      class="navbar-brand"
+      href="/"
+      style="font-family: 'Montserrat' !important"
+    >
+      rejangpedia
+    </a>
 
-        <button
-          class="navbar-toggler border-0"
-          style="border-radius: 0"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation">
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <!-- Centered navigation items -->
-          <ul class="navbar-nav justify-content-center">
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="https://kamusrejang.rejanglebongkab.go.id">
-                <i class="fa fa-book"></i> Kamus Rejang
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/new">
-                <i class="fa fa-plus"></i> Tambah Artikel
-              </a>
-            </li>
+    <button
+      class="navbar-toggler border-0"
+      style="border-radius: 0"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Centered navigation items -->
+      <ul class="navbar-nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" href="https://kamusrejang.rejanglebongkab.go.id">
+            <i class="fa fa-book"></i> Kamus Rejang
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/new">
+            <i class="fa fa-plus"></i> Tambah Artikel
+          </a>
+        </li>
 
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false">
-                <i class="fa fa-bars"></i>
-                Daftar
-              </a>
-              <div
-                class="dropdown-menu bg-light"
-                aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/tentang">
-                  <i class="fa fa-question" aria-hidden="true"></i> Tentang
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="https://mfathinhalim.github.io">
-                  <i class="fa fa-question-circle" aria-hidden="true"></i>
-                  Tentang Fathin
-                </a>
-                <button class="dropdown-item" onclick="openApp()">
-                  Buka di Aplikasi
-                </button>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <nav
-        class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
-        id="khususHp">
-        <div class="container">
-          <div class="row w-100">
-            <div class="col-9 text-center">
-              <a
-                class="navbar-brand"
-                href="/"
-                style="font-family: 'Montserrat' !important">
-                rejangpedia
-              </a>
-            </div>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fa fa-bars"></i>
+            Daftar
+          </a>
+          <div class="dropdown-menu bg-light" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/tentang">
+              <i class="fa fa-question" aria-hidden="true"></i> Tentang
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="https://mfathinhalim.github.io">
+              <i class="fa fa-question-circle" aria-hidden="true"></i>
+              Tentang Fathin
+            </a>
+            <button class="dropdown-item" onclick="openApp()">
+              Buka di Aplikasi
+            </button>
           </div>
-        </div>
-      </nav>
-
-      <nav
-        class="navbar fixed-bottom bawah navbar-expand navbar-light bg-light"
-        id="khususHpBawah">
-        <ul class="navbar-nav nav-justified w-100">
-          <li class="nav-item">
-            <a class="nav-link" href="/">
-              <i class="fa fa-home"></i>
-              <span class="d-block">Home</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/new">
-              <i class="fa fa-plus"></i>
-              <span class="d-block">Tambah</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              href="https://kamusrejang.rejanglebongkab.go.id">
-              <i class="fa fa-book"></i>
-              <span class="d-block">Kamus</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/dropdown">
-              <i class="fa fa-bars"></i>
-              <span class="d-block">Menu</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-      <script>
-        var prevScrollpos = window.pageYOffset;
-        window.onscroll = function () {
-          var currentScrollPos = window.pageYOffset;
-          var bawahNavbar = document.getElementById("khususHpBawah");
-          var atasNavbar = document.getElementById("khususHp");
-
-          if (prevScrollpos > currentScrollPos) {
-            // Scroll ke atas, tampilkan navbar khusus HP
-            bawahNavbar.style.bottom = "0";
-          } else {
-            // Scroll ke bawah, sembunyikan navbar khusus HP
-            bawahNavbar.style.bottom = "-100px"; // Ubah sesuai dengan tinggi navbar
-          }
-          prevScrollpos = currentScrollPos;
-        };
-        function openApp() {
-          // Coba membuka tautan
-          if (navigator.supportedURLScheme) {
-            navigator.supportedURLScheme.open(
-              "rejang://pedia" +
-                window.location.href.replace("https://rejangpedia.glitch.me"),
-              function () {
-                // Tautan berhasil dibuka, tidak ada tindakan lanjutan diperlukan
-              },
-              function () {
-                // Tautan tidak dapat dibuka, tetap di halaman web saat ini
-                // Anda dapat menambahkan logika lain di sini jika diperlukan
-              }
-            );
-          } else {
-            // Tautan kustom akan digunakan jika navigator.supportedURLScheme tidak tersedia
-            window.location.href =
-              "rejang://pedia" +
-              window.location.href.replace("https://rejangpedia.glitch.me", "");
-          }
-        }
-      </script>
+        </li>
+      </ul>
     </div>
+  </nav>
+
+  <nav
+    class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
+    id="khususHp"
+  >
+    <div class="container">
+      <div class="row w-100">
+        <div class="col-9 text-center">
+          <a
+            class="navbar-brand"
+            href="/"
+            style="font-family: 'Montserrat' !important"
+          >
+            rejangpedia
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <nav
+    class="navbar fixed-bottom bawah navbar-expand navbar-light bg-light"
+    id="khususHpBawah"
+  >
+    <ul class="navbar-nav nav-justified w-100">
+      <li class="nav-item">
+        <a class="nav-link" href="/">
+          <i class="fa fa-home"></i>
+          <span class="d-block">Home</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/new">
+          <i class="fa fa-plus"></i>
+          <span class="d-block">Tambah</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://kamusrejang.rejanglebongkab.go.id">
+          <i class="fa fa-book"></i>
+          <span class="d-block">Kamus</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dropdown">
+          <i class="fa fa-bars"></i>
+          <span class="d-block">Menu</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <script>
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function () {
+      var currentScrollPos = window.pageYOffset;
+      var bawahNavbar = document.getElementById("khususHpBawah");
+      var atasNavbar = document.getElementById("khususHp");
+
+      if (prevScrollpos > currentScrollPos) {
+        // Scroll ke atas, tampilkan navbar khusus HP
+        bawahNavbar.style.bottom = "0";
+      } else {
+        // Scroll ke bawah, sembunyikan navbar khusus HP
+        bawahNavbar.style.bottom = "-100px"; // Ubah sesuai dengan tinggi navbar
+      }
+      prevScrollpos = currentScrollPos;
+    };
+    function openApp() {
+      // Coba membuka tautan
+      if (navigator.supportedURLScheme) {
+        navigator.supportedURLScheme.open(
+          "rejang://pedia" +
+            window.location.href.replace("https://rejangpedia.glitch.me"),
+          function () {
+            // Tautan berhasil dibuka, tidak ada tindakan lanjutan diperlukan
+          },
+          function () {
+            // Tautan tidak dapat dibuka, tetap di halaman web saat ini
+            // Anda dapat menambahkan logika lain di sini jika diperlukan
+          }
+        );
+      } else {
+        // Tautan kustom akan digunakan jika navigator.supportedURLScheme tidak tersedia
+        window.location.href =
+          "rejang://pedia" +
+          window.location.href.replace("https://rejangpedia.glitch.me", "");
+      }
+    }
+  </script>
+</div>
