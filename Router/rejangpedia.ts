@@ -2,7 +2,7 @@ const multer = require("multer"); // Multer is used for handling file uploads, s
 const axios = require("axios");
 const { v1: uuidv1 } = require("uuid");
 const fs = require("fs");
-const cors = require("cors"); // Import the CORS middleware
+//const cors = require("cors"); // Import the CORS middleware
 
 //const OpenAI = require("openai");
 //const openai = new OpenAI({
@@ -539,13 +539,13 @@ module.exports = function (
   server.get("/dropdown", function (req, res) {
     res.render("dropdown");
   });
-  server.use(
+  /*server.use(
     cors({
       origin: "*",
       methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
       credentials: true,
     })
-  );
+  );*/
   // Route to render the article details page
   server.get("/details/:id", async function (req, res) {
     res.render("details", app.getDetails(req.params.id, false));
@@ -594,7 +594,7 @@ module.exports = function (
     });*/
     const searchAI = await axios.get(apiurl);
     const response = searchAI.data.answer;
-    console.log(response);
+    //console.log(response);
     const search = await app.search(searchTerm);
     res.render("search-results", {
       results: search,
