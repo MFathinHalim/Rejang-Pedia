@@ -45,11 +45,13 @@
       </style>
       <nav
         class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
-        id="khususDekstop">
+        id="khususDekstop"
+      >
         <a
           class="navbar-brand"
           href="/"
-          style="font-family: 'Montserrat' !important">
+          style="font-family: 'Montserrat' !important"
+        >
           rejangpedia
         </a>
 
@@ -61,7 +63,8 @@
           data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
-          aria-label="Toggle navigation">
+          aria-label="Toggle navigation"
+        >
           <i class="fa fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -70,7 +73,8 @@
             <li class="nav-item">
               <a
                 class="nav-link"
-                href="https://kamusrejang.rejanglebongkab.go.id">
+                href="https://kamusrejang.rejanglebongkab.go.id"
+              >
                 <i class="fa fa-book"></i> Kamus Rejang
               </a>
             </li>
@@ -88,20 +92,23 @@
                 role="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="fa fa-bars"></i>
                 Daftar
               </a>
               <div
                 class="dropdown-menu bg-light"
-                aria-labelledby="navbarDropdown">
+                aria-labelledby="navbarDropdown"
+              >
                 <a class="dropdown-item" href="/tentang">
                   <i class="fa fa-question" aria-hidden="true"></i> Tentang
                 </a>
                 <div class="dropdown-divider"></div>
                 <a
                   class="dropdown-item"
-                  href="https://doma.mfathinhalim.repl.co">
+                  href="https://doma.mfathinhalim.repl.co"
+                >
                   <i class="fa fa-question-circle" aria-hidden="true"></i>
                   Tentang Fathin
                 </a>
@@ -116,14 +123,16 @@
 
       <nav
         class="navbar navbar-expand-lg navbar-dark bg-light sticky-top"
-        id="khususHp">
+        id="khususHp"
+      >
         <div class="container">
           <div class="row w-100">
             <div class="col-9 text-center">
               <a
                 class="navbar-brand"
                 href="/"
-                style="font-family: 'Montserrat' !important">
+                style="font-family: 'Montserrat' !important"
+              >
                 rejangpedia
               </a>
             </div>
@@ -133,12 +142,14 @@
 
       <nav
         class="navbar fixed-bottom bawah navbar-expand navbar-light bg-light"
-        id="khususHpBawah">
+        id="khususHpBawah"
+      >
         <ul class="navbar-nav nav-justified w-100">
           <li class="nav-item">
             <a
               class="nav-link"
-              href="https://rejang-pedia.mfathinhalim.repl.co/">
+              href="https://rejang-pedia.mfathinhalim.repl.co/"
+            >
               <i class="fa fa-home"></i>
               <span class="d-block">Home</span>
             </a>
@@ -152,7 +163,8 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              href="https://kamusrejang.rejanglebongkab.go.id">
+              href="https://kamusrejang.rejanglebongkab.go.id"
+            >
               <i class="fa fa-book"></i>
               <span class="d-block">Kamus</span>
             </a>
@@ -211,7 +223,7 @@
       </script>
     </div>
     <div class="container mt-5 mb-5">
-      <h3>Iko Kan Sanak?</h3>
+      <h3 class="pb-2">Iko Kan Sanak?</h3>
 
       <div class="mb-3 d-flex justify-content-center">
         <input
@@ -221,24 +233,39 @@
           class="form-control search-input custom-input mr-1"
           id="searchInput"
           value="<%= query %>"
-          placeholder="Mau Cari Apa Sanak..." />
+          placeholder="Mau Cari Apa Sanak..."
+        />
         <button
           type="submit"
           class="btn btn-primary border-0 rounded-0"
           style="border-radius: 8px 12px 12px 8px !important"
           onclick="search()"
-          id="searchButton">
+          id="searchButton"
+        >
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
       </div>
       <a href="/" class="btn btn-secondary rounded-pill mb-3"
         ><i class="fa fa-chevron-left" aria-hidden="true"></i> Beranda</a
       >
-      <!--h3>AI berkata</h3>
-      <p>< ai </p-->
+
+      <div class="p-3 mb-2 border-bottom rounded-lg">
+        <h3 class="mb-3">
+          <i
+            class="fa fa-robot"
+            style="color: #3f9f8dff !important"
+            aria-hidden="true"
+          ></i>
+          Rangkuman AI
+        </h3>
+        <h6><%- ai %></h6>
+      </div>
+      <hr />
+
       <ul
         class="list-group"
-        style="border-radius: 24px !important; list-style-type: none">
+        style="border-radius: 24px !important; list-style-type: none"
+      >
         <% results.forEach(function(result, index) { %>
         <li class="mb-4">
           <div class="d-flex flex-column flex-md-row align-items-md-center">
@@ -253,7 +280,8 @@
               "
               src="<%= result.Image %>"
               alt="<%= result.Title %>"
-              onerror="this.remove()" />
+              onerror="this.remove()"
+            />
             <% } %>
 
             <div class="<%= result.Image ? 'ml-md-3' : '' %>">

@@ -581,16 +581,25 @@ module.exports = function (
   // Route to handle searching for articles
   server.get("/search", async function (req, res) {
     const searchTerm = req.query.term; // Get the user input
+    var char = " ada yang bertanya tentang : ' ".replace(/ /g, "%20");
+    const apiurl: string = `https://sandipbaruwal.onrender.com/gemini?prompt=${encodeURIComponent(
+      char +
+        searchTerm +
+        "Kamu harus menjelaskan dengan singkat dan mudah dipahami untuknya! jangan menggunakan ** * atapun inline! gak usah pake rich text intinya"
+    )}' &uid=62825372`;
 
     /* const response = await openai.chat.completions.create({
       messages: [{ role: "user", content: "Say this is a test" }],
       model: "text-davinci-003",
     });*/
+    const searchAI = await axios.get(apiurl);
+    const response = searchAI.data.answer;
+    console.log(response);
     const search = await app.search(searchTerm);
     res.render("search-results", {
       results: search,
       query: searchTerm,
-      //ai: response,
+      ai: response,
     });
   });
 
