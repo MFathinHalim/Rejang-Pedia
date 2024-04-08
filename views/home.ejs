@@ -15,12 +15,14 @@
     <div class="container">
       <div
         class="header text-dark text-center mt-2 rounded-bottom"
-        style="font-family: 'Montserrat' !important">
+        style="font-family: 'Montserrat' !important"
+      >
         <img
           id="logo"
           draggable="false"
           class="border-0"
-          src="https://cdn.glitch.global/2f9a2460-083a-49a5-a55f-2abb8ce71e54/logo.png?v=1699767799122" />
+          src="https://cdn.glitch.global/2f9a2460-083a-49a5-a55f-2abb8ce71e54/logo.png?v=1699767799122"
+        />
         <p><i class="fa fa-globe"></i> Punyo Kito Galo</p>
       </div>
       <div class="search-box d-flex justify-content-center">
@@ -30,13 +32,15 @@
           style="border-radius: 12px 8px 8px 12px; padding: 25px"
           class="form-control search-input custom-input mr-1"
           id="searchInput"
-          placeholder="Mau Cari Apa Sanak..." />
+          placeholder="Mau Cari Apa Sanak..."
+        />
         <button
           type="submit"
           class="btn btn-primary border-0 rounded-0"
           style="border-radius: 8px 12px 12px 8px !important"
           onclick="search()"
-          id="searchButton">
+          id="searchButton"
+        >
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
       </div>
@@ -44,8 +48,9 @@
       <h4 class="m-2 text-white">Apo Bae Yang Disiko?</h4>
 
       <div
-        class="row flex-nowrap overflow-auto"
-        style="max-width: 100%; overflow-x: auto">
+        class="parent row flex-nowrap overflow-auto"
+        style="width: 100%; overflow-x: auto"
+      >
         <div class="col">
           <% var op = Math.floor(Math.random()*data.length) %>
           <h6 class="card-title ml-2">Tengok Galo Artikel</h6>
@@ -53,13 +58,14 @@
             class="card m-1 card-img-top"
             style="
               color: white;
-              background: url('<%= data[op].Image != null ? data[op].Image : `https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500` %>');
+              background: url('<%= data[op].Image ? data[op].Image : `https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500` %>');
               background-repeat: no-repeat;
               background-size: cover;
               background-position: center;
               height: 220px;
             "
-            href="/data">
+            href="/data"
+          >
             <div
               class="dark-overlay"
               style="
@@ -70,7 +76,8 @@
                 height: 100%;
                 border-radius: 24px;
                 background: rgba(0, 0, 0, 0.2);
-              "></div>
+              "
+            ></div>
           </a>
           <a
             href="/details/<%= data[op].id %>"
@@ -85,7 +92,8 @@
             ><i
               class="fa fa-chevron-right"
               aria-hidden="true"
-              style="color: white !important"></i>
+              style="color: white !important"
+            ></i>
             Baco <%= data[op].Title.substring(0, 10) %>...
           </a>
         </div>
@@ -93,13 +101,14 @@
           <h6 class="card-title ml-2">Kamus Bahasa Rejang</h6>
           <a
             class="card m-1 card-img-top"
-            href="https://kamusrejang.rejanglebongkab.go.id"
+            href="https://kamusrejang.glitch.me"
             style="
               background: url('https://cdn.glitch.global/2f9a2460-083a-49a5-a55f-2abb8ce71e54/thumbnails%2Fkamus.jpg?1702886881063');
               color: white;
               background-position: center;
               height: 220px;
-            ">
+            "
+          >
             <div
               class="dark-overlay"
               style="
@@ -110,10 +119,11 @@
                 height: 100%;
                 border-radius: 24px;
                 background: rgba(0, 0, 0, 0.2);
-              "></div>
+              "
+            ></div>
           </a>
           <a
-            href="https://kamusrejang.rejanglebongkab.go.id/database"
+            href="https://kamusrejang.glitch.me/database"
             class="btn btn-primary m-1 border-0"
             style="
               background-color: #dac26aff !important;
@@ -125,7 +135,8 @@
             ><i
               class="fa fa-plus"
               aria-hidden="true"
-              style="color: white !important"></i>
+              style="color: white !important"
+            ></i>
             Tambahkan Kata</a
           >
         </div>
@@ -140,7 +151,8 @@
               color: white;
               background-position: center;
               height: 220px;
-            ">
+            "
+          >
             <div
               class="dark-overlay"
               style="
@@ -151,7 +163,8 @@
                 height: 100%;
                 border-radius: 24px;
                 background: rgba(0, 0, 0, 0.2);
-              "></div>
+              "
+            ></div>
           </a>
         </div>
       </div>
@@ -160,8 +173,9 @@
 
       <div class="mb-2" style="max-width: 100%; border-radius: 24px">
         <div
-          class="row flex-nowrap overflow-auto mr-1"
-          style="overflow-x: auto">
+          class="parent row flex-nowrap overflow-auto mr-1"
+          style="overflow-x: auto"
+        >
           <% dataPilihan.forEach(function(entry) { %> <% if
           (entry.Title.toLowerCase().includes("rejang") ||
           entry.Title.toLowerCase().includes("bengkulu") ||
@@ -178,7 +192,8 @@
                 width: 100%;
                 background-repeat: no-repeat;
                 background-size: cover;
-              ">
+              "
+            >
               <h6
                 class="card-title mb-2"
                 style="
@@ -188,107 +203,20 @@
                   font-family: Arial, Helvetica, sans-serif;
                   text-overflow: ellipsis;
                   white-space: no-wrap;
-                ">
+                "
+              >
                 <%= entry.Title %>
               </h6>
-              <% if (entry.Image != null) { %>
-              <img
-                class="card-img-top"
-                style="border-radius: 12px !important; border: none"
-                src="<%= entry.Image %>"
-                onerror="this.remove();" />
-              <% } else { %>
-              <img
-                class="card-img-top"
-                style="border-radius: 12px !important; border: none"
-                src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                onerror="this.remove();" />
-              <% } %>
+              <img class="card-img-top" style="border-radius: 12px !important;
+              border: none" src="<%= entry.Image ? entry.Image :
+              "https://e1.pxfuel.com/desktop-wallpaper/908/281/desktop-wallpaper-non-copyrighted-no-copyright.jpg"%>"
+              onerror="this.remove();" />
             </a>
           </div>
           <% } %> <% }); %>
         </div>
       </div>
       <hr class="hr" />
-
-      <h4 class="d-lg-none">? Tahukah Kamu ...</h4>
-
-      <div
-        class="mr-2 pl-2 pr-2 mb-2 d-lg-none"
-        id="pilihan"
-        style="
-          max-width: 100%;
-          border-radius: 12px;
-          background: rgba(0, 0, 0, 0) !important;
-        ">
-        <div class="row flex-nowrap overflow-auto" style="overflow-x: auto">
-          <% dataAcak.forEach(function(entry) { %>
-          <div>
-            <a
-              class="card mr-1 p-1"
-              id="card-pilihan"
-              href="/details/<%= entry.id %>"
-              style="
-                border-radius: 12px;
-                border: none;
-
-                color: white !important;
-                width: 400px !important;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-              ">
-              <% if (entry.Image != null) { %>
-              <img
-                class="card-img m-1"
-                style="
-                  width: 50px;
-                  height: 50px;
-                  border: none;
-                  border-radius: 12px;
-                  object-fit: cover;
-                "
-                src="<%= entry.Image %>"
-                onerror="this.remove();" />
-              <% } else { %>
-              <img
-                class="card-img m-1"
-                style="
-                  width: 50px;
-                  height: 50px;
-                  border: none;
-                  border-radius: 12px;
-                "
-                src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                onerror="this.remove();" />
-              <% } %>
-
-              <div
-                class="card-body"
-                style="
-                  flex-grow: 1;
-                  padding: 0;
-                  padding-left: 10px;
-                  padding-right: 10px;
-                ">
-                <p
-                  class="card-text ml-3"
-                  style="
-                    max-height: 3em;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: no-wrap;
-                    max-width: 350px;
-                  ">
-                  <%- entry.Content[0].babContent.replace(/<[^>]+>/g, '') %>
-                </p>
-              </div>
-            </a>
-          </div>
-
-          <% }); %>
-        </div>
-      </div>
     </div>
     <div id="insert-here" class="text-center"></div>
     <footer class="bg-body-tertiary text-center text-lg-start">
@@ -301,6 +229,35 @@
     </footer>
 
     <script>
+      let mouseDown = false;
+      let startX, scrollLeft;
+      const slider = document.querySelector(".parent");
+
+      const startDragging = (e) => {
+        mouseDown = true;
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+      };
+
+      const stopDragging = (e) => {
+        mouseDown = false;
+      };
+
+      const move = (e) => {
+        e.preventDefault();
+        if (!mouseDown) {
+          return;
+        }
+        const x = e.pageX - slider.offsetLeft;
+        const scroll = x - startX;
+        slider.scrollLeft = scrollLeft - scroll;
+      };
+
+      // Add the event listeners
+      slider.addEventListener("mousemove", move, false);
+      slider.addEventListener("mousedown", startDragging, false);
+      slider.addEventListener("mouseup", stopDragging, false);
+      slider.addEventListener("mouseleave", stopDragging, false);
       window.scrollTo(0, 0);
 
       function search() {

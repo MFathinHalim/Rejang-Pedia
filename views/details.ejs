@@ -28,15 +28,12 @@
   <style>
     body {
       overflow-x: hidden !important;
+      text-align: justify;
     }
     img {
       width: 460px; /* Default width for desktop */
       max-width: 100%; /* Ensure it's responsive */
       object-fit: contain;
-    }
-
-    .container {
-      padding-left: 0px;
     }
     #title {
       font-family: "Times New Roman", Times, serif;
@@ -53,10 +50,6 @@
       #title {
         font-size: 46px;
       }
-      .container {
-        padding-left: 15px;
-        padding-right: 15px;
-      }
       p {
         white-space: normal !important;
         word-break: break-all;
@@ -67,119 +60,89 @@
       line-height: 22px;
       content: " ";
     }
-
-    @media (max-width: 1373px) {
-      .sidebar {
-        display: none;
-      }
-      .row {
-        display: contents;
-      }
+    .container {
+      padding-left: 6%;
+      padding-right: 6%;
     }
   </style>
   <body>
     <% if (data && data.Title){ %>
-    <div class="row">
-      <!-- Sidebar -->
-      <div
-        class="col-lg-2 col-md-3 sticky-top"
-        style="
-          border-right: 2px dashed #515151 !important;
-          border-top: 2px dashed #515151 !important;
-        "
-      >
-        <div class="sidebar sticky-top">
-          <h4 class="p-3"><strong>Daftar Isi</strong></h4>
-          <ul
-            class="list-group bg-transparent border-0"
-            style="background: none !important"
+    <div class="container">
+      <!-- Main Content -->
+      <div class="col-lg-10 col-md-9">
+        <div class="main-content">
+          <h1 id="title"><%= data.Title %></h1>
+          <p
+            class="dibuat mr-auto"
+            style="font-size: 15px;max-width: 100%;padding-left: 10px; !important; border-left: 3px solid #138496 !important;"
           >
-            <% data.Content.forEach(function(bab) { %>
-            <li class="list-group-item bg-transparent border-0">
-              <a href="#<%= bab.babTitle %>"><%= bab.babTitle %></a>
-            </li>
-            <% }); %>
-          </ul>
-        </div>
-      </div>
-
-      <div class="container">
-        <!-- Main Content -->
-        <div class="col-lg-10 col-md-9">
-          <div class="main-content">
-            <h1 id="title"><%= data.Title %></h1>
-            <p
-              class="dibuat mr-auto"
-              style="font-size: 15px;max-width: 100%;padding-left: 10px; !important; border-left: 3px solid #138496 !important;"
-            >
-              <strong style="color: #138496 !important"> Ditulis oleh </strong>
-              <%= data.Pembuat %> <% if(data.Waktu) {%> • <%= data.Waktu %><% }
-              else {%> • 07-Maret-2023 <% } %> <% if(data.Diedit) { %><br /><br
-                id="x"
-              />
-              <strong style="color: #138496 !important"> Diedit oleh </strong>
-              <%= data.Diedit %> <% if(data.Edit) { %> • <%= data.Edit %> <% }
-              else {%> • 07-Maret-2023 <% } }%>
-            </p>
-            <div class="d-flex flex-column flex-md-row">
-              <% if (data.Image && data.Image != null) { %>
-              <img
-                class="listing-image mr-2"
+            <strong style="color: #138496 !important"> Ditulis oleh </strong>
+            <%= data.Pembuat %> <% if(data.Waktu) {%> • <%= data.Waktu %><% }
+            else {%> • 07-Maret-2023 <% } %> <% if(data.Diedit) { %><br /><br
+              id="x"
+            />
+            <strong style="color: #138496 !important"> Diedit oleh </strong>
+            <%= data.Diedit %> <% if(data.Edit) { %> • <%= data.Edit %> <% }
+            else {%> • 07-Maret-2023 <% } }%>
+          </p>
+          <div class="d-flex flex-column flex-md-row">
+            <% if (data.Image && data.Image != null) { %>
+            <img
+              class="listing-image mr-2"
+              style="
+                height: 250px;
+                border: 1px solid #ccc;
+                object-fit: contain;
+                background: rgba(0, 0, 0, 0) !important;
+                border-radius: 12px;
+              "
+              src="<%= data.Image %>"
+              alt="<%= data.Title %>"
+            />
+            <br />
+            <% } %> <% if (data.Link) { %>
+            <article>
+              <iframe
                 style="
+                  width: 460px;
+                  max-width: 100%;
                   height: 250px;
-                  border: 1px solid #ccc;
-                  object-fit: contain;
-                  background: rgba(0, 0, 0, 0) !important;
+                  object-fit: cover;
                   border-radius: 12px;
+                  border: 1px solid #ccc;
                 "
-                src="<%= data.Image %>"
-                alt="<%= data.Title %>"
-              />
-              <br />
-              <% } %> <% if (data.Link) { %>
-              <article>
-                <iframe
-                  style="
-                    width: 460px;
-                    max-width: 100%;
-                    height: 250px;
-                    object-fit: cover;
-                    border-radius: 12px;
-                    border: 1px solid #ccc;
-                  "
-                  class="img-fluid"
-                  src="<%= data.Link %>"
-                >
-                </iframe>
-              </article>
-              <% } %>
-            </div>
-
-            <div class="d-flex mt-3">
-              <button
-                class="btn btn-info rounded-pill mr-1 text-white"
-                onclick="search()"
+                class="img-fluid"
+                src="<%= data.Link %>"
               >
-                <i class="fa fa-share text-white" aria-hidden="true"></i>
-                Bagikan
-              </button>
-              <a
-                class="btn btn-secondary rounded-pill"
-                href="/edit/<%= data.id %>"
-              >
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-                Edit Artikel
-              </a>
-            </div>
+              </iframe>
+            </article>
+            <% } %>
+          </div>
 
-            <div style="border-radius: 24px !important">
-              <% data.Content.forEach(function(bab) { %>
-              <div class="my-4">
-                <h3><%= bab.babTitle %></h3>
-                <p id="<%= bab.babTitle %>"><%- bab.babContent %></p>
-              </div>
-              <% }); %>
+          <div class="d-flex mt-3">
+            <button
+              class="btn btn-info rounded-pill mr-1 text-white"
+              onclick="search()"
+            >
+              <i class="fa fa-share text-white" aria-hidden="true"></i>
+              Bagikan
+            </button>
+            <a
+              class="btn btn-secondary rounded-pill"
+              href="/edit/<%= data.id %>"
+            >
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+              Edit Artikel
+            </a>
+          </div>
+
+          <div style="border-radius: 24px !important">
+            <% data.Content.forEach(function(bab) { %>
+            <div class="my-4">
+              <h3><%= bab.babTitle %></h3>
+              <p id="<%= bab.babTitle %>"><%- bab.babContent %></p>
             </div>
+            <% }); %>
           </div>
         </div>
       </div>

@@ -585,7 +585,7 @@ module.exports = function (
     const apiurl: string = `https://sandipbaruwal.onrender.com/gemini?prompt=${encodeURIComponent(
       char +
         searchTerm +
-        "Kamu harus menjelaskan dengan singkat dan mudah dipahami untuknya! jangan menggunakan ** * atapun inline! gak usah pake rich text intinya"
+        "Kamu harus menjelaskan dengan singkat dan mudah dipahami untuknya! jangan menggunakan rich text. gunakan html <li> jika diperlukan. Pake <p>. carikan image yang berhubungan di internet lalu berikan kode htmlnya. tetapi saya ingin imagenya hilang jika error dengan onerror"
     )}' &uid=62825372`;
 
     /* const response = await openai.chat.completions.create({
@@ -593,7 +593,7 @@ module.exports = function (
       model: "text-davinci-003",
     });*/
     const searchAI = await axios.get(apiurl);
-    const response = searchAI.data.answer;
+    const response = searchAI.data.answer.replace(/\*\*/g, "<b>");
     //console.log(response);
     const search = await app.search(searchTerm);
     res.render("search-results", {
